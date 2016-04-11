@@ -17,11 +17,11 @@
 		8F10A88F1C99519F00C11ED4 /* TOUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* TOUIControlObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8F10A8901C99519F00C11ED4 /* TOUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* TOUIControlObservation+Private.h */; };
 		8F1F4E3E1C20EDF00061E8B9 /* ShorthandAutosetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8F1F4E3F1C20EE120061E8B9 /* TotalObserverShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* TotalObserverShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F1F4E401C20EE180061E8B9 /* TOObservation+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0B1C16DE9C00FD5041 /* TOObservation+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F1F4E411C20EE1E0061E8B9 /* NSObject+TotalObserverNotificationsShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B081C16DE9C00FD5041 /* NSObject+TotalObserverNotificationsShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F1F4E421C20EE200061E8B9 /* UIControl+TotalObserverShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B131C16DE9C00FD5041 /* UIControl+TotalObserverShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8F1F4E431C20EE2C0061E8B9 /* TotalObserverShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* TotalObserverShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E431C20EE2C0061E8B9 /* PanopticonShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F1F4E441C20EE2F0061E8B9 /* TOObservation+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0B1C16DE9C00FD5041 /* TOObservation+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F1F4E451C20EE330061E8B9 /* NSObject+TotalObserverNotificationsShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B081C16DE9C00FD5041 /* NSObject+TotalObserverNotificationsShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F1F4E461C20EE350061E8B9 /* ShorthandAutosetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -30,7 +30,7 @@
 		8F4AFD9F1C1AAFD8005A334F /* PANObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */; };
 		8F4AFDA31C1AAFFF005A334F /* TOObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0D1C16DE9C00FD5041 /* TOObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4AFDA41C1AAFFF005A334F /* TOObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0A1C16DE9C00FD5041 /* TOObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8F4AFDAA1C1AB01D005A334F /* TotalObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32AEA1C15F72500FD5041 /* TotalObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4AFDAA1C1AB01D005A334F /* Panopticon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32AEA1C15F72500FD5041 /* Panopticon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4F84831C3EE044008B5019 /* TOKVOObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84811C3EE044008B5019 /* TOKVOObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4F84841C3EE044008B5019 /* TOKVOObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84811C3EE044008B5019 /* TOKVOObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4F84851C3EE044008B5019 /* PANKeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */; };
@@ -56,7 +56,7 @@
 		8F4F84A71C3F0C1E008B5019 /* NSObject+TotalObserverKVOShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84A51C3F0C1E008B5019 /* NSObject+TotalObserverKVOShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4F84A81C3F0C1E008B5019 /* NSObject+TotalObserverKVOShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84A51C3F0C1E008B5019 /* NSObject+TotalObserverKVOShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4F84AD1C3F0C52008B5019 /* NSObject+TotalObserverUIControlShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84AB1C3F0C52008B5019 /* NSObject+TotalObserverUIControlShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8FB32AEB1C15F72500FD5041 /* TotalObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32AEA1C15F72500FD5041 /* TotalObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FB32AEB1C15F72500FD5041 /* Panopticon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32AEA1C15F72500FD5041 /* Panopticon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8FB32B021C15F8C400FD5041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B011C15F8C400FD5041 /* Foundation.framework */; };
 		8FB32B041C15F8CA00FD5041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B031C15F8CA00FD5041 /* UIKit.framework */; };
 		8FB32B181C16DE9C00FD5041 /* TOObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0A1C16DE9C00FD5041 /* TOObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -102,7 +102,7 @@
 		8F4F84A51C3F0C1E008B5019 /* NSObject+TotalObserverKVOShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+TotalObserverKVOShorthand.h"; path = "KVO/NSObject+TotalObserverKVOShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84AB1C3F0C52008B5019 /* NSObject+TotalObserverUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+TotalObserverUIControlShorthand.h"; path = "UIControl/NSObject+TotalObserverUIControlShorthand.h"; sourceTree = "<group>"; };
 		8FB32AE71C15F72500FD5041 /* TotalObserver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TotalObserver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FB32AEA1C15F72500FD5041 /* TotalObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TotalObserver.h; sourceTree = "<group>"; };
+		8FB32AEA1C15F72500FD5041 /* Panopticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
 		8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOS_Info.plist; sourceTree = "<group>"; };
 		8FB32B011C15F8C400FD5041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8FB32B031C15F8CA00FD5041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -113,8 +113,8 @@
 		8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PANObservation+Shorthand.m"; sourceTree = "<group>"; };
 		8FB32B0D1C16DE9C00FD5041 /* TOObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TOObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PANObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		8FB32B0F1C16DE9C00FD5041 /* TotalObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalObserver.h; sourceTree = "<group>"; };
-		8FB32B101C16DE9C00FD5041 /* TotalObserverShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalObserverShorthand.h; sourceTree = "<group>"; };
+		8FB32B0F1C16DE9C00FD5041 /* Panopticon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
+		8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanopticonShorthand.h; sourceTree = "<group>"; };
 		8FB32B131C16DE9C00FD5041 /* UIControl+TotalObserverShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIControl+TotalObserverShorthand.h"; path = "UIControl/UIControl+TotalObserverShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8FB32B281C16E78100FD5041 /* TotalObserver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TotalObserver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB32B3F1C16E8FA00FD5041 /* OSX_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OSX_Info.plist; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		8FB32AE91C15F72500FD5041 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				8FB32AEA1C15F72500FD5041 /* TotalObserver.h */,
+				8FB32AEA1C15F72500FD5041 /* Panopticon.h */,
 				8F1F4E3C1C20EB5D0061E8B9 /* iOS_Map.modulemap */,
 				8F1F4E3D1C20EB6E0061E8B9 /* OSX_Map.modulemap */,
 				8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */,
@@ -182,11 +182,11 @@
 		8FB32B051C16DE9C00FD5041 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8FB32B0F1C16DE9C00FD5041 /* TotalObserver.h */,
+				8FB32B0F1C16DE9C00FD5041 /* Panopticon.h */,
 				8FB32B0D1C16DE9C00FD5041 /* TOObservation.h */,
 				8FB32B0A1C16DE9C00FD5041 /* TOObservation+Private.h */,
 				8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */,
-				8FB32B101C16DE9C00FD5041 /* TotalObserverShorthand.h */,
+				8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */,
 				8FB32B0B1C16DE9C00FD5041 /* TOObservation+Shorthand.h */,
 				8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */,
 				8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */,
@@ -239,8 +239,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FB32AEB1C15F72500FD5041 /* TotalObserver.h in Headers */,
-				8F1F4E3F1C20EE120061E8B9 /* TotalObserverShorthand.h in Headers */,
+				8FB32AEB1C15F72500FD5041 /* Panopticon.h in Headers */,
+				8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */,
 				8FB32B1B1C16DE9C00FD5041 /* TOObservation.h in Headers */,
 				8F1F4E401C20EE180061E8B9 /* TOObservation+Shorthand.h in Headers */,
 				8FF4FBC21C87CABB00283612 /* TOAppGroupObservation.h in Headers */,
@@ -271,8 +271,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F4AFDAA1C1AB01D005A334F /* TotalObserver.h in Headers */,
-				8F1F4E431C20EE2C0061E8B9 /* TotalObserverShorthand.h in Headers */,
+				8F4AFDAA1C1AB01D005A334F /* Panopticon.h in Headers */,
+				8F1F4E431C20EE2C0061E8B9 /* PanopticonShorthand.h in Headers */,
 				8F4AFDA31C1AAFFF005A334F /* TOObservation.h in Headers */,
 				8F1F4E441C20EE2F0061E8B9 /* TOObservation+Shorthand.h in Headers */,
 				8FF4FBC71C87CC2D00283612 /* TOAppGroupObservation.h in Headers */,

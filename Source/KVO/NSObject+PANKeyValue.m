@@ -1,14 +1,14 @@
 //
-//  NSObject+TotalObserverKVO.m
-//  TotalObserver
+//  NSObject+PANKeyValue.m
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "NSObject+TotalObserverKVO.h"
-#import "TOKVOObservation+Private.h"
-#import "TOObservation+Private.h"
+#import "NSObject+PANKeyValue.h"
+#import "PANKeyValueObservation+Private.h"
+#import "PANObservation+Private.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

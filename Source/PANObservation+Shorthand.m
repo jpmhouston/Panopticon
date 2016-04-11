@@ -1,6 +1,6 @@
 //
-//  TOObservation+Shorthand.m
-//  TotalObserver
+//  PANObservation+Shorthand.m
+//  Panopticon
 //
 //  Created by Pierre Houston on 2015-11-04.
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
@@ -9,7 +9,7 @@
 //  of which hardly anything substantial remains, however that source code
 //  was Copyright (c) 2015 Magical Panda Software LLC. All rights reserved.
 
-#import "TOObservation+Shorthand.h"
+#import "PANObservation+Shorthand.h"
 #import <objc/runtime.h>
 
 #if TARGET_OS_IPHONE

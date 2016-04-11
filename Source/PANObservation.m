@@ -1,6 +1,6 @@
 //
-//  TOObservation.m
-//  TotalObserver
+//  PANObservation.m
+//  Panopticon
 //
 //  Created by Pierre Houston on 2015-10-15.
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
@@ -14,7 +14,7 @@
 //    which is probably of limited use anyhow
 
 #import "TOObservation.h"
-#import "TOObservation+Private.h"
+#import "PANObservation+Private.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 

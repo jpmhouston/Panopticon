@@ -1,14 +1,14 @@
 //
-//  TOUIControlObservation.m
-//  TotalObserver
+//  PANUIControlObservation.m
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
 #import "TOUIControlObservation.h"
-#import "TOUIControlObservation+Private.h"
-#import "TOObservation+Private.h"
+#import "PANUIControlObservation+Private.h"
+#import "PANObservation+Private.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

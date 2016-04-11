@@ -16,13 +16,13 @@ FOUNDATION_EXPORT const unsigned char TotalObserverVersionString[];
 
 #import "TOObservation.h"
 #import "TOKVOObservation.h"
-#import "NSObject+TotalObserverKVO.h"
+#import "NSObject+PANKeyValue.h"
 #import "TONotificationObservation.h"
-#import "NSObject+TotalObserverNotifications.h"
+#import "NSObject+PANNotification.h"
 #import "TOAppGroupObservation.h"
-#import "NSObject+TotalObserverAppGroup.h"
+#import "NSObject+PANAppGroup.h"
 #if TARGET_OS_IPHONE
 #import "TOUIControlObservation.h"
-#import "NSObject+TotalObserverUIControl.h"
-#import "UIControl+TotalObserver.h"
+#import "NSObject+PANUIControl.h"
+#import "UIControl+PANUIControl.h"
 #endif

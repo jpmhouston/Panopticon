@@ -1,14 +1,14 @@
 //
-//  NSObject+TotalObserverNotifications.m
-//  TotalObserver
+//  NSObject+PANNotification.m
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "NSObject+TotalObserverNotifications.h"
-#import "TONotificationObservation+Private.h"
-#import "TOObservation+Private.h"
+#import "NSObject+PANNotification.h"
+#import "PANNotificationObservation+Private.h"
+#import "PANObservation+Private.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

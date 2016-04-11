@@ -1,8 +1,10 @@
 module TotalObserver {
     umbrella header "Panopticon.h"
     header "PanopticonShorthand.h"
-    header "TOObservation+Shorthand.h"
-    header "NSObject+TotalObserverShorthand.h"
+    header "PANObservation+Shorthand.h"
+    header "NSObject+PANAppGroupShorthand.h"
+    header "NSObject+PANKeyValueShorthand.h"
+    header "NSObject+PANNotificationShorthand.h"
     export *
     module * { export * }
 }

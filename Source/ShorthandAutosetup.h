@@ -1,6 +1,6 @@
 //
 //  ShorthandAutsetup.h
-//  TotalObserver
+//  Panopticon
 //
 //  Created by Pierre Houston on 2015-11-04.
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
@@ -8,10 +8,10 @@
 //  If you can setup your project to access this pod's private headers, then you can use
 //  shorthand method names that omit the "to_" prefix without adding any lines of code (other
 //  than import directives):
-//  - in your podfile use: pod 'TotalObserver/Shorthand' instead of just pod 'TotalObserver'
-//  - either: use module import directive as normal: @import TotalObserver;
-//    or: import <TotalObserver/TotalObserverShorthand.h> instead of the normal umbrealla header
-//  - but in at least one .m file, instead import <TotalObserver/ShorthandAutsetup.h>
+//  - in your podfile use: pod 'Panopticon/Shorthand' instead of just pod 'Panopticon'
+//  - either: use module import directive as normal: @import Panopticon;
+//    or: import <Panopticon/PanopticonShorthand.h> instead of the normal umbrealla header
+//  - but in at least one .m file, instead import <Panopticon/ShorthandAutsetup.h>
 //
 //  There won't be a conflict, and not much of an overhead if imported multiple times, but
 //  don't import from a very common header, definitely not in your prefix header.
@@ -20,7 +20,7 @@
 //  setupShorthandMethods yourself.
 
 #ifndef TO_IMPORTED_SHORTHAND_UMBRELLA_HEADER
-#import <TotalObserver/TotalObserverShorthand.h>
+#import <Panopticon/PanopticonShorthand.h>
 #endif
 
 // by declaring at least one of these autosetup classes, setupShorthandMethods will get

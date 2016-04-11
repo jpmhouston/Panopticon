@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
 //
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 #import "PANKeyValueObservation.h"
 #import "NSObject+PANKeyValue.h"
 #import "PANNotificationObservation.h"

@@ -1,13 +1,13 @@
 //
-//  TOUIControlObservation.h
-//  TotalObserver
+//  PANUIControlObservation.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "TOObservation.h"
+#import "PANObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  A base class for UIControlEvent observation objects.
  *
- *  An object of this class is returned from each `TotalObserverUIControl` `to_observe...` method. This result can
+ *  An object of this class is returned from each `PANUIControl` `to_observe...` method. This result can
  *  be saved for explcitly calling the `remove` method later (see base class `TOObservation`), but that often isn't
  *  necessary since the `to_stopObserving...` methods can be used instead which look-up the matching observation.
  *

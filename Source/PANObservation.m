@@ -13,7 +13,7 @@
 //    original, this prevents that block from being able to compare observation instance pointers,
 //    which is probably of limited use anyhow
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 #import "PANObservation+Private.h"
 #import <objc/runtime.h>
 #import <objc/message.h>

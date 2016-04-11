@@ -1,12 +1,12 @@
 //
-//  TOKVOObservation.h
-//  TotalObserver
+//  PANKeyValueObservation.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  A base class for KVO observation objects.
  *
- *  An object of this class is returned from each `TotalObserverKVO` `to_observe...` method. This result can be saved
+ *  An object of this class is returned from each `PANKeyValue` `to_observe...` method. This result can be saved
  *  for explcitly calling the `remove` method later (see base class `TOObservation`), but that often isn't necessary
  *  since the `to_stopObserving...` methods can be used instead which look-up the matching observation.
  *

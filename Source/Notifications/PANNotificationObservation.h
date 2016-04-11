@@ -1,6 +1,6 @@
 //
-//  TONotificationObservation.h
-//  TotalObserver
+//  PANNotificationObservation.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
@@ -9,7 +9,7 @@
 //  - consider renaming `postedObject` property to `payload` for more consistency with the terminology of other
 //    observation subclasses and also some of our documentation
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  A base class for NSNotification observation objects.
  *
- *  An object of this class is returned from each `TotalObserverNotifications` `to_observe...` method. This result
+ *  An object of this class is returned from each `PANNotification` `to_observe...` method. This result
  *  can be saved for explcitly calling the `remove` method later (see base class `TOObservation`), but that often
  *  isn't necessary since the `to_stopObserving...` methods can be used instead which look-up the matching observation.
  *

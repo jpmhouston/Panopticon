@@ -15,7 +15,7 @@
 //    at least one .m file, instead include <Panopticon/ShorthandAutosetup.h>
 //
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 #import "PANObservation+Shorthand.h"
 #import "PANKeyValueObservation.h"
 #import "NSObject+PANKeyValue.h"

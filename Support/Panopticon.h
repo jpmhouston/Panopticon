@@ -1,6 +1,6 @@
 //
-//  TotalObserver.h
-//  TotalObserver
+//  Panopticon.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2015-12-07.
 //  Copyright © 2015 Pierre Houston. All rights reserved.
@@ -14,7 +14,7 @@ FOUNDATION_EXPORT double TotalObserverVersionNumber;
 //! Project version string for TotalObserver.
 FOUNDATION_EXPORT const unsigned char TotalObserverVersionString[];
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 #import "PANKeyValueObservation.h"
 #import "NSObject+PANKeyValue.h"
 #import "PANNotificationObservation.h"

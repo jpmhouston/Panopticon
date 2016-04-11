@@ -1,5 +1,5 @@
 //
-//  UIControl+TotalObserver.h
+//  UIControl+PANUIControl.h
 //  TotalObserver
 //
 //  Created by Pierre Houston on 2016-01-07.
@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TOUIControlObservation.h"
+#import "PANUIControlObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

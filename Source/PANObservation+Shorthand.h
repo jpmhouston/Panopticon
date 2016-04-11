@@ -1,12 +1,12 @@
 //
 //  TOObservation+Shorthand.h
-//  TotalObserver
+//  Panopticon
 //
 //  Created by Pierre Houston on 2015-11-04.
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
 //
 
-#import "TOObservation.h"
+#import "PANObservation.h"
 
 @interface TOObservation (Shorthand)
 

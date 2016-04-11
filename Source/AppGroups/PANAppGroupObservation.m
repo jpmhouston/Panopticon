@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TOAppGroupObservation.h"
+#import "PANAppGroupObservation.h"
 #import "PANAppGroupObservation+Private.h"
 #import "PANObservation+Private.h"
 #import "PANAppGroupNotificationManager.h"

@@ -7,14 +7,14 @@
 //
 
 #import "TOObservation.h"
-#import "TOKVOObservation.h"
+#import "PANKeyValueObservation.h"
 #import "NSObject+PANKeyValue.h"
-#import "TONotificationObservation.h"
+#import "PANNotificationObservation.h"
 #import "NSObject+PANNotification.h"
-#import "TOAppGroupObservation.h"
+#import "PANAppGroupObservation.h"
 #import "NSObject+PANAppGroup.h"
 #if TARGET_OS_IPHONE
-#import "TOUIControlObservation.h"
+#import "PANUIControlObservation.h"
 #import "NSObject+PANUIControl.h"
 #import "UIControl+PANUIControl.h"
 #endif

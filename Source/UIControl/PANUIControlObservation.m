@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TOUIControlObservation.h"
+#import "PANUIControlObservation.h"
 #import "PANUIControlObservation+Private.h"
 #import "PANObservation+Private.h"
 

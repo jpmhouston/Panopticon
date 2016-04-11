@@ -1,12 +1,12 @@
 //
-//  TOKVOObservation+Private.h
-//  TotalObserver
+//  PANKeyValueObservation+Private.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-03-16.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TOKVOObservation.h"
+#import "PANKeyValueObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

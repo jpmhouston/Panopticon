@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TOKVOObservation.h"
+#import "PANKeyValueObservation.h"
 #import "PANKeyValueObservation+Private.h"
 #import "PANObservation+Private.h"
 

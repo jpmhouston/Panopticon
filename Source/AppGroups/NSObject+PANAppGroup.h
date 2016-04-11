@@ -1,13 +1,13 @@
 //
-//  NSObject+TotalObserverAppGroup.h
-//  TotalObserver
+//  NSObject+PANAppGroup.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-02-23.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "TOAppGroupObservation.h"
+#import "PANAppGroupObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

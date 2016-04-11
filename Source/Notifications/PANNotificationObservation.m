@@ -6,7 +6,7 @@
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TONotificationObservation.h"
+#import "PANNotificationObservation.h"
 #import "PANNotificationObservation+Private.h"
 #import "PANObservation+Private.h"
 

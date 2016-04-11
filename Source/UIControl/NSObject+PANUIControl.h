@@ -1,13 +1,13 @@
 //
-//  NSObject+TotalObserverUIControl.h
-//  TotalObserver
+//  NSObject+PANUIControl.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "TOUIControlObservation.h"
+#import "PANUIControlObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

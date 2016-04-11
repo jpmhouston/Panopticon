@@ -1,12 +1,12 @@
 //
-//  TONotificationObservation+Private.h
-//  TotalObserver
+//  PANNotificationObservation+Private.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-03-16.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
 
-#import "TONotificationObservation.h"
+#import "PANNotificationObservation.h"
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN

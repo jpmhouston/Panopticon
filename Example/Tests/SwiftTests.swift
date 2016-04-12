@@ -1,13 +1,13 @@
 //
 //  SwiftTests.swift
-//  TotalObserver
+//  Panopticon Example
 //
 //  Created by Pierre Houston on 2015-11-11.
 //  Copyright © 2015 Pierre Houston. All rights reserved.
 //
 
 import XCTest
-import TotalObserver
+import Panopticon
 
 class SwiftTests: XCTestCase {
     var modelObject : ModelObject! = nil
@@ -24,8 +24,8 @@ class SwiftTests: XCTestCase {
     }
 
     func testObjectNotification() {
-        var sameobs : TOObservation! = nil
-        let observation = self.to_observeForNotifications(self.modelObject, named: NameChangedNotification) { _, obs in
+        var sameobs : PANObservation! = nil
+        let observation = self.pan_observeForNotifications(self.modelObject, named: NameChangedNotification) { _, obs in
             sameobs = obs
         }
         self.modelObject.name = ""; // should trigger notification, see -[ModelObject setName]

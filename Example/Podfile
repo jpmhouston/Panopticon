@@ -9,6 +9,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'Pods Example' do
-  pod 'TotalObserver/Shorthand', :path => '../'
+  pod 'Panopticon/Shorthand', :path => '../'
   pod 'libextobjc/EXTKeyPathCoding'
 end

@@ -1,0 +1,649 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F10A87B1C941ADA00C11ED4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B011C15F8C400FD5041 /* Foundation.framework */; };
+		8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; };
+		8F10A8881C99509700C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; };
+		8F10A8891C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */; };
+		8F10A88A1C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */; };
+		8F10A88C1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */; };
+		8F10A88D1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */; };
+		8F10A88F1C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */; };
+		8F10A8901C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */; };
+		8F1F4E3E1C20EDF00061E8B9 /* ShorthandAutosetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E401C20EE180061E8B9 /* PANObservation+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0B1C16DE9C00FD5041 /* PANObservation+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E411C20EE1E0061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B081C16DE9C00FD5041 /* NSObject+PANNotificationShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E421C20EE200061E8B9 /* UIControl+PANUIControlShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B131C16DE9C00FD5041 /* UIControl+PANUIControlShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E431C20EE2C0061E8B9 /* PanopticonShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E441C20EE2F0061E8B9 /* PANObservation+Shorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0B1C16DE9C00FD5041 /* PANObservation+Shorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E451C20EE330061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B081C16DE9C00FD5041 /* NSObject+PANNotificationShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F1F4E461C20EE350061E8B9 /* ShorthandAutosetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8F1F4E4B1C20F0BA0061E8B9 /* PANObservation+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */; };
+		8F1F4E4C1C20F0C90061E8B9 /* PANObservation+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */; };
+		8F4AFD9F1C1AAFD8005A334F /* PANObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */; };
+		8F4AFDA31C1AAFFF005A334F /* PANObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4AFDA41C1AAFFF005A334F /* PANObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8F4AFDAA1C1AB01D005A334F /* Panopticon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32AEA1C15F72500FD5041 /* Panopticon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84831C3EE044008B5019 /* PANKeyValueObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84841C3EE044008B5019 /* PANKeyValueObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84851C3EE044008B5019 /* PANKeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */; };
+		8F4F84861C3EE044008B5019 /* PANKeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */; };
+		8F4F84891C3EE056008B5019 /* PANNotificationObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F848A1C3EE056008B5019 /* PANNotificationObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F848B1C3EE056008B5019 /* PANNotificationObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84881C3EE056008B5019 /* PANNotificationObservation.m */; };
+		8F4F848C1C3EE056008B5019 /* PANNotificationObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84881C3EE056008B5019 /* PANNotificationObservation.m */; };
+		8F4F848F1C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F848D1C3EE319008B5019 /* NSObject+PANKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84901C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F848D1C3EE319008B5019 /* NSObject+PANKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84911C3EE319008B5019 /* NSObject+PANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F848E1C3EE319008B5019 /* NSObject+PANKeyValue.m */; };
+		8F4F84921C3EE319008B5019 /* NSObject+PANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F848E1C3EE319008B5019 /* NSObject+PANKeyValue.m */; };
+		8F4F84951C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84931C3EE3EF008B5019 /* NSObject+PANNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84961C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84931C3EE3EF008B5019 /* NSObject+PANNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84971C3EE3EF008B5019 /* NSObject+PANNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84941C3EE3EF008B5019 /* NSObject+PANNotification.m */; };
+		8F4F84981C3EE3EF008B5019 /* NSObject+PANNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84941C3EE3EF008B5019 /* NSObject+PANNotification.m */; };
+		8F4F849B1C3F05AA008B5019 /* NSObject+PANUIControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84991C3F05AA008B5019 /* NSObject+PANUIControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F849C1C3F05AA008B5019 /* NSObject+PANUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F849A1C3F05AA008B5019 /* NSObject+PANUIControl.m */; };
+		8F4F849F1C3F05D5008B5019 /* UIControl+PANUIControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F849D1C3F05D5008B5019 /* UIControl+PANUIControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84A01C3F05D5008B5019 /* UIControl+PANUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F849E1C3F05D5008B5019 /* UIControl+PANUIControl.m */; };
+		8F4F84A31C3F06F5008B5019 /* PANUIControlObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84A11C3F06F5008B5019 /* PANUIControlObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84A41C3F06F5008B5019 /* PANUIControlObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4F84A21C3F06F5008B5019 /* PANUIControlObservation.m */; };
+		8F4F84A71C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84A81C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F4F84AD1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FB32AEB1C15F72500FD5041 /* Panopticon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32AEA1C15F72500FD5041 /* Panopticon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FB32B021C15F8C400FD5041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B011C15F8C400FD5041 /* Foundation.framework */; };
+		8FB32B041C15F8CA00FD5041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B031C15F8CA00FD5041 /* UIKit.framework */; };
+		8FB32B181C16DE9C00FD5041 /* PANObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8FB32B1B1C16DE9C00FD5041 /* PANObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FB32B1C1C16DE9C00FD5041 /* PANObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */; };
+		8FF4FBBD1C87CABB00283612 /* NSObject+PANAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBBE1C87CABB00283612 /* NSObject+PANAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */; };
+		8FF4FBBF1C87CABB00283612 /* NSObject+PANAppGroupShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBC01C87CABB00283612 /* PANAppGroupNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBC11C87CABB00283612 /* PANAppGroupNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */; };
+		8FF4FBC21C87CABB00283612 /* PANAppGroupObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBC31C87CABB00283612 /* PANAppGroupObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */; };
+		8FF4FBC41C87CBE200283612 /* PANAppGroupObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */; };
+		8FF4FBC51C87CBE200283612 /* PANAppGroupNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */; };
+		8FF4FBC61C87CBE200283612 /* NSObject+PANAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */; };
+		8FF4FBC71C87CC2D00283612 /* PANAppGroupObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBC81C87CC2D00283612 /* PANAppGroupNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBC91C87CC2D00283612 /* NSObject+PANAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FF4FBCA1C87CC2D00283612 /* NSObject+PANAppGroupShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANAppGroupObservation+Private.h"; path = "AppGroups/PANAppGroupObservation+Private.h"; sourceTree = "<group>"; };
+		8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PANKeyValueObservation+Private.h"; path = "KVO/PANKeyValueObservation+Private.h"; sourceTree = "<group>"; };
+		8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANNotificationObservation+Private.h"; path = "Notifications/PANNotificationObservation+Private.h"; sourceTree = "<group>"; };
+		8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANUIControlObservation+Private.h"; path = "UIControl/PANUIControlObservation+Private.h"; sourceTree = "<group>"; };
+		8F1F4E3C1C20EB5D0061E8B9 /* iOS_Map.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = iOS_Map.modulemap; sourceTree = "<group>"; };
+		8F1F4E3D1C20EB6E0061E8B9 /* OSX_Map.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OSX_Map.modulemap; sourceTree = "<group>"; };
+		8F201B971CBDAE510029BB72 /* Panopticon.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Panopticon.podspec; sourceTree = "<group>"; };
+		8F201B981CBDAE510029BB72 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8F201B991CBDAE510029BB72 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = generate_shorthand_headers.rb; path = Scripts/generate_shorthand_headers.rb; sourceTree = "<group>"; };
+		8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANKeyValueObservation.h; path = KVO/PANKeyValueObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANKeyValueObservation.m; path = KVO/PANKeyValueObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANNotificationObservation.h; path = Notifications/PANNotificationObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84881C3EE056008B5019 /* PANNotificationObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANNotificationObservation.m; path = Notifications/PANNotificationObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8F4F848D1C3EE319008B5019 /* NSObject+PANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANKeyValue.h"; path = "KVO/NSObject+PANKeyValue.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F848E1C3EE319008B5019 /* NSObject+PANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+PANKeyValue.m"; path = "KVO/NSObject+PANKeyValue.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8F4F84931C3EE3EF008B5019 /* NSObject+PANNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANNotification.h"; path = "Notifications/NSObject+PANNotification.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84941C3EE3EF008B5019 /* NSObject+PANNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+PANNotification.m"; path = "Notifications/NSObject+PANNotification.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8F4F84991C3F05AA008B5019 /* NSObject+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANUIControl.h"; path = "UIControl/NSObject+PANUIControl.h"; sourceTree = "<group>"; };
+		8F4F849A1C3F05AA008B5019 /* NSObject+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+PANUIControl.m"; path = "UIControl/NSObject+PANUIControl.m"; sourceTree = "<group>"; };
+		8F4F849D1C3F05D5008B5019 /* UIControl+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIControl+PANUIControl.h"; path = "UIControl/UIControl+PANUIControl.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F849E1C3F05D5008B5019 /* UIControl+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "UIControl+PANUIControl.m"; path = "UIControl/UIControl+PANUIControl.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8F4F84A11C3F06F5008B5019 /* PANUIControlObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANUIControlObservation.h; path = UIControl/PANUIControlObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84A21C3F06F5008B5019 /* PANUIControlObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANUIControlObservation.m; path = UIControl/PANUIControlObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANKeyValueShorthand.h"; path = "KVO/NSObject+PANKeyValueShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANUIControlShorthand.h"; path = "UIControl/NSObject+PANUIControlShorthand.h"; sourceTree = "<group>"; };
+		8FB32AE71C15F72500FD5041 /* Panopticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panopticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FB32AEA1C15F72500FD5041 /* Panopticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
+		8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOS_Info.plist; sourceTree = "<group>"; };
+		8FB32B011C15F8C400FD5041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8FB32B031C15F8CA00FD5041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8FB32B081C16DE9C00FD5041 /* NSObject+PANNotificationShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANNotificationShorthand.h"; path = "Notifications/NSObject+PANNotificationShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShorthandAutosetup.h; sourceTree = "<group>"; };
+		8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "PANObservation+Private.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FB32B0B1C16DE9C00FD5041 /* PANObservation+Shorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PANObservation+Shorthand.h"; sourceTree = "<group>"; };
+		8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PANObservation+Shorthand.m"; sourceTree = "<group>"; };
+		8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PANObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PANObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8FB32B0F1C16DE9C00FD5041 /* Panopticon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
+		8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanopticonShorthand.h; sourceTree = "<group>"; };
+		8FB32B131C16DE9C00FD5041 /* UIControl+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIControl+PANUIControlShorthand.h"; path = "UIControl/UIControl+PANUIControlShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FB32B281C16E78100FD5041 /* Panopticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panopticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FB32B3F1C16E8FA00FD5041 /* OSX_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OSX_Info.plist; sourceTree = "<group>"; };
+		8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANAppGroup.h"; path = "AppGroups/NSObject+PANAppGroup.h"; sourceTree = "<group>"; };
+		8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+PANAppGroup.m"; path = "AppGroups/NSObject+PANAppGroup.m"; sourceTree = "<group>"; };
+		8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANAppGroupShorthand.h"; path = "AppGroups/NSObject+PANAppGroupShorthand.h"; sourceTree = "<group>"; };
+		8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PANAppGroupNotificationManager.h; path = AppGroups/PANAppGroupNotificationManager.h; sourceTree = "<group>"; };
+		8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PANAppGroupNotificationManager.m; path = AppGroups/PANAppGroupNotificationManager.m; sourceTree = "<group>"; };
+		8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANAppGroupObservation.h; path = AppGroups/PANAppGroupObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANAppGroupObservation.m; path = AppGroups/PANAppGroupObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8FB32AE31C15F72500FD5041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FB32B041C15F8CA00FD5041 /* UIKit.framework in Frameworks */,
+				8FB32B021C15F8C400FD5041 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FB32B241C16E78100FD5041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F10A87B1C941ADA00C11ED4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F201B9A1CBDAE510029BB72 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				8F201B971CBDAE510029BB72 /* Panopticon.podspec */,
+				8F201B981CBDAE510029BB72 /* README.md */,
+				8F201B991CBDAE510029BB72 /* LICENSE */,
+			);
+			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		8FB32ADD1C15F72500FD5041 = {
+			isa = PBXGroup;
+			children = (
+				8F201B9A1CBDAE510029BB72 /* Podspec Metadata */,
+				8FB32B051C16DE9C00FD5041 /* Source */,
+				8FB32AE91C15F72500FD5041 /* Support */,
+				8FB32B221C16E2F300FD5041 /* Frameworks */,
+				8FB32AE81C15F72500FD5041 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8FB32AE81C15F72500FD5041 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8FB32AE71C15F72500FD5041 /* Panopticon.framework */,
+				8FB32B281C16E78100FD5041 /* Panopticon.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8FB32AE91C15F72500FD5041 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				8FB32AEA1C15F72500FD5041 /* Panopticon.h */,
+				8F1F4E3C1C20EB5D0061E8B9 /* iOS_Map.modulemap */,
+				8F1F4E3D1C20EB6E0061E8B9 /* OSX_Map.modulemap */,
+				8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */,
+				8FB32B3F1C16E8FA00FD5041 /* OSX_Info.plist */,
+				8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		8FB32B051C16DE9C00FD5041 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				8FB32B0F1C16DE9C00FD5041 /* Panopticon.h */,
+				8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */,
+				8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */,
+				8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */,
+				8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */,
+				8FB32B0B1C16DE9C00FD5041 /* PANObservation+Shorthand.h */,
+				8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */,
+				8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */,
+				8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */,
+				8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */,
+				8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */,
+				8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */,
+				8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */,
+				8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */,
+				8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */,
+				8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */,
+				8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */,
+				8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */,
+				8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */,
+				8F4F848D1C3EE319008B5019 /* NSObject+PANKeyValue.h */,
+				8F4F848E1C3EE319008B5019 /* NSObject+PANKeyValue.m */,
+				8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */,
+				8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */,
+				8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */,
+				8F4F84881C3EE056008B5019 /* PANNotificationObservation.m */,
+				8F4F84931C3EE3EF008B5019 /* NSObject+PANNotification.h */,
+				8F4F84941C3EE3EF008B5019 /* NSObject+PANNotification.m */,
+				8FB32B081C16DE9C00FD5041 /* NSObject+PANNotificationShorthand.h */,
+				8F4F84A11C3F06F5008B5019 /* PANUIControlObservation.h */,
+				8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */,
+				8F4F84A21C3F06F5008B5019 /* PANUIControlObservation.m */,
+				8F4F84991C3F05AA008B5019 /* NSObject+PANUIControl.h */,
+				8F4F849A1C3F05AA008B5019 /* NSObject+PANUIControl.m */,
+				8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */,
+				8F4F849D1C3F05D5008B5019 /* UIControl+PANUIControl.h */,
+				8F4F849E1C3F05D5008B5019 /* UIControl+PANUIControl.m */,
+				8FB32B131C16DE9C00FD5041 /* UIControl+PANUIControlShorthand.h */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		8FB32B221C16E2F300FD5041 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FB32B031C15F8CA00FD5041 /* UIKit.framework */,
+				8FB32B011C15F8C400FD5041 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8FB32AE41C15F72500FD5041 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FB32AEB1C15F72500FD5041 /* Panopticon.h in Headers */,
+				8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */,
+				8FB32B1B1C16DE9C00FD5041 /* PANObservation.h in Headers */,
+				8F1F4E401C20EE180061E8B9 /* PANObservation+Shorthand.h in Headers */,
+				8FF4FBC21C87CABB00283612 /* PANAppGroupObservation.h in Headers */,
+				8FF4FBC01C87CABB00283612 /* PANAppGroupNotificationManager.h in Headers */,
+				8FF4FBBD1C87CABB00283612 /* NSObject+PANAppGroup.h in Headers */,
+				8FF4FBBF1C87CABB00283612 /* NSObject+PANAppGroupShorthand.h in Headers */,
+				8F4F84831C3EE044008B5019 /* PANKeyValueObservation.h in Headers */,
+				8F4F848F1C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */,
+				8F4F84A71C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */,
+				8F4F84891C3EE056008B5019 /* PANNotificationObservation.h in Headers */,
+				8F4F84951C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */,
+				8F1F4E411C20EE1E0061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */,
+				8F4F84A31C3F06F5008B5019 /* PANUIControlObservation.h in Headers */,
+				8F4F849B1C3F05AA008B5019 /* NSObject+PANUIControl.h in Headers */,
+				8F4F84AD1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h in Headers */,
+				8F4F849F1C3F05D5008B5019 /* UIControl+PANUIControl.h in Headers */,
+				8F1F4E421C20EE200061E8B9 /* UIControl+PANUIControlShorthand.h in Headers */,
+				8F1F4E3E1C20EDF00061E8B9 /* ShorthandAutosetup.h in Headers */,
+				8FB32B181C16DE9C00FD5041 /* PANObservation+Private.h in Headers */,
+				8F10A8881C99509700C11ED4 /* PANAppGroupObservation+Private.h in Headers */,
+				8F10A8891C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */,
+				8F10A88C1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */,
+				8F10A88F1C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FB32B251C16E78100FD5041 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F4AFDAA1C1AB01D005A334F /* Panopticon.h in Headers */,
+				8F1F4E431C20EE2C0061E8B9 /* PanopticonShorthand.h in Headers */,
+				8F4AFDA31C1AAFFF005A334F /* PANObservation.h in Headers */,
+				8F1F4E441C20EE2F0061E8B9 /* PANObservation+Shorthand.h in Headers */,
+				8FF4FBC71C87CC2D00283612 /* PANAppGroupObservation.h in Headers */,
+				8FF4FBC81C87CC2D00283612 /* PANAppGroupNotificationManager.h in Headers */,
+				8FF4FBC91C87CC2D00283612 /* NSObject+PANAppGroup.h in Headers */,
+				8FF4FBCA1C87CC2D00283612 /* NSObject+PANAppGroupShorthand.h in Headers */,
+				8F4F84841C3EE044008B5019 /* PANKeyValueObservation.h in Headers */,
+				8F4F84901C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */,
+				8F4F84A81C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */,
+				8F4F848A1C3EE056008B5019 /* PANNotificationObservation.h in Headers */,
+				8F4F84961C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */,
+				8F1F4E451C20EE330061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */,
+				8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */,
+				8F1F4E461C20EE350061E8B9 /* ShorthandAutosetup.h in Headers */,
+				8F4AFDA41C1AAFFF005A334F /* PANObservation+Private.h in Headers */,
+				8F10A88A1C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */,
+				8F10A88D1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */,
+				8F10A8901C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8FB32AE61C15F72500FD5041 /* iOS Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FB32AFB1C15F72500FD5041 /* Build configuration list for PBXNativeTarget "iOS Framework" */;
+			buildPhases = (
+				8FB32AE21C15F72500FD5041 /* Sources */,
+				8FB32AE31C15F72500FD5041 /* Frameworks */,
+				8FB32AE41C15F72500FD5041 /* Headers */,
+				8FB32AE51C15F72500FD5041 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS Framework";
+			productName = TotalObserver;
+			productReference = 8FB32AE71C15F72500FD5041 /* Panopticon.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8FB32B271C16E78100FD5041 /* OSX Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8FB32B391C16E78100FD5041 /* Build configuration list for PBXNativeTarget "OSX Framework" */;
+			buildPhases = (
+				8FB32B231C16E78100FD5041 /* Sources */,
+				8FB32B241C16E78100FD5041 /* Frameworks */,
+				8FB32B251C16E78100FD5041 /* Headers */,
+				8FB32B261C16E78100FD5041 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OSX Framework";
+			productName = TotalObserver_OSX;
+			productReference = 8FB32B281C16E78100FD5041 /* Panopticon.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8FB32ADE1C15F72500FD5041 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Pierre Houston";
+				TargetAttributes = {
+					8FB32AE61C15F72500FD5041 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+					8FB32B271C16E78100FD5041 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 8FB32AE11C15F72500FD5041 /* Build configuration list for PBXProject "Panopticon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8FB32ADD1C15F72500FD5041;
+			productRefGroup = 8FB32AE81C15F72500FD5041 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8FB32AE61C15F72500FD5041 /* iOS Framework */,
+				8FB32B271C16E78100FD5041 /* OSX Framework */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8FB32AE51C15F72500FD5041 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FB32B261C16E78100FD5041 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8FB32AE21C15F72500FD5041 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FB32B1C1C16DE9C00FD5041 /* PANObservation.m in Sources */,
+				8F1F4E4B1C20F0BA0061E8B9 /* PANObservation+Shorthand.m in Sources */,
+				8FF4FBC31C87CABB00283612 /* PANAppGroupObservation.m in Sources */,
+				8FF4FBC11C87CABB00283612 /* PANAppGroupNotificationManager.m in Sources */,
+				8FF4FBBE1C87CABB00283612 /* NSObject+PANAppGroup.m in Sources */,
+				8F4F84851C3EE044008B5019 /* PANKeyValueObservation.m in Sources */,
+				8F4F84911C3EE319008B5019 /* NSObject+PANKeyValue.m in Sources */,
+				8F4F848B1C3EE056008B5019 /* PANNotificationObservation.m in Sources */,
+				8F4F84971C3EE3EF008B5019 /* NSObject+PANNotification.m in Sources */,
+				8F4F84A41C3F06F5008B5019 /* PANUIControlObservation.m in Sources */,
+				8F4F849C1C3F05AA008B5019 /* NSObject+PANUIControl.m in Sources */,
+				8F4F84A01C3F05D5008B5019 /* UIControl+PANUIControl.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8FB32B231C16E78100FD5041 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F4AFD9F1C1AAFD8005A334F /* PANObservation.m in Sources */,
+				8F1F4E4C1C20F0C90061E8B9 /* PANObservation+Shorthand.m in Sources */,
+				8FF4FBC41C87CBE200283612 /* PANAppGroupObservation.m in Sources */,
+				8FF4FBC51C87CBE200283612 /* PANAppGroupNotificationManager.m in Sources */,
+				8FF4FBC61C87CBE200283612 /* NSObject+PANAppGroup.m in Sources */,
+				8F4F84861C3EE044008B5019 /* PANKeyValueObservation.m in Sources */,
+				8F4F84921C3EE319008B5019 /* NSObject+PANKeyValue.m in Sources */,
+				8F4F848C1C3EE056008B5019 /* PANNotificationObservation.m in Sources */,
+				8F4F84981C3EE3EF008B5019 /* NSObject+PANNotification.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8FB32AF91C15F72500FD5041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		8FB32AFA1C15F72500FD5041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8FB32AFC1C15F72500FD5041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Support/iOS_Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = Support/iOS_Map.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.iosframework;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = Panopticon;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8FB32AFD1C15F72500FD5041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Support/iOS_Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = Support/iOS_Map.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.iosframework;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = Panopticon;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8FB32B3A1C16E78100FD5041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Support/OSX_Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = Support/OSX_Map.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.osxframework;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = Panopticon;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8FB32B3B1C16E78100FD5041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Support/OSX_Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = Support/OSX_Map.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.osxframework;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = Panopticon;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8FB32AE11C15F72500FD5041 /* Build configuration list for PBXProject "Panopticon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FB32AF91C15F72500FD5041 /* Debug */,
+				8FB32AFA1C15F72500FD5041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8FB32AFB1C15F72500FD5041 /* Build configuration list for PBXNativeTarget "iOS Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FB32AFC1C15F72500FD5041 /* Debug */,
+				8FB32AFD1C15F72500FD5041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8FB32B391C16E78100FD5041 /* Build configuration list for PBXNativeTarget "OSX Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FB32B3A1C16E78100FD5041 /* Debug */,
+				8FB32B3B1C16E78100FD5041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8FB32ADE1C15F72500FD5041 /* Project object */;
+}

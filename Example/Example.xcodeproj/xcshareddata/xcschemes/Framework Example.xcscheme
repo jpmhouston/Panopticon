@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8F4AFDAB1C1AB18D005A334F"
-               BuildableName = "TO Example.app"
+               BuildableName = "Panopticon.app"
                BlueprintName = "Framework Example"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6003F589195388D20070C39A"
-               BuildableName = "TO Example.app"
+               BuildableName = "Panopticon.app"
                BlueprintName = "Pods Example"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "TO Tests.xctest"
+               BuildableName = "Panopticon Tests.xctest"
                BlueprintName = "Tests"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "TO Tests.xctest"
+               BuildableName = "Panopticon Tests.xctest"
                BlueprintName = "Tests"
                ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8F4AFDAB1C1AB18D005A334F"
-            BuildableName = "TO Example.app"
+            BuildableName = "Panopticon.app"
             BlueprintName = "Framework Example"
             ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8F4AFDAB1C1AB18D005A334F"
-            BuildableName = "TO Example.app"
+            BuildableName = "Panopticon.app"
             BlueprintName = "Framework Example"
             ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
@@ -113,7 +113,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8F4AFDAB1C1AB18D005A334F"
-            BuildableName = "TO Example.app"
+            BuildableName = "Panopticon.app"
             BlueprintName = "Framework Example"
             ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>

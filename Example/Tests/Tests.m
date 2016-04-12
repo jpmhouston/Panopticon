@@ -1,13 +1,13 @@
 //
 //  Tests.m
-//  TotalObserverTests
+//  Panopticon Example
 //
 //  Created by Pierre Houston on 10/14/2015.
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
 //
 
 @import XCTest;
-#import <TotalObserver/TotalObserver.h>
+#import <Panopticon/Panopticon.h>
 #import "ModelObject.h"
 
 @interface Tests : XCTestCase
@@ -17,7 +17,7 @@
 @property (nonatomic, assign) BOOL flag;
 @end
 
-@interface TOObservation (PrivateMethodExposedForTesting)
+@interface PANObservation (PrivateMethodExposedForTesting)
 + (NSSet *)associatedObservationsForObserver:(id)observer;
 + (NSSet *)associatedObservationsForObservee:(id)object;
 + (NSSet *)associatedObservationsForObserver:(nullable id)observer object:(nullable id)object;
@@ -46,7 +46,7 @@
     typeof(self) __weak welf = self;
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, PANObservation *obs) {
         welf.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -59,7 +59,7 @@
 
 - (void)testObjectNotificationUsingBlocksObjectParam
 {
-    [self to_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(typeof(self) obj, TOObservation *obs) {
+    [self pan_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(typeof(self) obj, PANObservation *obs) {
         obj.observed = YES;
     }];
     self.modelObject.name = @""; // should trigger notification, see -[ModelObject setName]
@@ -72,7 +72,7 @@
     id __block sameobj = nil;
     id __block sameobs = nil;
     id __block samequeue = nil;
-    TOObservation *observation = [self to_observeForNotifications:self.modelObject named:NameChangedNotification onQueue:self.queue withBlock:^(id obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForNotifications:self.modelObject named:NameChangedNotification onQueue:self.queue withBlock:^(id obj, PANObservation *obs) {
         welf.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -89,7 +89,7 @@
 {
     typeof(self) __weak welf = self;
     id __block sameobs = nil;
-    TOObservation *observation = [self.modelObject to_observeNotificationsNamed:NameChangedNotification withBlock:^(TOObservation *obs) {
+    PANObservation *observation = [self.modelObject pan_observeNotificationsNamed:NameChangedNotification withBlock:^(PANObservation *obs) {
         welf.observed = YES;
         sameobs = obs;
     }];
@@ -103,7 +103,7 @@
     typeof(self) __weak welf = self;
     id __block sameobs = nil;
     id __block samequeue = nil;
-    TOObservation *observation = [self.modelObject to_observeNotificationsNamed:NameChangedNotification onQueue:self.queue withBlock:^(TOObservation *obs) {
+    PANObservation *observation = [self.modelObject pan_observeNotificationsNamed:NameChangedNotification onQueue:self.queue withBlock:^(PANObservation *obs) {
         welf.observed = YES;
         sameobs = obs;
         samequeue = [NSOperationQueue currentQueue];
@@ -118,7 +118,7 @@
 {
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeForNotifications:self named:@"blah" withBlock:^(typeof(self) obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForNotifications:self named:@"blah" withBlock:^(typeof(self) obj, PANObservation *obs) {
         obj.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -133,7 +133,7 @@
 {
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeOwnNotificationsNamed:@"blah" withBlock:^(typeof(self) obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeOwnNotificationsNamed:@"blah" withBlock:^(typeof(self) obj, PANObservation *obs) {
         obj.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -149,7 +149,7 @@
     typeof(self) __weak welf = self;
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, PANObservation *obs) {
         welf.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -166,7 +166,7 @@
     id __block sameobj = nil;
     id __block sameobs = nil;
     id __block samequeue = nil;
-    TOObservation *observation = [self to_observeAllNotificationsNamed:NameChangedNotification onQueue:self.queue withBlock:^(id obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeAllNotificationsNamed:NameChangedNotification onQueue:self.queue withBlock:^(id obj, PANObservation *obs) {
         welf.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -186,7 +186,7 @@
     typeof(self) __weak welf = self;
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeForChanges:self.modelObject toKeyPath:@"flag" withBlock:^(id obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForChanges:self.modelObject toKeyPath:@"flag" withBlock:^(id obj, PANObservation *obs) {
         welf.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -203,7 +203,7 @@
     id __block sameobj = nil;
     id __block sameobs = nil;
     id __block samequeue = nil;
-    TOObservation *observation = [self to_observeForChanges:self.modelObject toKeyPath:@"flag" onQueue:self.queue withBlock:^(id obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForChanges:self.modelObject toKeyPath:@"flag" onQueue:self.queue withBlock:^(id obj, PANObservation *obs) {
         welf.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -220,7 +220,7 @@
 {
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeForChanges:self toKeyPath:@"flag" withBlock:^(typeof(self) obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForChanges:self toKeyPath:@"flag" withBlock:^(typeof(self) obj, PANObservation *obs) {
         obj.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -235,7 +235,7 @@
 {
     id __block sameobj = nil;
     id __block sameobs = nil;
-    TOObservation *observation = [self to_observeForOwnChangesToKeyPath:@"flag" withBlock:^(typeof(self) obj, TOObservation *obs) {
+    PANObservation *observation = [self pan_observeForOwnChangesToKeyPath:@"flag" withBlock:^(typeof(self) obj, PANObservation *obs) {
         obj.observed = YES;
         sameobj = obj;
         sameobs = obs;
@@ -250,7 +250,7 @@
 {
     typeof(self) __weak welf = self;
     id __block sameobs = nil;
-    TOObservation *observation = [self.modelObject to_observeChangesToKeyPath:@"flag" withBlock:^(TOObservation *obs) {
+    PANObservation *observation = [self.modelObject pan_observeChangesToKeyPath:@"flag" withBlock:^(PANObservation *obs) {
         welf.observed = YES;
         sameobs = obs;
     }];
@@ -264,7 +264,7 @@
     typeof(self) __weak welf = self;
     id __block sameobs = nil;
     id __block samequeue = nil;
-    TOObservation *observation = [self.modelObject to_observeChangesToKeyPath:@"flag" onQueue:self.queue withBlock:^(TOObservation *obs) {
+    PANObservation *observation = [self.modelObject pan_observeChangesToKeyPath:@"flag" onQueue:self.queue withBlock:^(PANObservation *obs) {
         welf.observed = YES;
         sameobs = obs;
         samequeue = [NSOperationQueue currentQueue];
@@ -278,55 +278,55 @@
 
 - (void)testExplicitRemoval
 {
-    TOObservation *observation1 = [self to_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, TOObservation *obs) { }];
-    TOObservation *observation2 = [self to_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, TOObservation *obs) { }];
+    PANObservation *observation1 = [self pan_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
+    PANObservation *observation2 = [self pan_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
     
-    NSSet *observationsBeforeRemoval = [TOObservation associatedObservationsForObserver:self];
+    NSSet *observationsBeforeRemoval = [PANObservation associatedObservationsForObserver:self];
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation1]);
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation2]);
     
     [observation1 remove];
     
-    NSSet *observationsAfterRemoval = [TOObservation associatedObservationsForObserver:self];
+    NSSet *observationsAfterRemoval = [PANObservation associatedObservationsForObserver:self];
     XCTAssertFalse([observationsAfterRemoval containsObject:observation1]);
     XCTAssertTrue([observationsAfterRemoval containsObject:observation2]);
 }
 
 - (void)testIndirectRemoval
 {
-    TOObservation *observation1 = [self to_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, TOObservation *obs) { }];
-    TOObservation *observation2 = [self to_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, TOObservation *obs) { }];
+    PANObservation *observation1 = [self pan_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
+    PANObservation *observation2 = [self pan_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
     
-    NSSet *observationsBeforeRemoval = [TOObservation associatedObservationsForObserver:self];
+    NSSet *observationsBeforeRemoval = [PANObservation associatedObservationsForObserver:self];
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation1]);
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation2]);
     
-    BOOL found = [self to_stopObservingForNotifications:self.modelObject named:NameChangedNotification];
+    BOOL found = [self pan_stopObservingForNotifications:self.modelObject named:NameChangedNotification];
     XCTAssertTrue(found);
     
-    NSSet *observationsAfterRemoval = [TOObservation associatedObservationsForObserver:self];
+    NSSet *observationsAfterRemoval = [PANObservation associatedObservationsForObserver:self];
     XCTAssertFalse([observationsAfterRemoval containsObject:observation1]);
     XCTAssertTrue([observationsAfterRemoval containsObject:observation2]);
 }
 
 - (void)testImplicitRemoval
 {
-    TOObservation *observation1, *observation2;
+    PANObservation *observation1, *observation2;
     @autoreleasepool {
-        observation1 = [self to_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, TOObservation *obs) { }];
-        observation2 = [self to_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, TOObservation *obs) { }];
+        observation1 = [self pan_observeForNotifications:self.modelObject named:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
+        observation2 = [self pan_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
     }
     
-    NSSet *observationsBeforeRemoval = [TOObservation associatedObservationsForObserver:self object:nil];
+    NSSet *observationsBeforeRemoval = [PANObservation associatedObservationsForObserver:self object:nil];
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation1]);
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation2]);
     
     self.modelObject = nil;
-    // something in 'to_observeForNotifications' is doing a retain+autorelease that ARC isn't optimizing away
+    // something in 'pan_observeForNotifications' is doing a retain+autorelease that ARC isn't optimizing away
     // without use of @autoreleasepool above, the property would have a strong retain by the main autorelease pool until after this method exited
     // so modelObject's dealloc wouldn't run until then, which would mean observation1 would not be removed here and the first assertion below would fail
     
-    NSSet *observationsAfterRemoval = [TOObservation associatedObservationsForObserver:self object:nil];
+    NSSet *observationsAfterRemoval = [PANObservation associatedObservationsForObserver:self object:nil];
     XCTAssertFalse([observationsAfterRemoval containsObject:observation1]);
     XCTAssertTrue([observationsAfterRemoval containsObject:observation2]);
 }

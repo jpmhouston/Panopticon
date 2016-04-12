@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #
 #  generate_shorthand_headers.rb
-#  TotalObserver
+#  Panopticon
 #
 #  Created by Pierre Houston on 2016-03-16.
 #  Copyright © 2016 Pierre Houston. All rights reserved.
@@ -32,9 +32,9 @@ def createShorthandVariantOfHeader(headerFile, outputFile)
             # substitute category name
             line.sub!(/\)/, "Shorthand)")
             
-        elsif line =~ /to_/
-            # remove all instances of "to_" (case sensitive)
-            line.gsub!(/to_/, "")
+        elsif line =~ /pan_/
+            # remove all instances of "pan_" (case sensitive)
+            line.gsub!(/pan_/, "")
         end
         
         outputLines << line
@@ -53,7 +53,7 @@ Dir.chdir "../../Source/"
 
 puts "Generating shorthand headers in source directory " + Dir.pwd
 
-Dir.glob("**/*+TotalObserver*.h") do |header|
+Dir.glob("**/*+PAN*.h") do |header|
     next if header =~ /Shorthand.h/
     shorthandHeader = header.sub(/.h/, "Shorthand.h")
     

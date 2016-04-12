@@ -13,12 +13,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface NSObject (TotalObserverUIControlShorthand)
+@interface NSObject (PANUIControlShorthand)
 
 #pragma mark - Observe touch-up-inside events
 
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControlForPress:(UIControl *)control withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes touch-up-inside events by a given control, calling its block on the given operation queue.
@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes touch-up-inside events by a given control, calling its block on the given GCD dispatch queue.
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControlForValue:(UIControl *)control withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes value-changed inside events by a given control, calling its block on the given operation queue.
@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes value-changed inside events by a given control, calling its block on the given GCD dispatch queue.
@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -163,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes artbitrary events by a given control, calling its block on the given operation queue.
@@ -179,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes artbitrary events by a given control, calling its block on the given GCD dispatch queue.
@@ -195,7 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -218,4 +218,4 @@ NS_ASSUME_NONNULL_BEGIN
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

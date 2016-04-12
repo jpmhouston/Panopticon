@@ -85,6 +85,7 @@
 		8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANUIControlObservation+Private.h"; path = "UIControl/PANUIControlObservation+Private.h"; sourceTree = "<group>"; };
 		8F1F4E3C1C20EB5D0061E8B9 /* iOS_Map.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = iOS_Map.modulemap; sourceTree = "<group>"; };
 		8F1F4E3D1C20EB6E0061E8B9 /* OSX_Map.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OSX_Map.modulemap; sourceTree = "<group>"; };
+		8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = generate_shorthand_headers.rb; path = Scripts/generate_shorthand_headers.rb; sourceTree = "<group>"; };
 		8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANKeyValueObservation.h; path = KVO/PANKeyValueObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANKeyValueObservation.m; path = KVO/PANKeyValueObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANNotificationObservation.h; path = Notifications/PANNotificationObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -101,7 +102,7 @@
 		8F4F84A21C3F06F5008B5019 /* PANUIControlObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANUIControlObservation.m; path = UIControl/PANUIControlObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANKeyValueShorthand.h"; path = "KVO/NSObject+PANKeyValueShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANUIControlShorthand.h"; path = "UIControl/NSObject+PANUIControlShorthand.h"; sourceTree = "<group>"; };
-		8FB32AE71C15F72500FD5041 /* TotalObserver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TotalObserver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FB32AE71C15F72500FD5041 /* Panopticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panopticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB32AEA1C15F72500FD5041 /* Panopticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
 		8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOS_Info.plist; sourceTree = "<group>"; };
 		8FB32B011C15F8C400FD5041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -116,7 +117,7 @@
 		8FB32B0F1C16DE9C00FD5041 /* Panopticon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
 		8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanopticonShorthand.h; sourceTree = "<group>"; };
 		8FB32B131C16DE9C00FD5041 /* UIControl+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIControl+PANUIControlShorthand.h"; path = "UIControl/UIControl+PANUIControlShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		8FB32B281C16E78100FD5041 /* TotalObserver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TotalObserver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FB32B281C16E78100FD5041 /* Panopticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panopticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB32B3F1C16E8FA00FD5041 /* OSX_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OSX_Info.plist; sourceTree = "<group>"; };
 		8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANAppGroup.h"; path = "AppGroups/NSObject+PANAppGroup.h"; sourceTree = "<group>"; };
 		8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+PANAppGroup.m"; path = "AppGroups/NSObject+PANAppGroup.m"; sourceTree = "<group>"; };
@@ -161,8 +162,8 @@
 		8FB32AE81C15F72500FD5041 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8FB32AE71C15F72500FD5041 /* TotalObserver.framework */,
-				8FB32B281C16E78100FD5041 /* TotalObserver.framework */,
+				8FB32AE71C15F72500FD5041 /* Panopticon.framework */,
+				8FB32B281C16E78100FD5041 /* Panopticon.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +176,7 @@
 				8F1F4E3D1C20EB6E0061E8B9 /* OSX_Map.modulemap */,
 				8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */,
 				8FB32B3F1C16E8FA00FD5041 /* OSX_Info.plist */,
+				8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -312,7 +314,7 @@
 			);
 			name = "iOS Framework";
 			productName = TotalObserver;
-			productReference = 8FB32AE71C15F72500FD5041 /* TotalObserver.framework */;
+			productReference = 8FB32AE71C15F72500FD5041 /* Panopticon.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		8FB32B271C16E78100FD5041 /* OSX Framework */ = {
@@ -330,7 +332,7 @@
 			);
 			name = "OSX Framework";
 			productName = TotalObserver_OSX;
-			productReference = 8FB32B281C16E78100FD5041 /* TotalObserver.framework */;
+			productReference = 8FB32B281C16E78100FD5041 /* Panopticon.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -511,9 +513,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = Support/iOS_Map.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.totalobserver.iosframework;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.iosframework;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = TotalObserver;
+				PRODUCT_NAME = Panopticon;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,9 +537,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = Support/iOS_Map.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.totalobserver.iosframework;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.iosframework;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = TotalObserver;
+				PRODUCT_NAME = Panopticon;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -561,9 +563,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = Support/OSX_Map.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.totalobserver.osxframework;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.osxframework;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = TotalObserver;
+				PRODUCT_NAME = Panopticon;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -587,9 +589,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULEMAP_FILE = Support/OSX_Map.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.totalobserver.osxframework;
+				PRODUCT_BUNDLE_IDENTIFIER = science.bananameter.panopticon.osxframework;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = TotalObserver;
+				PRODUCT_NAME = Panopticon;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";

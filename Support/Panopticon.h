@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for TotalObserver.
-FOUNDATION_EXPORT double TotalObserverVersionNumber;
+//! Project version number for Panopticon.
+FOUNDATION_EXPORT double PanopticonVersionNumber;
 
-//! Project version string for TotalObserver.
-FOUNDATION_EXPORT const unsigned char TotalObserverVersionString[];
+//! Project version string for Panopticon.
+FOUNDATION_EXPORT const unsigned char PanopticonVersionString[];
 
 #import "PANObservation.h"
 #import "PANKeyValueObservation.h"

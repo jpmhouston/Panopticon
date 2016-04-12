@@ -17,9 +17,9 @@
 #endif
 
 static BOOL shorthandMethodsAreSwizzled = NO;
-static NSString * const TotalObserverCategoryPrefix = @"to_";
+static NSString * const panopticonCategoryPrefix = @"pan_";
 
-@implementation TOObservation (Shorthand)
+@implementation PANObservation (Shorthand)
 
 + (BOOL)shorthandMethodsAreSetup
 {
@@ -66,10 +66,10 @@ static NSString * const TotalObserverCategoryPrefix = @"to_";
 
 + (void)addShortcutInstanceMethodForClass:(Class)objectClass
 {
-    const char *prefixCString = TotalObserverCategoryPrefix.UTF8String;
+    const char *prefixCString = panopticonCategoryPrefix.UTF8String;
     unsigned long prefixLen = strlen(prefixCString);
     NSRange prefixRange = NSMakeRange(0, prefixLen);
-    NSAssert2(TotalObserverCategoryPrefix.length == prefixLen, @"NSString length doesn't match strlen %lu vs %lu", (unsigned long)TotalObserverCategoryPrefix.length, prefixLen);
+    NSAssert2(panopticonCategoryPrefix.length == prefixLen, @"NSString length doesn't match strlen %lu vs %lu", (unsigned long)panopticonCategoryPrefix.length, prefixLen);
     
     unsigned int count = 0;
     Method *methods = class_copyMethodList(objectClass, &count);

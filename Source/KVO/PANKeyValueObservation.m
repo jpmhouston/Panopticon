@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-@interface TOKVOObservation ()
+@interface PANKeyValueObservation ()
 @property (nonatomic, readwrite) NSArray *keyPaths;
 @property (nonatomic, readwrite) NSKeyValueObservingOptions options;
 
@@ -29,13 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite, nullable) NSIndexSet *indexes;
 @end
 
-static const int TOKVOObservationContextVar;
-static void *TOKVOObservationContext = (void *)&TOKVOObservationContextVar;
+static const int PANKeyValueObservationContextVar;
+static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationContextVar;
 
 
-@implementation TOKVOObservation
+@implementation PANKeyValueObservation
 
-- (instancetype)initWithObserver:(nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOObservationBlock)block
+- (instancetype)initWithObserver:(nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -44,7 +44,7 @@ static void *TOKVOObservationContext = (void *)&TOKVOObservationContextVar;
     return self;
 }
 
-- (instancetype)initWithObject:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOAnonymousObservationBlock)block
+- (instancetype)initWithObject:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block
 {
     if (!(self = [super initWithObject:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -59,13 +59,13 @@ static void *TOKVOObservationContext = (void *)&TOKVOObservationContextVar;
     NSAssert1(self.keyPaths != nil, @"Nil 'keyPaths' property when registering observation for %@", self);
     NSAssert1(self.keyPaths.count > 0, @"Empty 'keyPaths' property when registering observation for %@", self);
     for (NSString *keyPath in self.keyPaths) {
-        [self.object addObserver:self forKeyPath:keyPath options:self.options context:TOKVOObservationContext];
+        [self.object addObserver:self forKeyPath:keyPath options:self.options context:PANKeyValueObservationContext];
     }
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context
 {
-    if (context == TOKVOObservationContext) {
+    if (context == PANKeyValueObservationContext) {
         NSAssert2([self.keyPaths containsObject:keyPath], @"Invoked with unexpected keypath '%@' %@", keyPath, self);
         [self invokeOnQueueAfter:^{
             self.keyPath = keyPath;
@@ -94,8 +94,8 @@ static void *TOKVOObservationContext = (void *)&TOKVOObservationContextVar;
 
 + (BOOL)removeForObserver:(nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths
 {
-    TOObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(TOObservation *observation) {
-        return [observation isKindOfClass:[TOKVOObservation class]] && [((TOKVOObservation *)observation).keyPaths isEqualToArray:keyPaths];
+    PANObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *observation) {
+        return [observation isKindOfClass:[PANKeyValueObservation class]] && [((PANKeyValueObservation *)observation).keyPaths isEqualToArray:keyPaths];
     }];
     if (observation != nil) {
         [observation remove];

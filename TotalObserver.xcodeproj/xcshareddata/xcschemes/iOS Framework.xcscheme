@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8FB32AE61C15F72500FD5041"
-               BuildableName = "TotalObserver.framework"
+               BuildableName = "Panopticon.framework"
                BlueprintName = "iOS Framework"
                ReferencedContainer = "container:TotalObserver.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8FB32AE61C15F72500FD5041"
-            BuildableName = "TotalObserver.framework"
+            BuildableName = "Panopticon.framework"
             BlueprintName = "iOS Framework"
             ReferencedContainer = "container:TotalObserver.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8FB32AE61C15F72500FD5041"
-            BuildableName = "TotalObserver.framework"
+            BuildableName = "Panopticon.framework"
             BlueprintName = "iOS Framework"
             ReferencedContainer = "container:TotalObserver.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8FB32AE61C15F72500FD5041"
-            BuildableName = "TotalObserver.framework"
+            BuildableName = "Panopticon.framework"
             BlueprintName = "iOS Framework"
             ReferencedContainer = "container:TotalObserver.xcodeproj">
          </BuildableReference>

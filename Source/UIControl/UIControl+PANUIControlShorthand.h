@@ -13,12 +13,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface UIControl (TotalObserverShorthand)
+@interface UIControl (PANUIControlShorthand)
 
 #pragma mark - Observe touch-up-inside events
 
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observePressWithBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observePressWithBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe touch-up-inside events by the receiver, calling its block on the given operation queue.
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observePressOnQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observePressOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe touch-up-inside events by the receiver, calling its block on the given GCD dispatch queue.
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeValueWithBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeValueWithBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe value-changed events by the receiver, calling its block on the given operation queue.
@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeValueOnQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeValueOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe value-changed events by the receiver, calling its block on the given GCD dispatch queue.
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -152,7 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeEvents:(UIControlEvents)events withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeEvents:(UIControlEvents)events withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe any events by the receiver, calling its block on the given operation queue.
@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe any events by the receiver, calling its block on the given GCD dispatch queue.
@@ -182,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -204,4 +204,4 @@ NS_ASSUME_NONNULL_BEGIN
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

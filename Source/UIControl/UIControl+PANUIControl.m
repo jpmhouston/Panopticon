@@ -16,87 +16,87 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-@implementation UIControl (TotalObserver)
+@implementation UIControl (PANUIControl)
 
-- (nullable TOUIControlObservation *)to_observePressWithBlock:(TOAnonymousObservationBlock)block
+- (nullable PANUIControlObservation *)pan_observePressWithBlock:(PANAnonymousObservationBlock)block
 {
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:UIControlEventTouchUpInside queue:nil gcdQueue:nil block:block];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:UIControlEventTouchUpInside queue:nil gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable TOUIControlObservation *)to_observePressOnQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block
+- (nullable PANUIControlObservation *)pan_observePressOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
 {
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:UIControlEventTouchUpInside queue:queue gcdQueue:nil block:block];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:UIControlEventTouchUpInside queue:queue gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable TOUIControlObservation *)to_observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block
+- (nullable PANUIControlObservation *)pan_observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
 {
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:UIControlEventTouchUpInside queue:nil gcdQueue:queue block:block];
-    [observation register];
-    return observation;
-}
-
-
-- (nullable TOUIControlObservation *)to_observeValueWithBlock:(TOAnonymousObservationBlock)block
-{
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:UIControlEventValueChanged queue:nil gcdQueue:nil block:block];
-    [observation register];
-    return observation;
-}
-
-- (nullable TOUIControlObservation *)to_observeValueOnQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block
-{
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:UIControlEventValueChanged queue:queue gcdQueue:nil block:block];
-    [observation register];
-    return observation;
-}
-
-- (nullable TOUIControlObservation *)to_observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block
-{
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:UIControlEventValueChanged queue:nil gcdQueue:queue block:block];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:UIControlEventTouchUpInside queue:nil gcdQueue:queue block:block];
     [observation register];
     return observation;
 }
 
 
-- (nullable TOUIControlObservation *)to_observeEvents:(UIControlEvents)events withBlock:(TOAnonymousObservationBlock)block
+- (nullable PANUIControlObservation *)pan_observeValueWithBlock:(PANAnonymousObservationBlock)block
 {
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:events queue:nil gcdQueue:nil block:block];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:UIControlEventValueChanged queue:nil gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable TOUIControlObservation *)to_observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block
+- (nullable PANUIControlObservation *)pan_observeValueOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
 {
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:events queue:queue gcdQueue:nil block:block];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:UIControlEventValueChanged queue:queue gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable TOUIControlObservation *)to_observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block
+- (nullable PANUIControlObservation *)pan_observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
 {
-    TOUIControlObservation *observation = [[TOUIControlObservation alloc] initWithControl:self events:events queue:nil gcdQueue:queue block:block];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:UIControlEventValueChanged queue:nil gcdQueue:queue block:block];
     [observation register];
     return observation;
 }
 
 
-- (BOOL)to_stopObservingForPress
+- (nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events withBlock:(PANAnonymousObservationBlock)block
 {
-    return [TOUIControlObservation removeForObserver:nil control:self events:UIControlEventTouchUpInside];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:events queue:nil gcdQueue:nil block:block];
+    [observation register];
+    return observation;
 }
 
-- (BOOL)to_stopObservingForValue
+- (nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
 {
-    return [TOUIControlObservation removeForObserver:nil control:self events:UIControlEventValueChanged];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:events queue:queue gcdQueue:nil block:block];
+    [observation register];
+    return observation;
 }
 
-- (BOOL)to_stopObservingForEvents:(UIControlEvents)events
+- (nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
 {
-    return [TOUIControlObservation removeForObserver:nil control:self events:events];
+    PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithControl:self events:events queue:nil gcdQueue:queue block:block];
+    [observation register];
+    return observation;
+}
+
+
+- (BOOL)pan_stopObservingForPress
+{
+    return [PANUIControlObservation removeForObserver:nil control:self events:UIControlEventTouchUpInside];
+}
+
+- (BOOL)pan_stopObservingForValue
+{
+    return [PANUIControlObservation removeForObserver:nil control:self events:UIControlEventValueChanged];
+}
+
+- (BOOL)pan_stopObservingForEvents:(UIControlEvents)events
+{
+    return [PANUIControlObservation removeForObserver:nil control:self events:events];
 }
 
 @end

@@ -10,23 +10,23 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface TOAppGroupObservation (Private)
+@interface PANAppGroupObservation (Private)
 
-- (instancetype)initWithObserver:(TO_nullable id)observer groupIdentifier:(TO_nullable NSString *)identifier name:(NSString *)name queue:(TO_nullable NSOperationQueue *)queue gcdQueue:(TO_nullable dispatch_queue_t)gcdQueue block:(TOObservationBlock)block;
-- (instancetype)initForReliableDeliveryWithObserver:(TO_nullable id)observer groupIdentifier:(TO_nullable NSString *)identifier name:(NSString *)name queue:(TO_nullable NSOperationQueue *)queue gcdQueue:(TO_nullable dispatch_queue_t)gcdQueue block:(TOCollatedObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
+- (instancetype)initForReliableDeliveryWithObserver:(PAN_nullable id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANCollatedObservationBlock)block;
 
 // TODO: consider making these private too
-//+ (BOOL)removeForObserver:(id)observer groupIdentifier:(TO_nullable NSString *)identifier name:(NSString *)name;
-//+ (BOOL)removeForObserver:(id)observer groupIdentifier:(TO_nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState;
+//+ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name;
+//+ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

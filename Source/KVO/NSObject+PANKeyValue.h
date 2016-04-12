@@ -11,12 +11,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface NSObject (TotalObserverKVO)
+@interface NSObject (PANKeyValue)
 
 #pragma mark - Observe a key path
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observation will automatically be stopped when either the receiver or the object is deallocated.
  *
- *  If `object` is the same as the receiver, then instead use `to_observeOwnChangesToKeyPath:withBlock:`.
+ *  If `object` is the same as the receiver, then instead use `pan_observeOwnChangesToKeyPath:withBlock:`.
  *
  *  @param object  The object to observe.
  *  @param keyPath The key path string to observe on `object`.
@@ -37,12 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPath:(NSString *)keyPath withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object with options.
  *
- *  Variation on `to_observeForChanges:toKeyPath:withBlock:` that adds a KVO options parameter. See the description for
+ *  Variation on `pan_observeForChanges:toKeyPath:withBlock:` that adds a KVO options parameter. See the description for
  *  that method.
  *
  *  @param object  The object to observe.
@@ -53,12 +53,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object, calling its block on the given operation queue.
  *
- *  Variation on `to_observeForChanges:toKeyPath:withBlock:` that adds an operation queue parameter. See the description
+ *  Variation on `pan_observeForChanges:toKeyPath:withBlock:` that adds an operation queue parameter. See the description
  *  for that method.
  *
  *  @param object  The object to observe.
@@ -69,12 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object with options, calling its block on the given operation queue.
  *
- *  Variation on `to_observeForChanges:toKeyPath:withBlock:` that adds operation queue and KVO options parameters.
+ *  Variation on `pan_observeForChanges:toKeyPath:withBlock:` that adds operation queue and KVO options parameters.
  *  See the description for that method.
  *
  *  @param object  The object to observe.
@@ -86,12 +86,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeForChanges:toKeyPath:withBlock:` that adds an operation queue parameter. See the description
+ *  Variation on `pan_observeForChanges:toKeyPath:withBlock:` that adds an operation queue parameter. See the description
  *  for that method.
  *
  *  @param object  The object to observe.
@@ -102,12 +102,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object with options, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeForChanges:toKeyPath:withBlock:` that adds operation queue and KVO options parameters.
+ *  Variation on `pan_observeForChanges:toKeyPath:withBlock:` that adds operation queue and KVO options parameters.
  *  See the description for that method.
  *
  *  @param object  The object to observe.
@@ -119,22 +119,22 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing a KVO key path on the given object.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods above. Use to stop observing sometime
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
  *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
  *  @param object  The object to stop observing.
  *  @param keyPath The key path string to stop observing on `object`.
  *
  *  @return `YES` if the receiver was previously observing this KVO key path on `object`, `NO` otherwise.
  */
-- (BOOL)to_stopObservingForChanges:(id)object toKeyPath:(NSString *)keyPath;
+- (BOOL)pan_stopObservingForChanges:(id)object toKeyPath:(NSString *)keyPath;
 
 
 #pragma mark - Observe multiple key paths
@@ -148,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observations will automatically be stopped when either the receiver or the object is deallocated.
  *
- *  If `object` is the same as the receiver, then instead use `to_observeOwnChangesToKeyPaths:withBlock:`.
+ *  If `object` is the same as the receiver, then instead use `pan_observeOwnChangesToKeyPaths:withBlock:`.
  *
  *  @param object   The object to observe.
  *  @param keyPaths Array of key path strings to observe on `object`.
@@ -157,12 +157,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object with options.
  *
- *  Variation on `to_observeForChanges:toKeyPaths:withBlock:` that adds a KVO options parameter. See the description for
+ *  Variation on `pan_observeForChanges:toKeyPaths:withBlock:` that adds a KVO options parameter. See the description for
  *  that method.
  *
  *  @param object   The object to observe.
@@ -173,12 +173,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object, calling its block on the given operation queue.
  *
- *  Variation on `to_observeForChanges:toKeyPaths:withBlock:` that adds an operation queue parameter. See the description
+ *  Variation on `pan_observeForChanges:toKeyPaths:withBlock:` that adds an operation queue parameter. See the description
  *  for that method.
  *
  *  @param object   The object to observe.
@@ -189,12 +189,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given operation queue.
  *
- *  Variation on `to_observeForChanges:toKeyPaths:withBlock:` that adds operation queue and KVO options parameters.
+ *  Variation on `pan_observeForChanges:toKeyPaths:withBlock:` that adds operation queue and KVO options parameters.
  *  See the description for that method.
  *
  *  @param object   The object to observe.
@@ -206,12 +206,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object, calling its block on the given CGD dispatch queue.
  *
- *  Variation on `to_observeForChanges:toKeyPaths:withBlock:` that adds a GCD dispatch queue parameter. See the description
+ *  Variation on `pan_observeForChanges:toKeyPaths:withBlock:` that adds a GCD dispatch queue parameter. See the description
  *  for that method.
  *
  *  @param object   The object to observe.
@@ -222,12 +222,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given CGD dispatch queue.
  *
- *  Variation on `to_observeForChanges:toKeyPaths:withBlock:` that adds operation queue and GCD dispatch parameters.
+ *  Variation on `pan_observeForChanges:toKeyPaths:withBlock:` that adds operation queue and GCD dispatch parameters.
  *  See the description for that method.
  *
  *  @param object   The object to observe.
@@ -239,23 +239,23 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing the KVO key paths on the given object.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods above. Use to stop observing sometime
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
  *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
  *  @param object   The object to stop observing.
  *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed to the
- *                  corresponding `to_observe..` method.
+ *                  corresponding `pan_observe..` method.
  *
  *  @return `YES` if the receiver was previously observing these KVO key paths on `object`, `NO` otherwise.
  */
-- (BOOL)to_stopObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths;
+- (BOOL)pan_stopObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths;
 
 
 #pragma mark - Anonymously observe a key path on the receiver
@@ -275,12 +275,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPath:(NSString *)keyPath withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPath:(NSString *)keyPath withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver with options.
  *
- *  Variation on `to_observeChangesToKeyPath:withBlock:` that adds a KVO options parameter. See the description for that
+ *  Variation on `pan_observeChangesToKeyPath:withBlock:` that adds a KVO options parameter. See the description for that
  *  method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -290,12 +290,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver, calling its block on the given operation queue.
  *
- *  Variation on `to_observeChangesToKeyPath:withBlock:` that adds a operation queue parameter. See the description for that
+ *  Variation on `pan_observeChangesToKeyPath:withBlock:` that adds a operation queue parameter. See the description for that
  *  method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -305,12 +305,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver with options, calling its block on the given operation queue.
  *
- *  Variation on `to_observeChangesToKeyPath:withBlock:` that adds KVO options and operation queue parameters. See the
+ *  Variation on `pan_observeChangesToKeyPath:withBlock:` that adds KVO options and operation queue parameters. See the
  *  description for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -321,12 +321,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeChangesToKeyPath:withBlock:` that adds a GCD dispatch queue parameter. See the description for
+ *  Variation on `pan_observeChangesToKeyPath:withBlock:` that adds a GCD dispatch queue parameter. See the description for
  *  that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -336,12 +336,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver with options, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeChangesToKeyPath:withBlock:` that adds KVO options and GCD dispatch queue parameters. See the
+ *  Variation on `pan_observeChangesToKeyPath:withBlock:` that adds KVO options and GCD dispatch queue parameters. See the
  *  description for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -352,21 +352,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
  *  Stop observing a KVO key path on the receiver.
  *
- *  Call on the same observed object on which you called one of the `to_observe..` methods above. Use to stop observing
+ *  Call on the same observed object on which you called one of the `pan_observe..` methods above. Use to stop observing
  *  sometime before the object is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
  *  @param keyPath The key path string to stop observing the receiver.
  *
  *  @return `YES` if was previously observing this KVO key path on the receiver, `NO` otherwise.
  */
-- (BOOL)to_stopObservingChangesToKeyPath:(NSString *)keyPath;
+- (BOOL)pan_stopObservingChangesToKeyPath:(NSString *)keyPath;
 
 
 #pragma mark - Anonymously observe multiple key paths on the receiver
@@ -387,12 +387,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPaths:(NSArray *)keyPaths withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver with options.
  *
- *  Variation on `to_observeChangesToKeyPaths:withBlock:` that adds a KVO options parameter. See the description for
+ *  Variation on `pan_observeChangesToKeyPaths:withBlock:` that adds a KVO options parameter. See the description for
  *  that method.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
@@ -402,7 +402,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver, calling its block on the given operation queue.
@@ -414,7 +414,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver with options, calling its block on the given operation queue.
@@ -427,7 +427,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver, calling its block on the given GCD dispatch queue.
@@ -439,7 +439,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver with options, calling its block on the given GCD dispatch queue.
@@ -452,22 +452,22 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
  *  Receiver stops observing the KVO key paths on the receiver.
  *
- *  Call on the same observed object on which you called one of the `to_observe..` methods above. Use to stop observing
- *  sometime before the object is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same observed object on which you called one of the `pan_observe..` methods above. Use to stop observing
+ *  sometime before the object is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed to the
- *                  corresponding `to_observe..` method.
+ *                  corresponding `pan_observe..` method.
  *
  *  @return `YES` if was previously observing these KVO key paths on the receiver, `NO` otherwise.
  */
-- (BOOL)to_stopObservingChangesToKeyPaths:(NSArray *)keyPaths;
+- (BOOL)pan_stopObservingChangesToKeyPaths:(NSArray *)keyPaths;
 
 
 #pragma mark - Have receiver observe a key path on itself
@@ -481,7 +481,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when the receiver is deallocated. The observation is not tied to any
  *  "observer" object.
  *
- *  Use instead of `-[self to_observeChangesToKeyPath:withBlock:]` when you want the receiver passed as parameter to the
+ *  Use instead of `-[self pan_observeChangesToKeyPath:withBlock:]` when you want the receiver passed as parameter to the
  *  block, or when you want to make extra clear that the object is intentionally observing itself.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -490,12 +490,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPath:(NSString *)keyPath withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself with options.
  *
- *  Variation on `to_observeOwnChangesToKeyPath:withBlock:` that adds a KVO options parameter. See the description for that
+ *  Variation on `pan_observeOwnChangesToKeyPath:withBlock:` that adds a KVO options parameter. See the description for that
  *  method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -505,12 +505,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself, calling its block on the given operation queue.
  *
- *  Variation on `to_observeOwnChangesToKeyPath:withBlock:` that adds an operation queue parameter. See the description for
+ *  Variation on `pan_observeOwnChangesToKeyPath:withBlock:` that adds an operation queue parameter. See the description for
  *  that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -520,7 +520,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself with options, calling its block on the given operation queue.
@@ -533,12 +533,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeOwnChangesToKeyPath:withBlock:` that adds a GCD dispatch queue parameter. See the description
+ *  Variation on `pan_observeOwnChangesToKeyPath:withBlock:` that adds a GCD dispatch queue parameter. See the description
  *  for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
@@ -548,7 +548,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself with options, calling its block on the given GCD dispatch queue.
@@ -561,21 +561,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing a KVO key path on itself.
  *
- *  Call on the same observed object on which you called one of the `to_observe..` methods above. Use to stop observing
+ *  Call on the same observed object on which you called one of the `pan_observe..` methods above. Use to stop observing
  *  sometime before the object is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
  *  @param keyPath The key path string to stop observing the receiver.
  *
  *  @return `YES` if the receiver was previously observing this KVO key path on itself, `NO` otherwise.
  */
-- (BOOL)to_stopObservingOwnChangesToKeyPath:(NSString *)keyPath;
+- (BOOL)pan_stopObservingOwnChangesToKeyPath:(NSString *)keyPath;
 
 
 #pragma mark - Have receiver observe multiple key paths on itself
@@ -590,7 +590,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when the receiver is deallocated. The observation is not tied to any
  *  "observer" object.
  *
- *  Use instead of `-[self to_observeChangesToKeyPaths:withBlock:]` when you want the receiver passed as parameter to the
+ *  Use instead of `-[self pan_observeChangesToKeyPaths:withBlock:]` when you want the receiver passed as parameter to the
  *  block, or when you want to make extra clear that the object is intentionally observing itself.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
@@ -599,7 +599,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPaths:(NSArray *)keyPaths withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself with options.
@@ -611,7 +611,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself, calling its block on the given operation queue.
@@ -623,7 +623,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself with options, calling its block on the given operation queue.
@@ -636,7 +636,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself, calling its block on the given GCD dispatch queue.
@@ -648,7 +648,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself with options, calling its block on the given GCD dispatch queue.
@@ -661,26 +661,26 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)to_observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)pan_observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing multiple KVO key paths on itself.
  *
- *  Call on the same observed object on which you called one of the `to_observe..` methods above. Use to stop observing
+ *  Call on the same observed object on which you called one of the `pan_observe..` methods above. Use to stop observing
  *  sometime before the object is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
  *  @param keyPaths The array of KVO key path strings to stop observing the receiver. Must be equal to the array passed to the
- *                  corresponding `to_observe..` method.
+ *                  corresponding `pan_observe..` method.
  *
  *  @return `YES` if the receiver was previously observing these KVO key paths on itself, `NO` otherwise.
  */
-- (BOOL)to_stopObservingOwnChangesToKeyPaths:(NSArray *)keyPaths;
+- (BOOL)pan_stopObservingOwnChangesToKeyPaths:(NSArray *)keyPaths;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

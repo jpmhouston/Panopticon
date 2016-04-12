@@ -24,41 +24,41 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-@interface TOObservation ()
+@interface PANObservation ()
 @property (nonatomic, readwrite, weak, nullable) id observer;
 @property (nonatomic, readwrite, weak, nullable) id object; // some overlap of term 'object' in here, consider naming this 'observee'
 
 @property (nonatomic, readwrite, nullable) NSOperationQueue *queue;
 @property (nonatomic, readwrite, nullable) dispatch_queue_t gcdQueue;
 
-@property (nonatomic, readwrite, copy, nullable) TOAnonymousObservationBlock anonymousBlock; // code enforces one of these will be nonnull
-@property (nonatomic, readwrite, copy, nullable) TOObservationBlock objectBlock;
+@property (nonatomic, readwrite, copy, nullable) PANAnonymousObservationBlock anonymousBlock; // code enforces one of these will be nonnull
+@property (nonatomic, readwrite, copy, nullable) PANObservationBlock objectBlock;
 
 @property (nonatomic, readwrite) BOOL registered;
 @end
 
-static const int TOObservationSetKeyVar;
-static void *TOObservationSetKey = (void *)&TOObservationSetKeyVar;
+static const int PANObservationSetKeyVar;
+static void *PANObservationSetKey = (void *)&PANObservationSetKeyVar;
 
 static NSMutableSet *classesSwizzledSet = nil;
 
 
 #pragma mark -
 
-@implementation TOObservation
+@implementation PANObservation
 
 - (instancetype)init
 {
     self = [super init];
     // had this to prevent this from being used,
-    //[NSException raise:NSInternalInconsistencyException format:@"TOObservation base class must not be initialized"];
+    //[NSException raise:NSInternalInconsistencyException format:@"PANObservation base class must not be initialized"];
     // but now this *is* legitamitely used specifically when temporarily completing init of an observation
     // before discarding it and returning nil, which subclass can do using 'if (fail-condition) return [super init];'
     if (self != nil) self = nil;
     return nil;
 }
 
-- (instancetype)initWithObserver:(nullable id)observer object:(nullable id)object queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)cgdQueue block:(nullable TOObservationBlock)block
+- (instancetype)initWithObserver:(nullable id)observer object:(nullable id)object queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)cgdQueue block:(nullable PANObservationBlock)block
 {
     if (!(self = [super init]))
         return nil;
@@ -71,7 +71,7 @@ static NSMutableSet *classesSwizzledSet = nil;
     return self;
 }
 
-- (instancetype)initWithObject:(nullable id)object queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)cgdQueue block:(nullable TOAnonymousObservationBlock)block
+- (instancetype)initWithObject:(nullable id)object queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)cgdQueue block:(nullable PANAnonymousObservationBlock)block
 {
     if (!(self = [super init]))
         return nil;
@@ -153,17 +153,17 @@ static NSMutableSet *classesSwizzledSet = nil;
 
 - (void)registerInternal
 {
-    [NSException raise:NSInternalInconsistencyException format:@"TOObservation registerInternal should not be called"];
+    [NSException raise:NSInternalInconsistencyException format:@"PANObservation registerInternal should not be called"];
 }
 
 - (void)deregisterInternal
 {
-    [NSException raise:NSInternalInconsistencyException format:@"TOObservation registerInternal should not be called"];
+    [NSException raise:NSInternalInconsistencyException format:@"PANObservation registerInternal should not be called"];
 }
 
 - (NSString *)hashKey
 {
-    [NSException raise:NSInternalInconsistencyException format:@"TOObservation hashKey should not be called"];
+    [NSException raise:NSInternalInconsistencyException format:@"PANObservation hashKey should not be called"];
     return nil;
 }
 
@@ -190,15 +190,15 @@ static NSMutableSet *classesSwizzledSet = nil;
         [[self class] removeAssociatedObservation:self fromObject:self.object];
 }
 
-+ (void)storeAssociatedObservation:(TOObservation *)observation intoObject:(id)associationTarget
++ (void)storeAssociatedObservation:(PANObservation *)observation intoObject:(id)associationTarget
 {
     NSMutableSet *observationSet = nil;
     @synchronized(associationTarget) {
         
-        observationSet = objc_getAssociatedObject(associationTarget, &TOObservationSetKey);
+        observationSet = objc_getAssociatedObject(associationTarget, &PANObservationSetKey);
         if (observationSet == nil) {
             observationSet = [NSMutableSet set];
-            objc_setAssociatedObject(associationTarget, &TOObservationSetKey, observationSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(associationTarget, &PANObservationSetKey, observationSet, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
         
     }
@@ -209,12 +209,12 @@ static NSMutableSet *classesSwizzledSet = nil;
     }
 }
 
-+ (void)removeAssociatedObservation:(TOObservation *)observation fromObject:(id)associationTarget
++ (void)removeAssociatedObservation:(PANObservation *)observation fromObject:(id)associationTarget
 {
     NSMutableSet *observationSet = nil;
     @synchronized(associationTarget) {
         
-        observationSet = objc_getAssociatedObject(associationTarget, &TOObservationSetKey);
+        observationSet = objc_getAssociatedObject(associationTarget, &PANObservationSetKey);
         
     }
     if (observationSet != nil) {
@@ -248,7 +248,7 @@ static NSMutableSet *classesSwizzledSet = nil;
     NSMutableSet *observationSet = nil;
     @synchronized(associationTarget) {
         
-        observationSet = objc_getAssociatedObject(associationTarget, &TOObservationSetKey);
+        observationSet = objc_getAssociatedObject(associationTarget, &PANObservationSetKey);
         
     }
     if (observationSet != nil) {
@@ -261,14 +261,14 @@ static NSMutableSet *classesSwizzledSet = nil;
     return observationSet;
 }
 
-+ (TOObservation *)findObservationForObserver:(nullable id)observer object:(nullable id)object matchingTest:(BOOL(^)(TOObservation *observation))testBlock
++ (PANObservation *)findObservationForObserver:(nullable id)observer object:(nullable id)object matchingTest:(BOOL(^)(PANObservation *observation))testBlock
 {
-    TOObservation *foundObservation = nil;
+    PANObservation *foundObservation = nil;
     NSSet *observationSet = [self associatedObservationsForObserver:observer object:object];
     
-    for (TOObservation *observation in observationSet) {
+    for (PANObservation *observation in observationSet) {
         // note, self here is class of subclass whose class method called this superclass class method
-        // eg. if TONotificationObservation class method called this, then self is TONotificationObservation instead of TOObservation
+        // eg. if PANNotificationObservation class method called this, then self is PANNotificationObservation instead of PANObservation
         if ([observation isKindOfClass:self] && observer == observation.observer && object == observation.object && testBlock(observation)) {
             foundObservation = observation;
             break;
@@ -307,7 +307,7 @@ static NSMutableSet *classesSwizzledSet = nil;
             IMP origImpl = method_getImplementation(dealloc);
             IMP newImpl = imp_implementationWithBlock(^(void *obj) { // MAKVONotificationCenter casts its block to (__bridge void *), but that's giving error here :(
                 @autoreleasepool {
-                    [TOObservation performAutomaticRemovalForObject:(__bridge id)obj];
+                    [PANObservation performAutomaticRemovalForObject:(__bridge id)obj];
                 }
                 ((void (*)(void *, SEL))origImpl)(obj, deallocSel);
             });
@@ -323,7 +323,7 @@ static NSMutableSet *classesSwizzledSet = nil;
 + (void)performAutomaticRemovalForObject:(id)objectBeingDeallocated
 {
     NSSet *observationSet = [self associatedObservationsForObject:objectBeingDeallocated]; // observations both by the object & on the object
-    for (TOObservation *observation in observationSet) {
+    for (PANObservation *observation in observationSet) {
         if (observation.removeAutomatically)
             [observation remove];
     }

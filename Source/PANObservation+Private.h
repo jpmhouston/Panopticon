@@ -10,12 +10,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface TOObservation (PrivateForCallersToUse)
+@interface PANObservation (PrivateForCallersToUse)
 /**
  *  Stores the observation as assocaiate objects in the observer & observee objects, calls the `registerInternal`
  *  method, sets up automatic removal, and sets the `registered` property to `YES`.
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)register;
 @end
 
-@interface TOObservation (PrivateForSubclassesToUse)
+@interface PANObservation (PrivateForSubclassesToUse)
 
 /**
  *  Normally subclasses don't need to, and shouldn't set.
@@ -50,9 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
  *                  and a subclass should itself enforce this (only ok if the subclass adds another type of block
  *                  property).
  *
- *  @return An initialized TOObservation object.
+ *  @return An initialized PANObservation object.
  */
-- (instancetype)initWithObserver:(TO_nullable id)observer object:(TO_nullable id)object queue:(TO_nullable NSOperationQueue *)queue gcdQueue:(TO_nullable dispatch_queue_t)cgdQueue block:(TO_nullable TOObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(PAN_nullable id)object queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANObservationBlock)block;
 
 /**
  *  Initializes and returns a newly allocated observation object with no observer. A designated initializer, don't
@@ -68,9 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
  *                  and a subclass should itself enforce this (only ok if the subclass adds another type of block
  *                  property).
  *
- *  @return An initialized TOObservation object.
+ *  @return An initialized PANObservation object.
  */
-- (instancetype)initWithObject:(TO_nullable id)object queue:(TO_nullable NSOperationQueue *)queue gcdQueue:(TO_nullable dispatch_queue_t)cgdQueue block:(TO_nullable TOAnonymousObservationBlock)block;
+- (instancetype)initWithObject:(PAN_nullable id)object queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANAnonymousObservationBlock)block;
 
 
 /**
@@ -116,16 +116,16 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The first matching observation object.
  */
-+ (TOObservation *)findObservationForObserver:(TO_nullable id)observer object:(TO_nullable id)object matchingTest:(BOOL(^)(TOObservation *observation))testBlock;
++ (PANObservation *)findObservationForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object matchingTest:(BOOL(^)(PANObservation *observation))testBlock;
 
 // expected to only be useful for test code:
 + (NSSet *)associatedObservationsForObserver:(id)observer;
 + (NSSet *)associatedObservationsForObservee:(id)object;
-+ (NSSet *)associatedObservationsForObserver:(TO_nullable id)observer object:(TO_nullable id)object;
++ (NSSet *)associatedObservationsForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object;
 @end
 
 
-@interface TOObservation (PrivateForSubclassesToOverride)
+@interface PANObservation (PrivateForSubclassesToOverride)
 /**
  *  Perform the specific mechanism to register the observation and cause `invoke` or `invokeOnQueueAfter` to be
  *  called when the specified event is triggered.
@@ -146,4 +146,4 @@ NS_ASSUME_NONNULL_BEGIN
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

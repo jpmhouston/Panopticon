@@ -10,22 +10,22 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface TOUIControlObservation (Private)
+@interface PANUIControlObservation (Private)
 
-- (instancetype)initWithObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOObservationBlock)block;
-- (instancetype)initWithControl:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOAnonymousObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
+- (instancetype)initWithControl:(UIControl *)control events:(UIControlEvents)events queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
 
 // TODO: consider making this private too
-//+ (BOOL)removeForObserver:(TO_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events;
+//+ (BOOL)removeForObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

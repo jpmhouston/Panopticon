@@ -11,22 +11,22 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
 /**
  *  A base class for UIControlEvent observation objects.
  *
- *  An object of this class is returned from each `PANUIControl` `to_observe...` method. This result can
- *  be saved for explcitly calling the `remove` method later (see base class `TOObservation`), but that often isn't
- *  necessary since the `to_stopObserving...` methods can be used instead which look-up the matching observation.
+ *  An object of this class is returned from each `PANUIControl` `pan_observe...` method. This result can
+ *  be saved for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't
+ *  necessary since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
  *
  *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
  *  the control, sender, and event object.
  */
-@interface TOUIControlObservation : TOObservation
+@interface PANUIControlObservation : PANObservation
 
 /**
  *  The control being observed. A synonym for the `object` property.
@@ -55,11 +55,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Remove an observer with matching parameters. Can use this class method to look-up a previously registered
- *  observation and remove it, although usually more convenient to use the 'to_stopObserving' methods, or save the
- *  observation object and call `remove` on it. (see base class `TOObservation`)
+ *  observation and remove it, although usually more convenient to use the 'pan_stopObserving' methods, or save the
+ *  observation object and call `remove` on it. (see base class `PANObservation`)
  *
  *  On finding the first matching observation, its `remove` method is called before returning. (see base class
- *  `TOObservation`)
+ *  `PANObservation`)
  *
  *  @param observer The observer object, or `nil` if not applicable.
  *  @param control  The control being observed.
@@ -67,11 +67,11 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return `YES` if matching observation was found, `NO` if it was not found.
  */
-+ (BOOL)removeForObserver:(TO_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events;
++ (BOOL)removeForObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

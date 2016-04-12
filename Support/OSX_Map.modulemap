@@ -1,4 +1,4 @@
-module TotalObserver {
+module Panopticon {
     umbrella header "Panopticon.h"
     header "PanopticonShorthand.h"
     header "PANObservation+Shorthand.h"

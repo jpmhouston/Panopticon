@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-static TOAppGroupNotificationManager *sharedInstance;
+static PANAppGroupNotificationManager *sharedInstance;
 static NSString * const postFileNameSeparator = @"|";
 static NSString * const postFileNameExtension = @"post";
 static NSString * const postDictDateKey = @"d";
@@ -33,14 +33,14 @@ static NSString * const sequenceNumberDirName = @"subscribers";
 static NSString * const sequenceNumberFileNameExtension = @"seqnum";
 static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 
-@interface TOAppGroupSubscriptionState : NSObject
-@property (nonatomic, copy, nullable) TOAppGroupSubscriberBlock block;
-@property (nonatomic, copy, nullable) TOAppGroupReliableSubscriberBlock collatedBlock;
+@interface PANAppGroupSubscriptionState : NSObject
+@property (nonatomic, copy, nullable) PANAppGroupSubscriberBlock block;
+@property (nonatomic, copy, nullable) PANAppGroupReliableSubscriberBlock collatedBlock;
 @property (nonatomic, readonly, getter=isReliable) BOOL reliable;
 @property (nonatomic) NSInteger lastReceivedSequenceNumber;
 @end
 
-@interface TOAppGroupNotificationPost : NSObject
+@interface PANAppGroupNotificationPost : NSObject
 @property (nonatomic) NSString *identifier;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSInteger sequenceNumber;
@@ -49,7 +49,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 @property (nonatomic) BOOL lastInGroupForName;
 @end
 
-@interface TOAppGroupNotificationManager () <TOAppGroupURLProviding, TOAppGroupGlobalNotificationHandling>
+@interface PANAppGroupNotificationManager () <PANAppGroupURLProviding, PANAppGroupGlobalNotificationHandling>
 @property (nonatomic) NSFileManager *fileManager;
 @property (nonatomic) NSNumberFormatter *numberFormatter;
 
@@ -58,15 +58,15 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 @property (nonatomic) dispatch_queue_t fileIOQueue;
 @property (nonatomic) dispatch_queue_t notifyQueue;
 
-@property (nonatomic, nullable) id<TOAppGroupURLProviding> urlHelper;
-@property (nonatomic, nullable) id<TOAppGroupGlobalNotificationHandling> notificationHelper;
-@property (nonatomic, nullable) id<TOAppGroupBundleIdProviding> bundleIdHelper;
+@property (nonatomic, nullable) id<PANAppGroupURLProviding> urlHelper;
+@property (nonatomic, nullable) id<PANAppGroupGlobalNotificationHandling> notificationHelper;
+@property (nonatomic, nullable) id<PANAppGroupBundleIdProviding> bundleIdHelper;
 @property (nonatomic, nullable) NSString *appIdentifier;
 @property (nonatomic) BOOL permitPostsWhenNoSubscribers;
 @property (nonatomic) u_int32_t cleanupFrequencyRandomFactor;
 @end
 
-@implementation TOAppGroupNotificationManager
+@implementation PANAppGroupNotificationManager
 
 @dynamic defaultGroupIdentifier;
 
@@ -92,8 +92,8 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     _subscriptionsPerGroupIdentifier = [[NSMutableDictionary alloc] init];
     _orderedIdentifiers = [[NSMutableArray alloc] init];
     
-    _fileIOQueue = dispatch_queue_create("TOAppGroupNotificationManager-file-io", DISPATCH_QUEUE_SERIAL); // can we get away with DISPATCH_QUEUE_CONCURRENT?
-    _notifyQueue = dispatch_queue_create("TOAppGroupNotificationManager-notify", DISPATCH_QUEUE_SERIAL);
+    _fileIOQueue = dispatch_queue_create("PANAppGroupNotificationManager-file-io", DISPATCH_QUEUE_SERIAL); // can we get away with DISPATCH_QUEUE_CONCURRENT?
+    _notifyQueue = dispatch_queue_create("PANAppGroupNotificationManager-notify", DISPATCH_QUEUE_SERIAL);
     
     _appIdentifier = [NSBundle mainBundle].bundleIdentifier;
     _permitPostsWhenNoSubscribers = NO;
@@ -101,12 +101,12 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     return self;
 }
 
-- (nullable id<TOAppGroupURLProviding>)urlHelper
+- (nullable id<PANAppGroupURLProviding>)urlHelper
 {
     return _urlHelper != nil ? _urlHelper : self;
 }
 
-- (nullable id<TOAppGroupGlobalNotificationHandling>)notificationHelper
+- (nullable id<PANAppGroupGlobalNotificationHandling>)notificationHelper
 {
     return _notificationHelper != nil ? _notificationHelper : self;
 }
@@ -173,7 +173,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 
 #pragma mark - Subscribing
 
-- (BOOL)subscribeToNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(TOAppGroupSubscriberBlock)block
+- (BOOL)subscribeToNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(PANAppGroupSubscriberBlock)block
 {
     NSURL *appGroupURL = [self.urlHelper groupURLForGroupIdentifier:identifier];
     if (appGroupURL == nil) {
@@ -181,7 +181,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     }
     
     // store state of new subscription
-    TOAppGroupSubscriptionState *subscription = [[TOAppGroupSubscriptionState alloc] init];
+    PANAppGroupSubscriptionState *subscription = [[PANAppGroupSubscriptionState alloc] init];
     subscription.block = block;
     subscription.lastReceivedSequenceNumber = -1;
     @synchronized(self) {
@@ -189,7 +189,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
         if (subscriptions[name] != nil) { // don't permit duplicate subscriptions
             return NO;
         }
-        subscriptions[name] = subscription; // subscriptionsPerGroupIdentifier is {identifier: subscription}, subscription is {name: TOAppGroupSubscriptionState}
+        subscriptions[name] = subscription; // subscriptionsPerGroupIdentifier is {identifier: subscription}, subscription is {name: PANAppGroupSubscriptionState}
     }
     
     // pick sequence number to match latest post or other observers, store it to make public this subscription
@@ -213,7 +213,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     return YES;
 }
 
-- (BOOL)subscribeToReliableNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(TOAppGroupReliableSubscriberBlock)block
+- (BOOL)subscribeToReliableNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(PANAppGroupReliableSubscriberBlock)block
 {
     NSURL *appGroupURL = [self.urlHelper groupURLForGroupIdentifier:identifier];
     if (appGroupURL == nil) {
@@ -221,7 +221,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     }
     
     // store state of new subscription
-    TOAppGroupSubscriptionState *subscription = [[TOAppGroupSubscriptionState alloc] init];
+    PANAppGroupSubscriptionState *subscription = [[PANAppGroupSubscriptionState alloc] init];
     subscription.collatedBlock = block;
     subscription.lastReceivedSequenceNumber = -1;
     @synchronized(self) {
@@ -229,7 +229,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
         if (subscriptions[name] != nil) { // don't permit duplicate subscriptions
             return NO;
         }
-        subscriptions[name] = subscription; // subscriptionsPerGroupIdentifier is {identifier: subscription}, subscription is {name: TOAppGroupSubscriptionState}
+        subscriptions[name] = subscription; // subscriptionsPerGroupIdentifier is {identifier: subscription}, subscription is {name: PANAppGroupSubscriptionState}
     }
     
     // pick sequence number of existing file, if it exists
@@ -291,7 +291,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
         if (subscriptions[name] == nil) { // reject if not already subscribed
             return NO;
         }
-        reliable = ((TOAppGroupSubscriptionState *)subscriptions[name]).reliable;
+        reliable = ((PANAppGroupSubscriptionState *)subscriptions[name]).reliable;
         subscriptions[name] = nil;
     }
     
@@ -360,17 +360,17 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     NSMutableDictionary *subscriptionSequenceNumbers = [NSMutableDictionary dictionary]; // {name: seq num}, parameter dict to pass to freshPostsForGroupIdentifier..
     NSMutableDictionary *collatedPostsForReliableSubscriptions = [NSMutableDictionary dictionary]; // names which have queued flag set
     @synchronized(self) {
-        NSDictionary *subscriptions = self.subscriptionsPerGroupIdentifier[identifier]; // {name: TOAppGroupSubscriptionState}
+        NSDictionary *subscriptions = self.subscriptionsPerGroupIdentifier[identifier]; // {name: PANAppGroupSubscriptionState}
         
         for (NSString *name in subscriptions) {
-            TOAppGroupSubscriptionState *subscription = (TOAppGroupSubscriptionState *)subscriptions[name];
+            PANAppGroupSubscriptionState *subscription = (PANAppGroupSubscriptionState *)subscriptions[name];
             if (subscription.lastReceivedSequenceNumber < 0) {
                 continue; // not active yet, its correct initial seqnum is still being determined
             }
             
             [subscriptionSequenceNumbers setObject:@(subscription.lastReceivedSequenceNumber) forKey:name];
             
-            if (((TOAppGroupSubscriptionState *)subscriptions[name]).reliable) {
+            if (((PANAppGroupSubscriptionState *)subscriptions[name]).reliable) {
                 [collatedPostsForReliableSubscriptions setObject:[NSMutableArray array] forKey:name];
             }
         }
@@ -400,7 +400,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
         
         dispatch_async(self.notifyQueue, ^{
             
-            for (TOAppGroupNotificationPost *post in freshPosts) {
+            for (PANAppGroupNotificationPost *post in freshPosts) {
                 
                 void (^callObserver)(void) = nil;
                 NSInteger sequenceNumberUpdate = -1;
@@ -410,7 +410,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
                     // (why race? because different threads can be running this callback at the same time, and another one
                     // can be trying to deliver the same posts)
                     NSDictionary *subscriptions = self.subscriptionsPerGroupIdentifier[identifier];
-                    TOAppGroupSubscriptionState *subscription = subscriptions[post.name];
+                    PANAppGroupSubscriptionState *subscription = subscriptions[post.name];
                     
                     //if (subscription == nil)
                     //    NSLog(@"for group %@, name \"%@\" caught case while handling post #%d where suddenly unsubscribed", identifier, post.name, (int)post.sequenceNumber);
@@ -466,7 +466,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     });
 }
 
-- (void)receiveAvailablePostsForGroupIdentifier:(NSString *)identifier groupURL:(NSURL *)appGroupURL name:(NSString *)name subscription:(TOAppGroupSubscriptionState *)subscription
+- (void)receiveAvailablePostsForGroupIdentifier:(NSString *)identifier groupURL:(NSURL *)appGroupURL name:(NSString *)name subscription:(PANAppGroupSubscriptionState *)subscription
 {
     dispatch_async(self.fileIOQueue, ^{
         // collect all posts newer than the sequence number
@@ -479,14 +479,14 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
             
             NSMutableArray *collatedPosts = [NSMutableArray array];
             
-            for (TOAppGroupNotificationPost *post in availablePosts) {
+            for (PANAppGroupNotificationPost *post in availablePosts) {
                 
                 @synchronized(self) {
                     // avoid race conditions by re-testing subscription & seq num validity within this synchronized block
                     // (why race? because different threads can be running this callback at the same time, and another one
                     // can be trying to deliver the same posts)
                     NSDictionary *subscriptions = self.subscriptionsPerGroupIdentifier[identifier];
-                    TOAppGroupSubscriptionState *updatedSubscription = subscriptions[name]; // should equal the parameter if it isn't nil, perhaps assert that
+                    PANAppGroupSubscriptionState *updatedSubscription = subscriptions[name]; // should equal the parameter if it isn't nil, perhaps assert that
                     
                     NSAssert3(updatedSubscription == nil || updatedSubscription == subscription, @"since not nil, expected re-fetched subscription for \"%@\" %p to equal parameter %@", name, updatedSubscription, subscription);
                     NSAssert2(subscription.collatedBlock != nil, @"expected subscription for \"%@\" to have collatedBlock property set: %@", name, subscription);
@@ -680,7 +680,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
             NSLog(@"unable to reconstruct post payload from file %@: %@", url.path, error.localizedDescription);
         }
         
-        TOAppGroupNotificationPost *post = [[TOAppGroupNotificationPost alloc] init];
+        PANAppGroupNotificationPost *post = [[PANAppGroupNotificationPost alloc] init];
         post.identifier = identifier;
         post.name = postName;
         post.sequenceNumber = postSequenceNumber;
@@ -693,7 +693,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     //NSLog(@"%d fresh post files, %d filtered-out filesystem item(s) for group %@", (int)postResults.count, (int)(directoryContents.count - postResults.count), identifier);
     
     // sort by post date / seq num of posts sharing same name
-    [postResults sortUsingComparator:^NSComparisonResult(TOAppGroupNotificationPost *post1, TOAppGroupNotificationPost *post2) {
+    [postResults sortUsingComparator:^NSComparisonResult(PANAppGroupNotificationPost *post1, PANAppGroupNotificationPost *post2) {
         NSComparisonResult compareDates = [post1.date compare:post2.date];
         if (compareDates == NSOrderedSame && [post1.name isEqualToString:post2.name])
             return post1.sequenceNumber < post2.sequenceNumber ? NSOrderedAscending : NSOrderedDescending; // impossible to have same sequence numbers, file names would be identical
@@ -703,7 +703,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     
     // now that its sorted, iterate backwards and set the lastInGroupForName flag for the last post for each name
     NSMutableSet *encounteredNames = [NSMutableSet set];
-    for (TOAppGroupNotificationPost *post in postResults.reverseObjectEnumerator) {
+    for (PANAppGroupNotificationPost *post in postResults.reverseObjectEnumerator) {
         if (![encounteredNames containsObject:post.name]) {
             post.lastInGroupForName = YES;
             [encounteredNames addObject:post.name];
@@ -798,14 +798,14 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 
 #pragma mark - Darwin notifications
 
-- (void)subscribeAppGroupNotificationManager:(TOAppGroupNotificationManager *)manager toGlobalMessagesWithGroupIdentifier:(NSString *)identifier
+- (void)subscribeAppGroupNotificationManager:(PANAppGroupNotificationManager *)manager toGlobalMessagesWithGroupIdentifier:(NSString *)identifier
 {
     CFNotificationCenterRef const center = CFNotificationCenterGetDarwinNotifyCenter();
     // for the darwin notifications, the identifier is used as the notification's name string
     CFNotificationCenterAddObserver(center, (__bridge const void *)(self), darwinNotificationCallback, (__bridge CFStringRef)identifier, NULL, 0);
 }
 
-- (void)unsubscribeAppGroupNotificationManager:(TOAppGroupNotificationManager *)manager fromGlobalMessagesWithGroupIdentifier:(NSString *)identifier
+- (void)unsubscribeAppGroupNotificationManager:(PANAppGroupNotificationManager *)manager fromGlobalMessagesWithGroupIdentifier:(NSString *)identifier
 {
     CFNotificationCenterRef const center = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterRemoveObserver(center, (__bridge const void *)(self), (__bridge CFStringRef)identifier, NULL);
@@ -820,7 +820,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 void darwinNotificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef identifierName, void const *object, CFDictionaryRef userInfo)
 {
     NSString *identifier = (__bridge NSString *)identifierName;
-    TOAppGroupNotificationManager *manager = (__bridge TOAppGroupNotificationManager *)observer; // is it bad form to create a local named 'self' in a C function?
+    PANAppGroupNotificationManager *manager = (__bridge PANAppGroupNotificationManager *)observer; // is it bad form to create a local named 'self' in a C function?
     [manager globalNotificationCallbackForGroupIdentifier:identifier];
 }
 
@@ -1123,7 +1123,7 @@ void darwinNotificationCallback(CFNotificationCenterRef center, void *observer, 
 @end
 
 
-@implementation TOAppGroupSubscriptionState
+@implementation PANAppGroupSubscriptionState
 @dynamic reliable;
 
 - (BOOL)isReliable {
@@ -1133,7 +1133,7 @@ void darwinNotificationCallback(CFNotificationCenterRef center, void *observer, 
 - (NSString *)description { return [NSString stringWithFormat:@"<%@: %p, %s, last#=%d, b=%p>", NSStringFromClass(self.class), self, self.reliable?"reliable":"latest-only", (int)self.lastReceivedSequenceNumber, (id)self.collatedBlock ?: (id)self.block]; }
 @end
 
-@implementation TOAppGroupNotificationPost
+@implementation PANAppGroupNotificationPost
 - (NSString *)description { return [NSString stringWithFormat:@"<%@: %p, \"%@\" #%d %@: %@>", NSStringFromClass(self.class), self, self.name, (int)self.sequenceNumber, self.date, self.payload ? [(NSObject *)self.payload description] : @"nil"]; }
 @end
 

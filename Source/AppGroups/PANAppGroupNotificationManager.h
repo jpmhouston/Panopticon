@@ -1,6 +1,6 @@
 //
-//  TOAppGroupNotificationManager.h
-//  TotalObserver
+//  PANAppGroupNotificationManager.h
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-02-23.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
@@ -16,15 +16,15 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-typedef void (^TOAppGroupSubscriberBlock)(NSString *identifier, NSString *name, id payload, NSDate *postDate);
-typedef void (^TOAppGroupReliableSubscriberBlock)(NSString *identifier, NSString *name, NSArray *postDatesAndPayloads);
+typedef void (^PANAppGroupSubscriberBlock)(NSString *identifier, NSString *name, id payload, NSDate *postDate);
+typedef void (^PANAppGroupReliableSubscriberBlock)(NSString *identifier, NSString *name, NSArray *postDatesAndPayloads);
 
-@interface TOAppGroupNotificationManager : NSObject
+@interface PANAppGroupNotificationManager : NSObject
 
 + (instancetype)sharedManager;
 
@@ -35,46 +35,46 @@ typedef void (^TOAppGroupReliableSubscriberBlock)(NSString *identifier, NSString
 
 @property (nonatomic, readonly, nullable) NSString *defaultGroupIdentifier; // the last identifier added
 
-- (BOOL)subscribeToNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(TOAppGroupSubscriberBlock)block;
+- (BOOL)subscribeToNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(PANAppGroupSubscriberBlock)block;
 - (BOOL)unsubscribeFromNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name;
 
-- (BOOL)subscribeToReliableNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(TOAppGroupReliableSubscriberBlock)block;
+- (BOOL)subscribeToReliableNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(PANAppGroupReliableSubscriberBlock)block;
 - (BOOL)unsubscribeFromReliableNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name allowingReliableResumption:(BOOL)retainState;
 
-- (BOOL)postNotificationForGroupIdentifier:(NSString *)identifier named:(NSString *)name payload:(TO_nullable id)payload;
+- (BOOL)postNotificationForGroupIdentifier:(NSString *)identifier named:(NSString *)name payload:(PAN_nullable id)payload;
 
 @end
 
 // these could go in a ..+Testing.h header, but this whole header is private anyway:
 
-@protocol TOAppGroupURLProviding;
-@protocol TOAppGroupGlobalNotificationHandling;
-@protocol TOAppGroupBundleIdProviding;
+@protocol PANAppGroupURLProviding;
+@protocol PANAppGroupGlobalNotificationHandling;
+@protocol PANAppGroupBundleIdProviding;
 
-@interface TOAppGroupNotificationManager (DependencyInjectionForTesting)
+@interface PANAppGroupNotificationManager (DependencyInjectionForTesting)
 // leave helpers set to nil to keep default behavior  !!! perhaps rename urlProvider, notificationProvider
-@property (nonatomic, TO_nullable) id<TOAppGroupURLProviding> urlHelper;
-@property (nonatomic, TO_nullable) id<TOAppGroupGlobalNotificationHandling> notificationHelper;
-@property (nonatomic, TO_nullable) id<TOAppGroupBundleIdProviding> bundleIdHelper; // not used if appIdentifier != nil
-@property (nonatomic, TO_nullable) NSString *appIdentifier;   // main bundle's id, if override to nil, must also set bundleIdHelper
+@property (nonatomic, PAN_nullable) id<PANAppGroupURLProviding> urlHelper;
+@property (nonatomic, PAN_nullable) id<PANAppGroupGlobalNotificationHandling> notificationHelper;
+@property (nonatomic, PAN_nullable) id<PANAppGroupBundleIdProviding> bundleIdHelper; // not used if appIdentifier != nil
+@property (nonatomic, PAN_nullable) NSString *appIdentifier;   // main bundle's id, if override to nil, must also set bundleIdHelper
 @property (nonatomic) BOOL permitPostsWhenNoSubscribers;      // default = NO
 @property (nonatomic) u_int32_t cleanupFrequencyRandomFactor; // 0=don't cleanup, 1=on every post, larger means less frequent
 // the notification helper calls this to deliver notification:
 - (void)globalNotificationCallbackForGroupIdentifier:(NSString *)identifer;
 @end
 
-@protocol TOAppGroupURLProviding
+@protocol PANAppGroupURLProviding
 - (NSURL *)groupURLForGroupIdentifier:(NSString *)identifier;
 @end
 
-@protocol TOAppGroupGlobalNotificationHandling
-- (void)subscribeAppGroupNotificationManager:(TOAppGroupNotificationManager *)manager toGlobalMessagesWithGroupIdentifier:(NSString *)identifier;
-- (void)unsubscribeAppGroupNotificationManager:(TOAppGroupNotificationManager *)manager fromGlobalMessagesWithGroupIdentifier:(NSString *)identifier;
+@protocol PANAppGroupGlobalNotificationHandling
+- (void)subscribeAppGroupNotificationManager:(PANAppGroupNotificationManager *)manager toGlobalMessagesWithGroupIdentifier:(NSString *)identifier;
+- (void)unsubscribeAppGroupNotificationManager:(PANAppGroupNotificationManager *)manager fromGlobalMessagesWithGroupIdentifier:(NSString *)identifier;
 - (void)postGlobalMessageWithGroupIdentifier:(NSString *)identifier;
 @end
 
-// note that TOAppGroupNotificationManager doesn't implement this protocol, test code can choose to provide
-@protocol TOAppGroupBundleIdProviding
+// note that PANAppGroupNotificationManager doesn't implement this protocol, test code can choose to provide
+@protocol PANAppGroupBundleIdProviding
 - (NSString *)bundleIdForSubscribingToGroupIdentifier:(NSString *)identifier name:(NSString *)name;
 - (NSString *)bundleIdForUnsubscribingFromGroupIdentifier:(NSString *)identifier name:(NSString *)name;
 - (NSString *)bundleIdForRemovingGroupIdentifier:(NSString *)identifier;
@@ -84,4 +84,4 @@ typedef void (^TOAppGroupReliableSubscriberBlock)(NSString *identifier, NSString
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

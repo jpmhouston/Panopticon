@@ -13,12 +13,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface NSObject (TotalObserverKVOShorthand)
+@interface NSObject (PANKeyValueShorthand)
 
 #pragma mark - Observe a key path
 
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object with options.
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object, calling its block on the given operation queue.
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object with options, calling its block on the given operation queue.
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object, calling its block on the given GCD dispatch queue.
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object with options, calling its block on the given GCD dispatch queue.
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -159,7 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object with options.
@@ -175,7 +175,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object, calling its block on the given operation queue.
@@ -191,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given operation queue.
@@ -208,7 +208,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object, calling its block on the given CGD dispatch queue.
@@ -224,7 +224,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given CGD dispatch queue.
@@ -241,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -277,7 +277,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPath:(NSString *)keyPath withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver with options.
@@ -292,7 +292,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver, calling its block on the given operation queue.
@@ -307,7 +307,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver with options, calling its block on the given operation queue.
@@ -323,7 +323,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver, calling its block on the given GCD dispatch queue.
@@ -338,7 +338,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver with options, calling its block on the given GCD dispatch queue.
@@ -354,7 +354,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -389,7 +389,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver with options.
@@ -404,7 +404,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver, calling its block on the given operation queue.
@@ -416,7 +416,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver with options, calling its block on the given operation queue.
@@ -429,7 +429,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver, calling its block on the given GCD dispatch queue.
@@ -441,7 +441,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver with options, calling its block on the given GCD dispatch queue.
@@ -454,7 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -492,7 +492,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself with options.
@@ -507,7 +507,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself, calling its block on the given operation queue.
@@ -522,7 +522,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself with options, calling its block on the given operation queue.
@@ -535,7 +535,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself, calling its block on the given GCD dispatch queue.
@@ -550,7 +550,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself with options, calling its block on the given GCD dispatch queue.
@@ -563,7 +563,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -601,7 +601,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself with options.
@@ -613,7 +613,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself, calling its block on the given operation queue.
@@ -625,7 +625,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself with options, calling its block on the given operation queue.
@@ -638,7 +638,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself, calling its block on the given GCD dispatch queue.
@@ -650,7 +650,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself with options, calling its block on the given GCD dispatch queue.
@@ -663,7 +663,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOKVOObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -685,4 +685,4 @@ NS_ASSUME_NONNULL_BEGIN
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

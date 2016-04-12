@@ -16,18 +16,18 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-@interface TOUIControlObservation ()
+@interface PANUIControlObservation ()
 @property (nonatomic, readwrite) UIControlEvents events;
 @property (nonatomic, readwrite) id sender;
 @property (nonatomic, readwrite) UIEvent *event;
 @end
 
 
-@implementation TOUIControlObservation
+@implementation PANUIControlObservation
 
 @dynamic control;
 
-- (instancetype)initWithObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOObservationBlock)block;
+- (instancetype)initWithObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
 {
     if (!(self = [super initWithObserver:observer object:control queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initWithControl:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOAnonymousObservationBlock)block
+- (instancetype)initWithControl:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block
 {
     if (!(self = [super initWithObject:control queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -73,8 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)removeForObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events
 {
-    TOObservation *observation = [self findObservationForObserver:observer object:control matchingTest:^BOOL(TOObservation *observation) {
-        return [observation isKindOfClass:[TOUIControlObservation class]] && ((TOUIControlObservation *)observation).events == events;
+    PANObservation *observation = [self findObservationForObserver:observer object:control matchingTest:^BOOL(PANObservation *observation) {
+        return [observation isKindOfClass:[PANUIControlObservation class]] && ((PANUIControlObservation *)observation).events == events;
     }];
     if (observation != nil) {
         [observation remove];

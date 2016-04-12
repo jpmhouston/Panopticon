@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-@interface TONotificationObservation ()
+@interface PANNotificationObservation ()
 @property (nonatomic, readwrite, copy) NSString *name;
 
 @property (nonatomic, readwrite) NSNotification *notification;
@@ -25,9 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@implementation TONotificationObservation
+@implementation PANNotificationObservation
 
-- (instancetype)initWithObserver:(nullable id)observer object:(nullable id)object name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOObservationBlock)block;
+- (instancetype)initWithObserver:(nullable id)observer object:(nullable id)object name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
 {
     if (!(self = [super initWithObserver:observer object:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initWithObject:(nullable id)object name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOAnonymousObservationBlock)block;
+- (instancetype)initWithObject:(nullable id)object name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
 {
     if (!(self = [super initWithObject:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -77,8 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)removeForObserver:(nullable id)observer object:(nullable id)object name:(NSString *)name
 {
     NSParameterAssert(observer != nil || object != nil);
-    TOObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(TOObservation *observation) {
-        return [observation isKindOfClass:[TONotificationObservation class]] && [((TONotificationObservation *)observation).name isEqualToString:name];
+    PANObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *observation) {
+        return [observation isKindOfClass:[PANNotificationObservation class]] && [((PANNotificationObservation *)observation).name isEqualToString:name];
     }];
     if (observation != nil) {
         [observation remove];

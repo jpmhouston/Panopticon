@@ -1,6 +1,6 @@
 //
 //  UIControl+PANUIControl.h
-//  TotalObserver
+//  Panopticon
 //
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
@@ -11,12 +11,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface UIControl (TotalObserver)
+@interface UIControl (PANUIControl)
 
 #pragma mark - Observe touch-up-inside events
 
@@ -33,12 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observePressWithBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observePressWithBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe touch-up-inside events by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `to_observePressWithBlock:` that adds an operation queue parameter. See the description for that
+ *  Variation on `pan_observePressWithBlock:` that adds an operation queue parameter. See the description for that
  *  method.
  *
  *  @param queue The operation queue on which to call `block`.
@@ -47,12 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observePressOnQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observePressOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe touch-up-inside events by the receiver, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observePressWithBlock:` that adds a GCD dispatch queue parameter. See the description for that
+ *  Variation on `pan_observePressWithBlock:` that adds a GCD dispatch queue parameter. See the description for that
  *  method.
  *
  *  @param queue The GCD dispatch queue on which to call `block`.
@@ -61,19 +61,19 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
  *  Stop observing touch-up-inside events by the receiver.
  *
- *  Call on the same control on which you called one of the `to_observe..` methods above. Use to stop observing sometime
- *  before the control is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same control on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
+ *  before the control is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
  */
-- (BOOL)to_stopObservingForPress;
+- (BOOL)pan_stopObservingForPress;
 
 
 #pragma mark - Observe value-changed events
@@ -91,12 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observeValueWithBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observeValueWithBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe value-changed events by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `to_observeValueWithBlock:` that adds an operation queue parameter. See the description for that
+ *  Variation on `pan_observeValueWithBlock:` that adds an operation queue parameter. See the description for that
  *  method.
  *
  *  @param queue The operation queue on which to call `block`.
@@ -105,12 +105,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observeValueOnQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observeValueOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe value-changed events by the receiver, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeValueWithBlock:` that adds a GCD dispatch queue parameter. See the description for that
+ *  Variation on `pan_observeValueWithBlock:` that adds a GCD dispatch queue parameter. See the description for that
  *  method.
  *
  *  @param queue The GCD dispatch queue on which to call `block`.
@@ -119,19 +119,19 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
  *  Stop observing value-changed events by the receiver.
  *
- *  Call on the same control on which you called one of the `to_observe..` methods above. Use to stop observing sometime
- *  before the control is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same control on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
+ *  before the control is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
  */
-- (BOOL)to_stopObservingForValue;
+- (BOOL)pan_stopObservingForValue;
 
 
 #pragma mark - Observe any events
@@ -150,12 +150,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observeEvents:(UIControlEvents)events withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe any events by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `to_observeEvents:withBlock:` that adds an operation queue parameter. See the description for that
+ *  Variation on `pan_observeEvents:withBlock:` that adds an operation queue parameter. See the description for that
  *  method.
  *
  *  @param events A bitmask of the events to observe.
@@ -165,12 +165,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe any events by the receiver, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeEvents:withBlock:` that adds a GCD dispatch queue parameter. See the description for that
+ *  Variation on `pan_observeEvents:withBlock:` that adds a GCD dispatch queue parameter. See the description for that
  *  method.
  *
  *  @param events A bitmask of the events to observe.
@@ -180,26 +180,26 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TOUIControlObservation *)to_observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
  *  Stop observing artbitrary events by the receiver.
  *
- *  Call on the same control on which you called one of the `to_observe..` methods above. Use to stop observing sometime
- *  before the control is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same control on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
+ *  before the control is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @param events A bitmask of the events to stop observing. Must be equal to the bitmask passed to the corresponding
- *                `to_observe..` method.
+ *                `pan_observe..` method.
  *
  *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
  */
-- (BOOL)to_stopObservingForEvents:(UIControlEvents)events;
+- (BOOL)pan_stopObservingForEvents:(UIControlEvents)events;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

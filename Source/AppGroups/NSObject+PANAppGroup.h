@@ -11,12 +11,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface NSObject (TotalObserverAppGroup)
+@interface NSObject (PANAppGroup)
 
 #pragma mark - Observe default app group
 
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
  *  Will fail and return `nil` if a default app group has not first been setup using
- *  `+[TOAppGroupObservation registerAppGroup:]`.
+ *  `+[PANAppGroupObservation registerAppGroup:]`.
  *
  *  It is an error to observe the same name multiple times within the same app, this method will fail and return `nil`
  *  in that case as well.
@@ -40,13 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeAppGroupNotificationsNamed:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  operation queue.
  *
- *  Variation on `to_observeAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param name  The notification name to observe.
@@ -56,13 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  GCD dispatch queue.
  *
- *  Variation on `to_observeAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param name  The notification name to observe.
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
  *  Will fail and return `nil` if a default app group has not first been setup using
- *  `+[TOAppGroupObservation registerAppGroup:]`.
+ *  `+[PANAppGroupObservation registerAppGroup:]`.
  *
  *  It is an error to observe the same name multiple times within the same app, this method will fail and return `nil`
  *  in that case as well.
@@ -99,13 +99,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeReliablyAppGroupNotificationsNamed:(NSString *)name withBlock:(TOCollatedObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name withBlock:(PANCollatedObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  operation queue.
  *
- *  Variation on `to_observeReliablyAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeReliablyAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param name  The notification name to observe.
@@ -115,13 +115,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeReliablyAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOCollatedObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANCollatedObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  GCD dispatch queue.
  *
- *  Variation on `to_observeReliablyAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeReliablyAppGroupNotificationsNamed:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param name  The notification name to observe.
@@ -131,50 +131,50 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeReliablyAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOCollatedObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANCollatedObservationBlock)block;
 
 
 /**
  *  Receiver stops observing notifications on a given name within the default app group.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods. Useful if you want to stop observing
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to stop observing
  *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call either its `remove` or `removeStoppingReliableCollection` methods.
+ *  `pan_observe..` method, and call either its `remove` or `removeStoppingReliableCollection` methods.
  *
  *  For unreliable observations this is equivalent to calling `remove` on the observation. For reliable observations,
  *  this is equivalent to calling `removeStoppingReliableCollection`.
  *
- *  (Unreliable observations are ones started with a `to_observe...` method, reliable observations are ones started
- *  with a `to_observeReliably...` method.)
+ *  (Unreliable observations are ones started with a `pan_observe...` method, reliable observations are ones started
+ *  with a `pan_observeReliably...` method.)
  *
  *  @param name The notification name to stop observing.
  *
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-- (BOOL)to_stopObservingAppGroupNotificationsNamed:(NSString *)name;
+- (BOOL)pan_stopObservingAppGroupNotificationsNamed:(NSString *)name;
 
 /**
  *  Receiver stops observing notifications on a given name within the default app group. When observing again using a
- *  `to_observeReliably...` method, it will receive all the posts missed during the interval it was paused. If instead
- *  you were to call `to_stopObserving...`, then when starting to observe again, some of the intervening posts will not
+ *  `pan_observeReliably...` method, it will receive all the posts missed during the interval it was paused. If instead
+ *  you were to call `pan_stopObserving...`, then when starting to observe again, some of the intervening posts will not
  *  have been saved.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods. Useful if you want to pause observing
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to pause observing
  *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
- *  If called on a unreliable observation then this will have the same effect as `to_stopObserving...`.
+ *  If called on a unreliable observation then this will have the same effect as `pan_stopObserving...`.
  *
- *  (Unreliable observations are ones started with a `to_observe...` method, reliable observations are ones started
- *  with a `to_observeReliably...` method.)
+ *  (Unreliable observations are ones started with a `pan_observe...` method, reliable observations are ones started
+ *  with a `pan_observeReliably...` method.)
  *
  *  @param name The notification name to pause observing.
  *
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-- (BOOL)to_pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name;
+- (BOOL)pan_pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Observe specific app group
@@ -188,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
  *  Will fail and return `nil` if the given app group has not first been setup using
- *  `+[TOAppGroupObservation registerAppGroup:]`.
+ *  `+[PANAppGroupObservation registerAppGroup:]`.
  *
  *  It is an error to observe the same name multiple times within the same app, this method will fail and return `nil`
  *  in that case as well.
@@ -200,13 +200,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  operation queue.
  *
- *  Variation on `to_observeNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param groupIdentifier The app group identifier in which to observe.
@@ -217,13 +217,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  GCD dispatch queue.
  *
- *  Variation on `to_observeNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param groupIdentifier The app group identifier in which to observe.
@@ -234,7 +234,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -248,7 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
  *  Will fail and return `nil` if the given app group has not first been setup using
- *  `+[TOAppGroupObservation registerAppGroup:]`.
+ *  `+[PANAppGroupObservation registerAppGroup:]`.
  *
  *  It is an error to observe the same name multiple times within the same app, this method will fail and return `nil`
  *  in that case as well.
@@ -262,13 +262,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(TOCollatedObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANCollatedObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  operation queue.
  *
- *  Variation on `to_observeReliablyNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeReliablyNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param groupIdentifier The app group identifier in which to observe.
@@ -279,13 +279,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOCollatedObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANCollatedObservationBlock)block;
 
 /**
  *  Receiver observes notifications on a given name within the default app group, calling its block on the given
  *  GCD dispatch queue.
  *
- *  Variation on `to_observeReliablyNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
+ *  Variation on `pan_observeReliablyNotificationsForAppGroup:named:withBlock:` that adds an operation queue parameter. See the
  *  description for that method.
  *
  *  @param groupIdentifier The app group identifier in which to observe.
@@ -296,21 +296,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
-- (TO_nullable TOAppGroupObservation *)to_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOCollatedObservationBlock)block;
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANCollatedObservationBlock)block;
 
 
 /**
  *  Receiver stops observing notifications on a given name within the given app group.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods. Useful if you want to stop observing
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to stop observing
  *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call either its `remove` or `removeStoppingReliableCollection` methods.
+ *  `pan_observe..` method, and call either its `remove` or `removeStoppingReliableCollection` methods.
  *
  *  For unreliable observations this is equivalent to calling `remove` on the observation. For reliable observations,
  *  this is equivalent to calling its `removeStoppingReliableCollection` method.
  *
- *  (Unreliable observations are ones started with a `to_observe...` method, reliable observations are ones started
- *  with a `to_observeReliably...` method.)
+ *  (Unreliable observations are ones started with a `pan_observe...` method, reliable observations are ones started
+ *  with a `pan_observeReliably...` method.)
  *
  *  @param groupIdentifier The app group identifier in which `name` was being observed.
  *  @param name            The notification name to stop observing.
@@ -318,29 +318,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-- (BOOL)to_stopObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_stopObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 
 /**
  *  Receiver stops observing notifications on a given name within the given app group. When observing again using a
- *  `to_observeReliably...` method, it will receive all the posts missed during the interval it was paused. If instead
- *  you were to call `to_stopObserving...`, then when starting to observe again, some of the intervening posts will not
+ *  `pan_observeReliably...` method, it will receive all the posts missed during the interval it was paused. If instead
+ *  you were to call `pan_stopObserving...`, then when starting to observe again, some of the intervening posts will not
  *  have been saved.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods. Useful if you want to pause observing
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to pause observing
  *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `to_observe..` method, and call its `remove` method.
+ *  `pan_observe..` method, and call its `remove` method.
  *
- *  If called on a unreliable observation then this will have the same effect as `to_stopObserving...`.
+ *  If called on a unreliable observation then this will have the same effect as `pan_stopObserving...`.
  *
- *  (Unreliable observations are ones started with a `to_observe...` method, reliable observations are ones started
- *  with a `to_observeReliably...` method.)
+ *  (Unreliable observations are ones started with a `pan_observe...` method, reliable observations are ones started
+ *  with a `pan_observeReliably...` method.)
  *
  *  @param name The notification name to pause observing.
  *
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-- (BOOL)to_pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 
 @end
 
@@ -351,25 +351,25 @@ NS_ASSUME_NONNULL_BEGIN
 // are plist compatible.
 // TODO: consider supporting NSCoding instead, or also, to permit more kinds of payload objects
 
-@interface NSData (TotalObserverAppGroup)
+@interface NSData (PANAppGroup)
 /**
  *  Post notification to the default app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param name The notification name to post.
  *
  *  @return `YES` if a default app group was registered and notification was successfully posted, `NO` there's no
  *          default app group or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinAppGroupNotificationNamed:(NSString *)name;
+- (BOOL)pan_postWithinAppGroupNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification to the given app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param groupIdentifier The app group identifier.
  *  @param name            The notification name to post.
@@ -377,29 +377,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group has been registered and notification was successfully posted, `NO` if the
  *          app group has not been registered or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 @end
 
 
-@interface NSString (TotalObserverAppGroup)
+@interface NSString (PANAppGroup)
 /**
  *  Post notification to the default app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param name The notification name to post.
  *
  *  @return `YES` if a default app group was registered and notification was successfully posted, `NO` there's no
  *          default app group or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinAppGroupNotificationNamed:(NSString *)name;
+- (BOOL)pan_postWithinAppGroupNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification to the given app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param groupIdentifier The app group identifier.
  *  @param name            The notification name to post.
@@ -407,29 +407,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group has been registered and notification was successfully posted, `NO` if the
  *          app group has not been registered or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 @end
 
 
-@interface NSArray (TotalObserverAppGroup)
+@interface NSArray (PANAppGroup)
 /**
  *  Post notification to the default app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param name The notification name to post.
  *
  *  @return `YES` if a default app group was registered and notification was successfully posted, `NO` there's no
  *          default app group or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinAppGroupNotificationNamed:(NSString *)name;
+- (BOOL)pan_postWithinAppGroupNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification to the given app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param groupIdentifier The app group identifier.
  *  @param name            The notification name to post.
@@ -437,29 +437,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group has been registered and notification was successfully posted, `NO` if the
  *          app group has not been registered or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 @end
 
 
-@interface NSDictionary (TotalObserverAppGroup)
+@interface NSDictionary (PANAppGroup)
 /**
  *  Post notification to the default app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param name The notification name to post.
  *
  *  @return `YES` if a default app group was registered and notification was successfully posted, `NO` there's no
  *          default app group or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinAppGroupNotificationNamed:(NSString *)name;
+- (BOOL)pan_postWithinAppGroupNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification to the given app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param groupIdentifier The app group identifier.
  *  @param name            The notification name to post.
@@ -467,29 +467,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group has been registered and notification was successfully posted, `NO` if the
  *          app group has not been registered or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 @end
 
 
-@interface NSDate (TotalObserverAppGroup)
+@interface NSDate (PANAppGroup)
 /**
  *  Post notification to the default app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param name The notification name to post.
  *
  *  @return `YES` if a default app group was registered and notification was successfully posted, `NO` there's no
  *          default app group or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinAppGroupNotificationNamed:(NSString *)name;
+- (BOOL)pan_postWithinAppGroupNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification to the given app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param groupIdentifier The app group identifier.
  *  @param name            The notification name to post.
@@ -497,29 +497,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group has been registered and notification was successfully posted, `NO` if the
  *          app group has not been registered or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 @end
 
 
-@interface NSNumber (TotalObserverAppGroup)
+@interface NSNumber (PANAppGroup)
 /**
  *  Post notification to the default app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param name The notification name to post.
  *
  *  @return `YES` if a default app group was registered and notification was successfully posted, `NO` there's no
  *          default app group or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinAppGroupNotificationNamed:(NSString *)name;
+- (BOOL)pan_postWithinAppGroupNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification to the given app group with given name with the receiver as the payload.
  *
- *  To post without a payload, instead use +[TOAppGroupObservation postNotificationNamed:payload:] or
- *  +[TOAppGroupObservation postNotificationForAppGroup:named:payload:]
+ *  To post without a payload, instead use +[PANAppGroupObservation postNotificationNamed:payload:] or
+ *  +[PANAppGroupObservation postNotificationForAppGroup:named:payload:]
  *
  *  @param groupIdentifier The app group identifier.
  *  @param name            The notification name to post.
@@ -527,10 +527,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the given app group has been registered and notification was successfully posted, `NO` if the
  *          app group has not been registered or the receiver was unable to be serialized.
  */
-- (BOOL)to_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_postWithinNotificationToAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

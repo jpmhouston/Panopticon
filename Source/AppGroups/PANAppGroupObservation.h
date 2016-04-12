@@ -10,9 +10,9 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
 /**
@@ -25,20 +25,20 @@ NS_ASSUME_NONNULL_BEGIN
  *                      overall observation. Any of these copies will forward the `remove` method call to the
  *                      original observer instance.
  */
-typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
+typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
 
 
 /**
  *  A base class for App Group Notification observation objects.
  *
- *  An object of this class is returned from each `PANAppGroup` `to_observe...` method. This result can be
- *  saved for explcitly calling the `remove` method later (see base class `TOObservation`), but that often isn't
- *  necessary since the `to_stopObserving...` methods can be used instead which look-up the matching observation.
+ *  An object of this class is returned from each `PANAppGroup` `pan_observe...` method. This result can be
+ *  saved for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't
+ *  necessary since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
  *
  *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
  *  the name, payload, and a timestamp when the notification was posted.
  */
-@interface TOAppGroupObservation : TOObservation
+@interface PANAppGroupObservation : PANObservation
 
 /**
  *  The notification name being observed.
@@ -54,7 +54,7 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
 /**
  *  Payload object from a posted app group notification. Value undefined except within call to an observation block.
  */
-@property (nonatomic, readonly, TO_nullable) id payload;
+@property (nonatomic, readonly, PAN_nullable) id payload;
 
 /**
  *  Group identifier from a posted app group notification. Value undefined except within call to an observation block.
@@ -75,13 +75,13 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
  *
  *  When this property is not `nil`, should never reference `objectBlock` as its value will be undefined.
  */
-@property (nonatomic, readonly, copy, TO_nullable) TOCollatedObservationBlock collatedBlock;
+@property (nonatomic, readonly, copy, PAN_nullable) PANCollatedObservationBlock collatedBlock;
 
 /**
- *  If this instance is a copy observation passed in the `observations` parameter to a `TOCollatedObservationBlock`
+ *  If this instance is a copy observation passed in the `observations` parameter to a `PANCollatedObservationBlock`
  *  then this is a reference to the original.
  */
-@property (nonatomic, readonly, weak, TO_nullable) TOAppGroupObservation *originalObservation;
+@property (nonatomic, readonly, weak, PAN_nullable) PANAppGroupObservation *originalObservation;
 
 
 /**
@@ -98,7 +98,7 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
 
 /**
  *  Register an app group to observe. Currently this is require to be called before creating any observations.
- *  (Future versions of TotalObserver may locate all app group identifiers in the entitlements for your app,
+ *  (Future versions of Panopticon may locate all app group identifiers in the entitlements for your app,
  *  or maybe that's impossible, I haven't checked)
  *
  *  @param groupIdentifier The identifier string for your app group.
@@ -121,7 +121,7 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
 
 /**
  *  Post a notification to all apps observing on the given name within the default app group. You may use this
- *  class method instead of a category method `to_postWithinAppGroupNotificationNamed` on the payload object.
+ *  class method instead of a category method `pan_postWithinAppGroupNotificationNamed` on the payload object.
  *  But if your payload is `nil` then you must use this method.
  *
  *  Currently, you cannot use CFNotificationCenterPostNotification directly, if you do, the notification will not
@@ -135,11 +135,11 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
  *  @return `YES` if no default app group is registered, the payload was written to the shared directory, and the
  *          darwin notification was succesfully posted, `NO` otherwise.
  */
-+ (BOOL)postNotificationNamed:(NSString *)name payload:(TO_nullable id)payload;
++ (BOOL)postNotificationNamed:(NSString *)name payload:(PAN_nullable id)payload;
 
 /**
  *  Post a notification to all apps observing on the given name within the given default app group. You may use
- *  this class method instead of a category method `to_postWithinAppGroupNotificationNamed` on the payload object.
+ *  this class method instead of a category method `pan_postWithinAppGroupNotificationNamed` on the payload object.
  *  But if your payload is `nil` then you must use this method.
  *
  *  Currently, you cannot use CFNotificationCenterPostNotification directly, if you do, the notification will not
@@ -154,19 +154,19 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
  *  @return `YES` if the app group is not registered, the payload was written to the shared directory, and the
  *          darwin notification was succesfully posted, `NO` otherwise.
  */
-+ (BOOL)postNotificationForAppGroup:(NSString *)groupIdentifier named:(NSString *)name payload:(TO_nullable id)payload;
++ (BOOL)postNotificationForAppGroup:(NSString *)groupIdentifier named:(NSString *)name payload:(PAN_nullable id)payload;
 
 
 /**
  *  Remove an observer with matching parameters. Can use this class method to look-up a previously registered
- *  observation and remove it, although usually more convenient to use the 'to_stopObserving' methods, or save the
- *  observation object and call `remove` on it. (see base class `TOObservation`)
+ *  observation and remove it, although usually more convenient to use the 'pan_stopObserving' methods, or save the
+ *  observation object and call `remove` on it. (see base class `PANObservation`)
  *
  *  Calling this, or the `remove` method directly, on a reliable observation will leave state behind so that
  *  starting a reliable observation again later will receive all the posts missed during the interval inbetween.
  *
  *  On finding the first matching observation, its `remove` method is called before returning. (see base class
- *  `TOObservation`)
+ *  `PANObservation`)
  *
  *  @param observer   The observer object.
  *  @param identifier The app group identifier used when creating the observation, if `nil` then default app group
@@ -175,13 +175,13 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
  *
  *  @return `YES` if matching observation was found, `NO` if it was not found.
  */
-+ (BOOL)removeForObserver:(id)observer groupIdentifier:(TO_nullable NSString *)identifier name:(NSString *)name;
++ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name;
 
 /**
  *  Remove an observer with matching parameters. Can use this class method to look-up a previously registered
- *  observation and remove it, although usually more convenient to use the 'to_stopObserving' methods, or save the
+ *  observation and remove it, although usually more convenient to use the 'pan_stopObserving' methods, or save the
  *  observation object and call either `remove` or `removeStoppingReliableCollection` on it. (see base class
- *  `TOObservation`)
+ *  `PANObservation`)
  *
  *  Calling this on a reliable observation you can choose whether you want to stop collecting posts, or to leave
  *  state behind so that starting a reliable observation again later will receive all the posts missed during the
@@ -190,7 +190,7 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
  *  the observation object.
  *
  *  On finding the first matching observation, its `remove` method is called before returning. (see base class
- *  `TOObservation`)
+ *  `PANObservation`)
  *
  *  @param observer    The observer object.
  *  @param identifier  The app group identifier used when creating the observation, if `nil` then default app group
@@ -201,11 +201,11 @@ typedef void (^TOCollatedObservationBlock)(id obj, NSArray *observations);
  *
  *  @return `YES` if matching observation was found, `NO` if it was not found.
  */
-+ (BOOL)removeForObserver:(id)observer groupIdentifier:(TO_nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState;
++ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

@@ -13,12 +13,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@class TOObservation;
+@class PANObservation;
 
 /**
  *  A block called when an observation is triggered, if that observation has a observing object.
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param observation The triggered observation object. Details about the observation that was triggered,
  *                     plus any payload or associated metadata will be properties of this object.
  */
-typedef void (^TOObservationBlock)(id obj, TOObservation *observation);
+typedef void (^PANObservationBlock)(id obj, PANObservation *observation);
 
 /**
  *  A block called when an observation is triggered, if that observation has *no* observing object.
@@ -35,7 +35,7 @@ typedef void (^TOObservationBlock)(id obj, TOObservation *observation);
  *  @param observation The triggered observation object. Details about what triggered the observation and
  *                     any payload or associated metadata will be properties of this object.
  */
-typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
+typedef void (^PANAnonymousObservationBlock)(PANObservation *observation);
 
 
 #pragma mark -
@@ -43,15 +43,15 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
 /**
  *  A base class for observation objects.
  *
- *  A subclass of this is returned from each `to_observe...` method. This result can be saved for explcitly calling
- *  the `remove` method later, but that often isn't necessary since the `to_stopObserving...` methods can be used
+ *  A subclass of this is returned from each `pan_observe...` method. This result can be saved for explcitly calling
+ *  the `remove` method later, but that often isn't necessary since the `pan_stopObserving...` methods can be used
  *  instead which look-up the matching observation.
  *
  *  The observation object is more often used when it's passed as a parameter to the observation block, subclasses
  *  define properties which provide details about what observation was triggered, plus any payload or associated
  *  metadata.
  */
-@interface TOObservation : NSObject
+@interface PANObservation : NSObject
 
 /**
  *  The object doing the observing which was provided when the observation was created, when applicable.
@@ -60,7 +60,7 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
  *  If `removeAutomatically` property is not `NO` and `observer` is not `nil`, then when that object is deallocated,
  *  this observation will automatically be removed and released.
  */
-@property (nonatomic, readonly, weak, TO_nullable) id observer;
+@property (nonatomic, readonly, weak, PAN_nullable) id observer;
 
 /**
  *  Object being observed, a.k.a. the observee which was provided when the observation was created, when applicable.
@@ -71,7 +71,7 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
  *
  *  Never is both this and `observer` allowed to be nil.
  */
-@property (nonatomic, readonly, weak, TO_nullable) id object;
+@property (nonatomic, readonly, weak, PAN_nullable) id object;
 
 /**
  *  The `NSOperationQueue` that was provided when the observation was created, on which the block will be executed
@@ -79,7 +79,7 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
  *
  *  If both this and `gcdQueue` are `nil`, then the queue and thread the block is executed on is undefined.
  */
-@property (nonatomic, readonly, TO_nullable) NSOperationQueue *queue;
+@property (nonatomic, readonly, PAN_nullable) NSOperationQueue *queue;
 
 /**
  *  The GCD queue that was provided when the observation was created, on which the block will be executed when the
@@ -87,7 +87,7 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
  *
  *  If both this and `queue` are nil, then the queue and thread the block is executed on is undefined.
  */
-@property (nonatomic, readonly, TO_nullable) dispatch_queue_t gcdQueue;
+@property (nonatomic, readonly, PAN_nullable) dispatch_queue_t gcdQueue;
 
 /**
  *  The block provided when the observation was created, which will be executed when the observation is triggered.
@@ -97,7 +97,7 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
  *
  *  Between this and `block`, one will always be nil, the other not.
  */
-@property (nonatomic, readonly, copy, TO_nullable) TOObservationBlock objectBlock;
+@property (nonatomic, readonly, copy, PAN_nullable) PANObservationBlock objectBlock;
 
 /**
  *  The anonymous block provided when the observation was created, which will be executed when the observation is
@@ -108,7 +108,7 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
  *
  *  Between this and `objectBlock`, one will always be nil, the other not.
  */
-@property (nonatomic, readonly, copy, TO_nullable) TOAnonymousObservationBlock anonymousBlock;
+@property (nonatomic, readonly, copy, PAN_nullable) PANAnonymousObservationBlock anonymousBlock;
 
 /**
  *  Whether the observation is still active. (read-only)
@@ -147,4 +147,4 @@ typedef void (^TOAnonymousObservationBlock)(TOObservation *observation);
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

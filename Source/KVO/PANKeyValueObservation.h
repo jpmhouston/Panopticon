@@ -10,22 +10,22 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
 /**
  *  A base class for KVO observation objects.
  *
- *  An object of this class is returned from each `PANKeyValue` `to_observe...` method. This result can be saved
- *  for explcitly calling the `remove` method later (see base class `TOObservation`), but that often isn't necessary
- *  since the `to_stopObserving...` methods can be used instead which look-up the matching observation.
+ *  An object of this class is returned from each `PANKeyValue` `pan_observe...` method. This result can be saved
+ *  for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't necessary
+ *  since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
  *
  *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
  *  the key path, change kind, the change dictionary, or its specific values directly such as old and changed values.
  */
-@interface TOKVOObservation : TOObservation
+@interface PANKeyValueObservation : PANObservation
 
 /**
  *  An array of the key paths being observed.
@@ -64,28 +64,28 @@ NS_ASSUME_NONNULL_BEGIN
  *  The changed value of a KVO observation. Value undefined except within call to an observation block. A shortcut
  *  for `changeDict[NSKeyValueChangeNewKey]`.
  */
-@property (nonatomic, readonly, TO_nullable) id changedValue;
+@property (nonatomic, readonly, PAN_nullable) id changedValue;
 
 /**
  *  The old value of a KVO observation. Value undefined except within call to an observation block. A shortcut
  *  for `changeDict[NSKeyValueChangeOldKey]`.
  */
-@property (nonatomic, readonly, TO_nullable) id oldValue;
+@property (nonatomic, readonly, PAN_nullable) id oldValue;
 
 /**
  *  The indexes of a KVO observation. Value undefined except within call to an observation block. A shortcut
  *  for `changeDict[NSKeyValueChangeIndexesKey]`.
  */
-@property (nonatomic, readonly, TO_nullable) NSIndexSet *indexes;
+@property (nonatomic, readonly, PAN_nullable) NSIndexSet *indexes;
 
 
 /**
  *  Remove an observer with matching parameters. Can use this class method to look-up a previously registered
- *  observation and remove it, although usually more convenient to use the 'to_stopObserving' methods, or save the
- *  observation object and call `remove` on it. (see base class `TOObservation`)
+ *  observation and remove it, although usually more convenient to use the 'pan_stopObserving' methods, or save the
+ *  observation object and call `remove` on it. (see base class `PANObservation`)
  *
  *  On finding the first matching observation, its `remove` method is called before returning. (see base class
- *  `TOObservation`)
+ *  `PANObservation`)
  *
  *  @param observer The observer object, or `nil` if not applicable.
  *  @param object   The object being observed.
@@ -93,11 +93,11 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return `YES` if matching observation was found, `NO` if it was not found.
  */
-+ (BOOL)removeForObserver:(TO_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths;
++ (BOOL)removeForObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

@@ -13,12 +13,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface NSObject (TotalObserverNotificationsShorthand)
+@interface NSObject (PANNotificationShorthand)
 
 #pragma mark - Observe notifications from object
 
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeForNotifications:(id)object named:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeForNotifications:(id)object named:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by a given object, calling its block on the given operation
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeForNotifications:(id)object named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeForNotifications:(id)object named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by a given object, calling its block on the given GCD
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeAllNotificationsNamed:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeAllNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by any observer, calling its block on the given operation queue.
@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeAllNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeAllNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by any observer, calling its block on the given GCD dispatch
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -172,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeNotificationsNamed:(NSString *)name withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeNotificationsNamed:(NSString *)name withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe notifications posted with given name by the receiver, calling its block on the given operation queue.
@@ -187,7 +187,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe notifications posted with given name by the receiver, calling its block on the given GCD dispatch queue.
@@ -202,7 +202,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -238,7 +238,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeOwnNotificationsNamed:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeOwnNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications it posts with given name, calling its block on the given operation queue.
@@ -253,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications it posts with given name, calling its block on the given GCD dispatch queue.
@@ -268,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -300,11 +300,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param name     The notification name to post.
  *  @param userInfo The user info dictionary to include.
  */
-- (void)postNotificationNamed:(NSString *)name userInfo:(TO_nullable NSDictionary *)userInfo;
+- (void)postNotificationNamed:(NSString *)name userInfo:(PAN_nullable NSDictionary *)userInfo;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

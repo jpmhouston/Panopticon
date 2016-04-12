@@ -17,11 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 #define nullable
 #endif
 
-@interface TOAppGroupObservation () <NSCopying>
+@interface PANAppGroupObservation () <NSCopying>
 @property (nonatomic, readwrite) NSString *name;
 @property (nonatomic, readwrite, nullable) id payload;
 
-@property (nonatomic, readwrite, weak, nullable) TOAppGroupObservation *originalObservation;
+@property (nonatomic, readwrite, weak, nullable) PANAppGroupObservation *originalObservation;
 
 @property (nonatomic, readwrite) NSString *groupIdentifier;
 @property (nonatomic, readwrite) NSDate *postedDate;
@@ -29,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL retainStateOnRemoval;
 @end
 
-@implementation TOAppGroupObservation
+@implementation PANAppGroupObservation
 
 @dynamic reliable;
 
-- (instancetype)initWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue orGCDQueue:(nullable dispatch_queue_t)gcdQueue withBlock:(TOObservationBlock)block
+- (instancetype)initWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue orGCDQueue:(nullable dispatch_queue_t)gcdQueue withBlock:(PANObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:nil queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initForReliableDeliveryWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(TOCollatedObservationBlock)block
+- (instancetype)initForReliableDeliveryWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANCollatedObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:nil queue:queue gcdQueue:gcdQueue block:nil]))
         return nil;
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
     // since not publically confirming to NSCopying, don't expect user code trying to make copies of copies
     NSAssert1(self.originalObservation == nil, @"Attempted copy of copy of %@", self.originalObservation);
     
-    TOAppGroupObservation *copy = [[[self class] alloc] initWithObserver:self.observer object:nil queue:self.queue gcdQueue:self.gcdQueue block:nil];
+    PANAppGroupObservation *copy = [[[self class] alloc] initWithObserver:self.observer object:nil queue:self.queue gcdQueue:self.gcdQueue block:nil];
     if (!copy)
         return nil;
     copy.name = self.name;
@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert1(self.name != nil, @"Nil 'name' property when registering observation for %@", self);
     NSAssert1(self.name.length > 0, @"Empty 'name' string when registering observation for %@", self);
     
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     NSString *groupIdentifier = self.groupIdentifier;
     if (groupIdentifier == nil) {
         groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
             id lastPayload = nil;
             NSDate *lateDate = nil;
             for (NSArray *postDateAndPayload in postDatesAndPayloads) {
-                TOAppGroupObservation *observationCopy = self.copy;
+                PANAppGroupObservation *observationCopy = self.copy;
                 observationCopy.payload = (postDateAndPayload.count > 1 ? postDateAndPayload[1] : nil);
                 observationCopy.postedDate = postDateAndPayload.firstObject;
                 observationCopy.groupIdentifier = groupIdentifier;
@@ -165,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert1(self.name != nil, @"Nil 'name' property when deregistering observation for %@", self);
     NSAssert1(self.name.length > 0, @"Empty 'name' string when deregistering observation for %@", self);
     
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     NSString *groupIdentifier = self.groupIdentifier;
     if (groupIdentifier == nil) {
         groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
@@ -199,18 +199,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)removeForObserver:(id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name updatingRetainStateMode:(nullable BOOL *)inRetainState
 {
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     NSString *groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
     if (groupIdentifier == nil) {
         return NO;
     }
     
-    TOAppGroupObservation *observation = (TOAppGroupObservation *)[self findObservationForObserver:observer object:nil matchingTest:^BOOL(TOObservation *observation) {
-        TOAppGroupObservation *groupObservation = (TOAppGroupObservation *)observation;
-        return [observation isKindOfClass:[TOAppGroupObservation class]] && [name isEqualToString:groupObservation.name] && [groupIdentifier isEqualToString:groupObservation.groupIdentifier];
+    PANAppGroupObservation *observation = (PANAppGroupObservation *)[self findObservationForObserver:observer object:nil matchingTest:^BOOL(PANObservation *observation) {
+        PANAppGroupObservation *groupObservation = (PANAppGroupObservation *)observation;
+        return [observation isKindOfClass:[PANAppGroupObservation class]] && [name isEqualToString:groupObservation.name] && [groupIdentifier isEqualToString:groupObservation.groupIdentifier];
     }];
     if (observation != nil) {
-        NSAssert([observation isKindOfClass:[TOAppGroupObservation class]], @"");
+        NSAssert([observation isKindOfClass:[PANAppGroupObservation class]], @"");
         if (inRetainState != nil && observation.reliable) {
             observation.retainStateOnRemoval = *inRetainState;
         }
@@ -222,7 +222,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)postNotificationNamed:(NSString *)name payload:(nullable id)payload
 {
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     NSString *groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
     if (groupIdentifier == nil) {
         return NO;
@@ -233,13 +233,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)postNotificationForAppGroup:(NSString *)groupIdentifier named:(NSString *)name payload:(nullable id)payload
 {
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     return [appGroupNotificationManager postNotificationForGroupIdentifier:groupIdentifier named:name payload:payload];
 }
 
 + (BOOL)registerAppGroup:(NSString *)groupIdentifier
 {
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     if (![appGroupNotificationManager isValidGroupIdentifier:groupIdentifier]) {
         return NO;
     }
@@ -249,7 +249,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)deregisterAppGroup:(NSString *)groupIdentifier
 {
-    TOAppGroupNotificationManager *appGroupNotificationManager = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     [appGroupNotificationManager removeGroupIdentifier:groupIdentifier];
 }
 

@@ -11,12 +11,12 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface NSObject (TotalObserverNotifications)
+@interface NSObject (PANNotification)
 
 #pragma mark - Observe notifications from object
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observation will automatically be stopped when either the receiver or the object is deallocated.
  *
- *  If `object` is the same as the receiver, then instead use `to_observeOwnNotificationsNamed:withBlock:`.
+ *  If `object` is the same as the receiver, then instead use `pan_observeOwnNotificationsNamed:withBlock:`.
  *
  *  @param object The object to observe.
  *  @param name   The notification name to observe.
@@ -37,13 +37,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeForNotifications:(id)object named:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by a given object, calling its block on the given operation
  *  queue.
  *
- *  Variation on `to_observeForNotifications:named:withBlock:` that adds a operation queue parameter. See the description
+ *  Variation on `pan_observeForNotifications:named:withBlock:` that adds a operation queue parameter. See the description
  *  for that method.
  *
  *  @param object The object to observe.
@@ -54,13 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeForNotifications:(id)object named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by a given object, calling its block on the given GCD
  *  dispatch queue.
  *
- *  Variation on `to_observeForNotifications:named:withBlock:` that adds a GCD dispatch queue parameter. See the description
+ *  Variation on `pan_observeForNotifications:named:withBlock:` that adds a GCD dispatch queue parameter. See the description
  *  for that method.
  *
  *  @param object The object to observe.
@@ -71,22 +71,22 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing notifications posted with given name by a given object.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods above. Use to stop observing sometime
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
  *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from
- *  the `to_observe..` method, and call its `remove` method.
+ *  the `pan_observe..` method, and call its `remove` method.
  *
  *  @param object The object to stop observing.
  *  @param name   The notification name to stop observing.
  *
  *  @return `YES` if the receiver was previously observing notifications named `name` by `object`, `NO` otherwise.
  */
-- (BOOL)to_stopObservingForNotifications:(id)object named:(NSString *)name;
+- (BOOL)pan_stopObservingForNotifications:(id)object named:(NSString *)name;
 
 
 #pragma mark - Observe notifications from any object
@@ -105,12 +105,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeAllNotificationsNamed:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by any observer, calling its block on the given operation queue.
  *
- *  Variation on `to_observeAllNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
+ *  Variation on `pan_observeAllNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
  *  for that method.
  *
  *  @param name  The notification name to observe.
@@ -120,13 +120,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeAllNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by any observer, calling its block on the given GCD dispatch
  *  queue.
  *
- *  Variation on `to_observeAllNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
+ *  Variation on `pan_observeAllNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
  *  for that method.
  *
  *  @param name  The notification name to observe.
@@ -136,21 +136,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing notifications posted with given name by a given object.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods above. Use to stop observing sometime
- *  before the receiver is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
+ *  before the receiver is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @param name The notification name to stop observing.
  *
  *  @return `YES` if the receiver was previously observing notifications named `name` by any object, `NO` otherwise.
  */
-- (BOOL)to_stopObservingAllNotificationsNamed:(NSString *)name;
+- (BOOL)pan_stopObservingAllNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Anonymously observe notifications from object
@@ -170,12 +170,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeNotificationsNamed:(NSString *)name withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe notifications posted with given name by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `to_observeNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
+ *  Variation on `pan_observeNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
  *  for that method.
  *
  *  @param name  The notification name to observe.
@@ -185,12 +185,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe notifications posted with given name by the receiver, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
+ *  Variation on `pan_observeNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
  *  for that method.
  *
  *  @param name  The notification name to observe.
@@ -200,21 +200,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
  *  Stops observing notifications posted with given name by the receiver.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods above. Use to stop observing sometime
- *  before the receiver is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
+ *  before the receiver is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @param name The notification name to stop observing.
  *
  *  @return `YES` if was previously observing notifications named `name` by the receiver, `NO` otherwise.
  */
-- (BOOL)to_stopObservingNotificationsNamed:(NSString *)name;
+- (BOOL)pan_stopObservingNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Have receiver observe notifications from itself
@@ -227,7 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observation will automatically be stopped when either the receiver is deallocated.
  *
- *  Use instead of `-[self to_observeNotificationsNamed:withBlock:]` when you want the receiver passed as parameter to
+ *  Use instead of `-[self pan_observeNotificationsNamed:withBlock:]` when you want the receiver passed as parameter to
  *  the block, or when you want to make extra clear that the object is intentionally observing itself.
  *
  *  @param name  The notification name to observe.
@@ -236,12 +236,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeOwnNotificationsNamed:(NSString *)name withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications it posts with given name, calling its block on the given operation queue.
  *
- *  Variation on `to_observeOwnNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
+ *  Variation on `pan_observeOwnNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
  *  for that method.
  *
  *  @param name  The notification name to observe.
@@ -251,12 +251,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications it posts with given name, calling its block on the given GCD dispatch queue.
  *
- *  Variation on `to_observeOwnNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
+ *  Variation on `pan_observeOwnNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
  *  for that method.
  *
  *  @param name  The notification name to observe.
@@ -266,21 +266,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (TO_nullable TONotificationObservation *)to_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(TOObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
  *  Receiver stops observing notifications it posts with given name.
  *
- *  Call on the same object on which you called one of the `to_observe..` methods above. Use to stop observing sometime
- *  before the receiver is deallocated. Alternately, can save the observation object returned from the `to_observe..`
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
+ *  before the receiver is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
  *  method, and call its `remove` method.
  *
  *  @param name The notification name to stop observing.
  *
  *  @return `YES` if was receiver previously observing notifications named `name` by itself, `NO` otherwise.
  */
-- (BOOL)to_stopObservingOwnNotificationsNamed:(NSString *)name;
+- (BOOL)pan_stopObservingOwnNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Convenince posting methods
@@ -290,7 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param name The notification name to post.
  */
-- (void)to_postNotificationNamed:(NSString *)name;
+- (void)pan_postNotificationNamed:(NSString *)name;
 
 /**
  *  Post notification with a given name by the receiver, with the given user info dictionary.
@@ -298,11 +298,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param name     The notification name to post.
  *  @param userInfo The user info dictionary to include.
  */
-- (void)to_postNotificationNamed:(NSString *)name userInfo:(TO_nullable NSDictionary *)userInfo;
+- (void)pan_postNotificationNamed:(NSString *)name userInfo:(PAN_nullable NSDictionary *)userInfo;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

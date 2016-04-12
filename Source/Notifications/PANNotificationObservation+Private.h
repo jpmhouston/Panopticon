@@ -10,22 +10,22 @@
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_BEGIN
-#define TO_nullable nullable
+#define PAN_nullable nullable
 #else
-#define TO_nullable
+#define PAN_nullable
 #endif
 
-@interface TONotificationObservation (Private)
+@interface PANNotificationObservation (Private)
 
-- (instancetype)initWithObserver:(TO_nullable id)observer object:(TO_nullable id)object name:(NSString *)name queue:(TO_nullable NSOperationQueue *)queue gcdQueue:(TO_nullable dispatch_queue_t)gcdQueue block:(TOObservationBlock)block;
-- (instancetype)initWithObject:(TO_nullable id)object name:(NSString *)name queue:(TO_nullable NSOperationQueue *)queue gcdQueue:(TO_nullable dispatch_queue_t)gcdQueue block:(TOAnonymousObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
+- (instancetype)initWithObject:(PAN_nullable id)object name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
 
 // TODO: consider making this private too
-//+ (BOOL)removeForObserver:(TO_nullable id)observer object:(TO_nullable id)object name:(NSString *)name;
+//+ (BOOL)removeForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name;
 
 @end
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
 #endif
-#undef TO_nullable
+#undef PAN_nullable

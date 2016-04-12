@@ -1,5 +1,5 @@
 //
-//  TOObservation+Shorthand.h
+//  PANObservation+Shorthand.h
 //  Panopticon
 //
 //  Created by Pierre Houston on 2015-11-04.
@@ -8,11 +8,11 @@
 
 #import "PANObservation.h"
 
-@interface TOObservation (Shorthand)
+@interface PANObservation (Shorthand)
 
 /**
  *  Call this method early in your app's lifetime to generate shorthand instance and class category methods
- *  which mirror those with the "to_" prefix.
+ *  which mirror those with the "pan_" prefix.
  *
  *  Its ok to call this multiple times redundantly.
  */

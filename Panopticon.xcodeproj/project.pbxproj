@@ -85,6 +85,9 @@
 		8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANUIControlObservation+Private.h"; path = "UIControl/PANUIControlObservation+Private.h"; sourceTree = "<group>"; };
 		8F1F4E3C1C20EB5D0061E8B9 /* iOS_Map.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = iOS_Map.modulemap; sourceTree = "<group>"; };
 		8F1F4E3D1C20EB6E0061E8B9 /* OSX_Map.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OSX_Map.modulemap; sourceTree = "<group>"; };
+		8F201B971CBDAE510029BB72 /* Panopticon.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Panopticon.podspec; sourceTree = "<group>"; };
+		8F201B981CBDAE510029BB72 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8F201B991CBDAE510029BB72 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = generate_shorthand_headers.rb; path = Scripts/generate_shorthand_headers.rb; sourceTree = "<group>"; };
 		8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANKeyValueObservation.h; path = KVO/PANKeyValueObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANKeyValueObservation.m; path = KVO/PANKeyValueObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -149,9 +152,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F201B9A1CBDAE510029BB72 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				8F201B971CBDAE510029BB72 /* Panopticon.podspec */,
+				8F201B981CBDAE510029BB72 /* README.md */,
+				8F201B991CBDAE510029BB72 /* LICENSE */,
+			);
+			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
 		8FB32ADD1C15F72500FD5041 = {
 			isa = PBXGroup;
 			children = (
+				8F201B9A1CBDAE510029BB72 /* Podspec Metadata */,
 				8FB32B051C16DE9C00FD5041 /* Source */,
 				8FB32AE91C15F72500FD5041 /* Support */,
 				8FB32B221C16E2F300FD5041 /* Frameworks */,

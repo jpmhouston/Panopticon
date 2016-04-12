@@ -40,7 +40,6 @@
 		8FAC1A881BCF63AC0017C614 /* ModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAC1A871BCF63AC0017C614 /* ModelObject.m */; };
 		8FF4FBA81C86C2E700283612 /* TestAppGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBA71C86C2E600283612 /* TestAppGroups.m */; };
 		8FF4FBCB1C87CEE400283612 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C60BB1BF40BA9008C789F /* ViewController.swift */; };
-		9CE81C889F6DFD506A7DD006 /* Pods_Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 267663F80CBFF1E0F5C1515F /* Pods_Pods_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +74,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		267663F80CBFF1E0F5C1515F /* Pods_Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AFA1E65EE96CF8CEDBAAF9A /* Pods-Pods Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pods Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pods Example/Pods-Pods Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* Panopticon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Panopticon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,8 +92,6 @@
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
-		693A4AD403E4AEBC67A9173B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		6FF3CE8A589B50333636792F /* Panopticon.podspec */ = {isa = PBXFileReference; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Panopticon.podspec; path = ../Panopticon.podspec; sourceTree = "<group>"; tabWidth = 2; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8F0453611BEEC8850078BE10 /* TestShorthand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestShorthand.m; sourceTree = "<group>"; };
 		8F4AFDC11C1AB18D005A334F /* Panopticon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Panopticon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,8 +103,6 @@
 		8FAC1A861BCF63AC0017C614 /* ModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ModelObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8FAC1A871BCF63AC0017C614 /* ModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ModelObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8FF4FBA71C86C2E600283612 /* TestAppGroups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAppGroups.m; sourceTree = "<group>"; };
-		B48E8F05230C3C4C1EC97E3E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C1EF69A4605081BF14B6AB0D /* Pods-Pods Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pods Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pods Example/Pods-Pods Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +113,6 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				9CE81C889F6DFD506A7DD006 /* Pods_Pods_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,13 +144,11 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
-				6003F593195388D20070C39A /* Example for TotalObserver */,
+				6003F593195388D20070C39A /* Panopticon Example App */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				8F4AFDC31C1AB73E005A334F /* Panopticon.xcodeproj */,
-				7DF1F02D7AEFC09281E0A039 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,12 +169,11 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				267663F80CBFF1E0F5C1515F /* Pods_Pods_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6003F593195388D20070C39A /* Example for TotalObserver */ = {
+		6003F593195388D20070C39A /* Panopticon Example App */ = {
 			isa = PBXGroup;
 			children = (
 				6003F59C195388D20070C39A /* AppDelegate.h */,
@@ -198,7 +187,7 @@
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
-			name = "Example for TotalObserver";
+			name = "Panopticon Example App";
 			path = Example;
 			sourceTree = "<group>";
 		};
@@ -236,25 +225,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				6FF3CE8A589B50333636792F /* Panopticon.podspec */,
-				B48E8F05230C3C4C1EC97E3E /* README.md */,
-				693A4AD403E4AEBC67A9173B /* LICENSE */,
-			);
-			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		7DF1F02D7AEFC09281E0A039 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C1EF69A4605081BF14B6AB0D /* Pods-Pods Example.debug.xcconfig */,
-				5AFA1E65EE96CF8CEDBAAF9A /* Pods-Pods Example.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		8F31A2E51CBCF014008477B3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,19 +241,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "Pods Example" */;
 			buildPhases = (
-				96813554FCBFDD3F86C500DB /* Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				E9246D4E86C742DC4FACA5C1 /* Embed Pods Frameworks */,
-				FB48C25FFE59567F9E66414C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Pods Example";
-			productName = TotalObserver;
+			productName = PanopticonUsingCocoapod;
 			productReference = 6003F58A195388D20070C39A /* Panopticon.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -301,7 +268,7 @@
 				8F10A8811C941DE000C11ED4 /* PBXTargetDependency */,
 			);
 			name = Tests;
-			productName = TotalObserverTests;
+			productName = PanopticonTests;
 			productReference = 6003F5AE195388D20070C39A /* Panopticon Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -319,7 +286,7 @@
 				8F31A2EE1CBCF081008477B3 /* PBXTargetDependency */,
 			);
 			name = "Framework Example";
-			productName = TotalObserver;
+			productName = PanopticonUsingStaticFwk;
 			productReference = 8F4AFDC11C1AB18D005A334F /* Panopticon.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -407,54 +374,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		96813554FCBFDD3F86C500DB /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E9246D4E86C742DC4FACA5C1 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pods Example/Pods-Pods Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FB48C25FFE59567F9E66414C /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pods Example/Pods-Pods Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6003F586195388D20070C39A /* Sources */ = {
@@ -603,7 +522,6 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1EF69A4605081BF14B6AB0D /* Pods-Pods Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -621,7 +539,6 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AFA1E65EE96CF8CEDBAAF9A /* Pods-Pods Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

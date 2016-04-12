@@ -1,19 +1,19 @@
 //
 //  AppDelegate.m
-//  TotalObserver
+//  Panopticon Example
 //
 //  Created by Pierre Houston on 10/14/2015.
 //  Copyright (c) 2015 Pierre Houston. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import <TotalObserver/TotalObserverShorthand.h>
+#import <Panopticon/PanopticonShorthand.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [TOObservation setupShorthandMethods]; // to enable methods that leave off the "to_" prefix
+    [PANObservation setupShorthandMethods]; // to enable methods that leave off the "pan_" prefix
     return YES;
 }
 

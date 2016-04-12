@@ -1,6 +1,6 @@
 //
 //  ModelObject.h
-//  TotalObserver
+//  Panopticon Example
 //
 //  Created by Pierre Houston on 2015-10-14.
 //  Copyright © 2015 Pierre Houston. All rights reserved.

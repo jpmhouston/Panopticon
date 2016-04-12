@@ -1,6 +1,6 @@
 //
 //  TestShorthand2.m
-//  TotalObserver
+//  Panopticon Example
 //
 //  Created by Pierre Houston on 2015-11-07.
 //  Copyright © 2015 Pierre Houston. All rights reserved.
@@ -8,7 +8,7 @@
 
 /*
 @import XCTest;
-@import TotalObserver; // getting "Could not build module 'TotalObserver'" error here :( i hope its only in the Example project
+@import Panopticon; // getting "Could not build module 'Panopticon'" error here :( i hope its only in the Example project
 #import "ModelObject.h"
 
 @interface TestShorthand2 : XCTestCase
@@ -19,7 +19,7 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    [TOObservation setupShorthandMethods];
+    [PANObservation setupShorthandMethods];
 }
 
 - (void)tearDown {
@@ -30,7 +30,7 @@
 - (void)testShorthandMethodsWithModuleImport {
     ModelObject *modelObject = [[ModelObject alloc] init];
     BOOL __block observed = NO;
-    [self observeForNotifications:modelObject named:NameChangedNotification withBlock:^(typeof(self) obj, TOObservation *obs) {
+    [self observeForNotifications:modelObject named:NameChangedNotification withBlock:^(typeof(self) obj, PANObservation *obs) {
         observed = YES;
     }];
     modelObject.name = @""; // should trigger notification, see -[ModelObject setName]

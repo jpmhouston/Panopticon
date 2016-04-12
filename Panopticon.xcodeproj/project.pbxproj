@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8F10A87B1C941ADA00C11ED4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B011C15F8C400FD5041 /* Foundation.framework */; };
-		8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8F10A8881C99509700C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8F10A8891C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; };
+		8F10A8881C99509700C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; };
+		8F10A8891C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */; };
 		8F10A88A1C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */; };
-		8F10A88C1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8F10A88C1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */; };
 		8F10A88D1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */; };
-		8F10A88F1C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8F10A88F1C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */; };
 		8F10A8901C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */; };
 		8F1F4E3E1C20EDF00061E8B9 /* ShorthandAutosetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -279,20 +279,20 @@
 				8F1F4E441C20EE2F0061E8B9 /* PANObservation+Shorthand.h in Headers */,
 				8FF4FBC71C87CC2D00283612 /* PANAppGroupObservation.h in Headers */,
 				8FF4FBC81C87CC2D00283612 /* PANAppGroupNotificationManager.h in Headers */,
-				8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */,
 				8FF4FBC91C87CC2D00283612 /* NSObject+PANAppGroup.h in Headers */,
-				8F10A8901C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */,
 				8FF4FBCA1C87CC2D00283612 /* NSObject+PANAppGroupShorthand.h in Headers */,
 				8F4F84841C3EE044008B5019 /* PANKeyValueObservation.h in Headers */,
 				8F4F84901C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */,
-				8F10A88D1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */,
 				8F4F84A81C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */,
 				8F4F848A1C3EE056008B5019 /* PANNotificationObservation.h in Headers */,
 				8F4F84961C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */,
 				8F1F4E451C20EE330061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */,
+				8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */,
 				8F1F4E461C20EE350061E8B9 /* ShorthandAutosetup.h in Headers */,
 				8F4AFDA41C1AAFFF005A334F /* PANObservation+Private.h in Headers */,
 				8F10A88A1C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */,
+				8F10A88D1C99513100C11ED4 /* PANNotificationObservation+Private.h in Headers */,
+				8F10A8901C99519F00C11ED4 /* PANUIControlObservation+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +352,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8FB32AE11C15F72500FD5041 /* Build configuration list for PBXProject "TotalObserver" */;
+			buildConfigurationList = 8FB32AE11C15F72500FD5041 /* Build configuration list for PBXProject "Panopticon" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -602,7 +602,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8FB32AE11C15F72500FD5041 /* Build configuration list for PBXProject "TotalObserver" */ = {
+		8FB32AE11C15F72500FD5041 /* Build configuration list for PBXProject "Panopticon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FB32AF91C15F72500FD5041 /* Debug */,

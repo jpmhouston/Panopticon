@@ -1,6 +1,6 @@
 //
 //  TestAppGroups.m
-//  Example
+//  Panopticon Example
 //
 //  Created by Pierre Houston on 2016-03-01.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
@@ -9,17 +9,17 @@
 //  - hmm, to do that right it would be best to have an app extension
 
 @import XCTest;
-#import <TotalObserver/TotalObserver.h>
-#import <TotalObserver/TOAppGroupNotificationManager.h>
+#import <Panopticon/Panopticon.h>
+#import <Panopticon/PANAppGroupNotificationManager.h>
 
-static NSString * const tempFolderName = @"totalobserver-appgroup-test";
-static NSString * const appBundleId = @"science.bananameter.totalobserver.test";
-static NSString * const appGroupId1 = @"1234567890.totalobservertest.appgroup1";
-static NSString * const appGroupId2 = @"2222222222.totalobservertest.appgroup2";
+static NSString * const tempFolderName = @"panopticon-appgroup-test";
+static NSString * const appBundleId = @"science.bananameter.panopticon.test";
+static NSString * const appGroupId1 = @"1234567890.panopticontest.appgroup1";
+static NSString * const appGroupId2 = @"2222222222.panopticontest.appgroup2";
 
 typedef NSString *(^BundleIdMapperBlock)(NSString *name);
 
-@interface TestAppGroupManager : XCTestCase <TOAppGroupURLProviding, TOAppGroupBundleIdProviding, TOAppGroupGlobalNotificationHandling>
+@interface TestAppGroupManager : XCTestCase <PANAppGroupURLProviding, PANAppGroupBundleIdProviding, PANAppGroupGlobalNotificationHandling>
 @property (nonatomic) NSURL *tempFolderURL;
 @property (nonatomic, copy) BundleIdMapperBlock bundleIdMapper;
 @end
@@ -32,20 +32,20 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     self.tempFolderURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tempFolderName]];
     NSLog(@"app group directory: %@", self.tempFolderURL.path);
     // inject override of appgroup manager's default notification delivery & post storage
-    TOAppGroupNotificationManager *m = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *m = [PANAppGroupNotificationManager sharedManager];
     m.appIdentifier = appBundleId;
     m.urlHelper = self;
     m.notificationHelper = self;
     m.permitPostsWhenNoSubscribers = YES;
     m.cleanupFrequencyRandomFactor = 0; // don't cleanup posts automatically
-    [[TOAppGroupNotificationManager sharedManager] addGroupIdentifier:appGroupId1];
-    [[TOAppGroupNotificationManager sharedManager] addGroupIdentifier:appGroupId2];
+    [[PANAppGroupNotificationManager sharedManager] addGroupIdentifier:appGroupId1];
+    [[PANAppGroupNotificationManager sharedManager] addGroupIdentifier:appGroupId2];
 }
 
 - (void)tearDown
 {
-    [[TOAppGroupNotificationManager sharedManager] removeGroupIdentifier:appGroupId1];
-    [[TOAppGroupNotificationManager sharedManager] removeGroupIdentifier:appGroupId2];
+    [[PANAppGroupNotificationManager sharedManager] removeGroupIdentifier:appGroupId1];
+    [[PANAppGroupNotificationManager sharedManager] removeGroupIdentifier:appGroupId2];
     [[NSFileManager defaultManager] removeItemAtURL:self.tempFolderURL error:NULL];
     [super tearDown];
 }
@@ -53,13 +53,13 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
 // would do these, except that it would just be testing our injected notification delivery, which currently never rejects a group id
 //- (void)testSubscribeWithNoGroup
 //{
-//    BOOL subscribed = [[TOAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:@"a" withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) { }];
+//    BOOL subscribed = [[PANAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:@"a" withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) { }];
 //    XCTAssertFalse(subscribed);
 //}
 //
 //- (void)testPostWithNoGroup
 //{
-//    BOOL posted = [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:@"a" payload:[self randomPayload]];
+//    BOOL posted = [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:@"a" payload:[self randomPayload]];
 //    XCTAssertFalse(posted);
 //}
 
@@ -69,14 +69,14 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     NSString *notificationName = @"a";
     NSString *payloadString = [self randomPayload];
     
-    [[TOAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:notificationName withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
+    [[PANAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:notificationName withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
         NSLog(@"received notification %@ / %@", name, payload);
         XCTAssertEqualObjects(payload, payloadString);
         [expectation fulfill];
     }];
     
     NSLog(@"posting notification %@ / %@", notificationName, payloadString);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
     
     NSTimeInterval timeout = 2.0;
     [self waitForExpectationsWithTimeout:timeout handler:nil];
@@ -92,14 +92,14 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     
     __block NSMutableArray *received = [NSMutableArray array];
     __weak typeof(self) welf = self;
-    [[TOAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:notificationName withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
+    [[PANAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:notificationName withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
         NSLog(@"received notification %@ / %@", name, payload);
         [received addObject:payload];
         if (received.count < 3) return;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // delay enough to let writes to filesystem to finish
             
-            // expect directory to contain: 1234567890.totalobservertest.appgroup1: a|1.post=xxx a|2.post=xxx a|3.post=xxx subscribers: science.bananameter.totalobserver.test: a.seqnum=3
+            // expect directory to contain: 1234567890.panopticontest.appgroup1: a|1.post=xxx a|2.post=xxx a|3.post=xxx subscribers: science.bananameter.panopticon.test: a.seqnum=3
             NSString *actualDirectoryContents = [welf directoryContentsForURL:welf.tempFolderURL];
             NSString *expectedDirectoryContents = [NSString stringWithFormat:@"%@: %@|1.post=%@ %@|2.post=%@ %@|3.post=%@ subscribers: %@: %@.seqnum=3",
                                                    appGroupId1, notificationName, received[0], notificationName, received[1], notificationName, received[2], appBundleId, notificationName];
@@ -112,11 +112,11 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     }];
     
     payloadString = [self randomPayload]; NSLog(@"posting notification %@ / %@", notificationName, payloadString);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
     payloadString = [self randomPayload]; NSLog(@"posting notification %@ / %@", notificationName, payloadString);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
     payloadString = [self randomPayload]; NSLog(@"posting notification %@ / %@", notificationName, payloadString);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
     
     NSTimeInterval timeout = 2.0;
     [self waitForExpectationsWithTimeout:timeout handler:nil];
@@ -136,15 +136,15 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     NSString *payloadString4 = [self randomPayload];
     
     NSLog(@"posting notification %@ / %@", notificationName1, payloadString1);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName1 payload:payloadString1];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName1 payload:payloadString1];
     NSLog(@"posting notification %@ / %@", notificationName2, payloadString2);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName2 payload:payloadString2];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName2 payload:payloadString2];
     NSLog(@"posting notification %@ / %@", notificationName3, payloadString3);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId2 named:notificationName3 payload:payloadString3];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId2 named:notificationName3 payload:payloadString3];
     NSLog(@"posting notification %@ / %@", notificationName4, payloadString4);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId2 named:notificationName4 payload:payloadString4];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId2 named:notificationName4 payload:payloadString4];
     
-    // expect directory to contain: 1234567890.totalobservertest.appgroup1: a|1.post=xxx a|2.post=xxx 2222222222.totalobservertest.appgroup2: b|1.post=xxx c|1.post=xxx
+    // expect directory to contain: 1234567890.panopticontest.appgroup1: a|1.post=xxx a|2.post=xxx 2222222222.panopticontest.appgroup2: b|1.post=xxx c|1.post=xxx
     // posts start at 0 instead of 1 when there are no subscribers
     NSString *actualDirectoryContents = [self directoryContentsForURL:self.tempFolderURL];
     NSString *expectedDirectoryContents = [NSString stringWithFormat:@"%@: %@|1.post=%@ %@|2.post=%@ %@: %@|1.post=%@ %@|1.post=%@",
@@ -163,14 +163,14 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     
     __block NSMutableArray *received = [NSMutableArray array];
     __weak typeof(self) welf = self;
-    [[TOAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:notificationName withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
+    [[PANAppGroupNotificationManager sharedManager] subscribeToNotificationsForGroupIdentifier:appGroupId1 named:notificationName withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
         NSLog(@"received notification %@ / %@", name, payload);
         [received addObject:payload];
         if (received.count < 3) return;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             // after delay to allow file i/o queue to finish the cleanup,
-            // expect directory to contain: 1234567890.totalobservertest.appgroup1: subscribers: science.bananameter.totalobserver.test: a.seqnum=3
+            // expect directory to contain: 1234567890.panopticontest.appgroup1: subscribers: science.bananameter.panopticon.test: a.seqnum=3
             NSString *actualDirectoryContents = [welf directoryContentsForURL:welf.tempFolderURL];
             NSString *expectedDirectoryContents = [NSString stringWithFormat:@"%@: %@|3.post=%@ subscribers: %@: %@.seqnum=3", appGroupId1, notificationName, received[2], appBundleId, notificationName];
             NSLog(@"dir contents = %@", actualDirectoryContents);
@@ -181,17 +181,17 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     }];
     
     payloadString = [self randomPayload]; NSLog(@"posting notification %@ / %@", notificationName, payloadString);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
     payloadString = [self randomPayload]; NSLog(@"posting notification %@ / %@", notificationName, payloadString);
-    [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
+    [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:payloadString];
     
     // do 3rd post after a delay to ensure the notification block for the 2nd post gets executed first
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [TOAppGroupNotificationManager sharedManager].cleanupFrequencyRandomFactor = 1; // force cleanup on every post
+        [PANAppGroupNotificationManager sharedManager].cleanupFrequencyRandomFactor = 1; // force cleanup on every post
         
         NSString *lastPayloadString = [self randomPayload];
         NSLog(@"posting notification %@ / %@ and forcing cleanup of old post files", notificationName, lastPayloadString);
-        [[TOAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:lastPayloadString];
+        [[PANAppGroupNotificationManager sharedManager] postNotificationForGroupIdentifier:appGroupId1 named:notificationName payload:lastPayloadString];
     });
     
     NSTimeInterval timeout = 4.0;
@@ -223,7 +223,7 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
 {
     XCTAssertNil([self clearFolder], @"temp directory couldn't be emptied, test will likely have further spurious assertion failures");
     
-    TOAppGroupNotificationManager *m = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *m = [PANAppGroupNotificationManager sharedManager];
     
     NSString *observerId = @"R";
     NSString *observeName = @"e"; // known to be the otherwise unobserved notification name posted by helper method doTestManyAppsWithCount:usingCleanup:
@@ -313,11 +313,11 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     static struct MockApp *mockAppsStatic = NULL;
     mockAppsStatic = mockApps; // the blocks below can't access 'mockApps' struct, can access 'mockAppsStatic' however
     
-    TOAppGroupNotificationManager *m = [TOAppGroupNotificationManager sharedManager];
+    PANAppGroupNotificationManager *m = [PANAppGroupNotificationManager sharedManager];
     if (cleanupOn) m.permitPostsWhenNoSubscribers = YES; // if cleaning up, don't leave behind all the unobserved 'e' posts, OR...
     if (cleanupOn) m.cleanupFrequencyRandomFactor = 8;
     
-    // make the TOAppGroupNotificationManager call back to map subscription names to bundle id's
+    // make the PANAppGroupNotificationManager call back to map subscription names to bundle id's
     m.bundleIdHelper = self;
     m.appIdentifier = nil; // force use of bundleIdHelper, our protocol methods will call the following block:
     __block BundleIdMapperBlock previousMapper = self.bundleIdMapper;
@@ -549,7 +549,7 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     return s;
 }
 
-// TOAppGroupURLProviding, TOAppGroupBundleIdProviding, TOAppGroupGlobalNotificationHandling protocols
+// PANAppGroupURLProviding, PANAppGroupBundleIdProviding, PANAppGroupGlobalNotificationHandling protocols
 
 - (NSURL *)groupURLForGroupIdentifier:(NSString *)identifier
 {
@@ -576,21 +576,21 @@ typedef NSString *(^BundleIdMapperBlock)(NSString *name);
     return appBundleId; // can't call self.bundleIdMapper since no name, don't expect this to be called
 }
 
-- (void)subscribeAppGroupNotificationManager:(TOAppGroupNotificationManager *)manager toGlobalMessagesWithGroupIdentifier:(NSString *)identifier
+- (void)subscribeAppGroupNotificationManager:(PANAppGroupNotificationManager *)manager toGlobalMessagesWithGroupIdentifier:(NSString *)identifier
 {
-    [self to_observeAllNotificationsNamed:identifier withBlock:^(id obj, TOObservation *obs) {
+    [self pan_observeAllNotificationsNamed:identifier withBlock:^(id obj, PANObservation *obs) {
         [manager globalNotificationCallbackForGroupIdentifier:identifier];
     }];
 }
 
-- (void)unsubscribeAppGroupNotificationManager:(TOAppGroupNotificationManager *)manager fromGlobalMessagesWithGroupIdentifier:(NSString *)identifier
+- (void)unsubscribeAppGroupNotificationManager:(PANAppGroupNotificationManager *)manager fromGlobalMessagesWithGroupIdentifier:(NSString *)identifier
 {
-    [self to_stopObservingAllNotificationsNamed:identifier];
+    [self pan_stopObservingAllNotificationsNamed:identifier];
 }
 
 - (void)postGlobalMessageWithGroupIdentifier:(NSString *)identifier
 {
-    [self to_postNotificationNamed:identifier];
+    [self pan_postNotificationNamed:identifier];
 }
 
 @end

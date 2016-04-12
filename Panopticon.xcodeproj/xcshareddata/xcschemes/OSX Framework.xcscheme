@@ -17,7 +17,7 @@
                BlueprintIdentifier = "8FB32B271C16E78100FD5041"
                BuildableName = "Panopticon.framework"
                BlueprintName = "OSX Framework"
-               ReferencedContainer = "container:TotalObserver.xcodeproj">
+               ReferencedContainer = "container:Panopticon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "8FB32B301C16E78100FD5041"
                BuildableName = "TotalObserver_OSXTests.xctest"
                BlueprintName = "TotalObserver_OSXTests"
-               ReferencedContainer = "container:TotalObserver.xcodeproj">
+               ReferencedContainer = "container:Panopticon.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "8FB32B271C16E78100FD5041"
             BuildableName = "Panopticon.framework"
             BlueprintName = "OSX Framework"
-            ReferencedContainer = "container:TotalObserver.xcodeproj">
+            ReferencedContainer = "container:Panopticon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -67,7 +67,7 @@
             BlueprintIdentifier = "8FB32B271C16E78100FD5041"
             BuildableName = "Panopticon.framework"
             BlueprintName = "OSX Framework"
-            ReferencedContainer = "container:TotalObserver.xcodeproj">
+            ReferencedContainer = "container:Panopticon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -85,7 +85,7 @@
             BlueprintIdentifier = "8FB32B271C16E78100FD5041"
             BuildableName = "Panopticon.framework"
             BlueprintName = "OSX Framework"
-            ReferencedContainer = "container:TotalObserver.xcodeproj">
+            ReferencedContainer = "container:Panopticon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -68,8 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Stop observing touch-up-inside events by the receiver.
  *
  *  Call on the same control on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
- *  before the control is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
- *  method, and call its `remove` method.
+ *  before the control is deallocated. Alternately, can save the observation object returned from `pan_observe..`,
+ *  and call its `remove` method.
  *
  *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
  */
@@ -126,8 +126,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Stop observing value-changed events by the receiver.
  *
  *  Call on the same control on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
- *  before the control is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
- *  method, and call its `remove` method.
+ *  before the control is deallocated. Alternately, can save the observation object returned from `pan_observe..`,
+ *  and call its `remove` method.
  *
  *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
  */
@@ -187,8 +187,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Stop observing artbitrary events by the receiver.
  *
  *  Call on the same control on which you called one of the `pan_observe..` methods above. Use to stop observing sometime
- *  before the control is deallocated. Alternately, can save the observation object returned from the `pan_observe..`
- *  method, and call its `remove` method.
+ *  before the control is deallocated. Alternately, can save the observation object returned from `pan_observe..`,
+ *  and call its `remove` method.
  *
  *  @param events A bitmask of the events to stop observing. Must be equal to the bitmask passed to the corresponding
  *                `pan_observe..` method.

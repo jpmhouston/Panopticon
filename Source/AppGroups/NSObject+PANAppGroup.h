@@ -138,8 +138,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing notifications on a given name within the default app group.
  *
  *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to stop observing
- *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `pan_observe..` method, and call either its `remove` or `removeStoppingReliableCollection` methods.
+ *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from
+ *  `pan_observe..`, and call either its `remove` or `removeStoppingReliableCollection` methods.
  *
  *  For unreliable observations this is equivalent to calling `remove` on the observation. For reliable observations,
  *  this is equivalent to calling `removeStoppingReliableCollection`.
@@ -161,8 +161,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  have been saved.
  *
  *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to pause observing
- *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `pan_observe..` method, and call its `remove` method.
+ *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from
+ *  `pan_observe..`, and call its `remove` method.
  *
  *  If called on a unreliable observation then this will have the same effect as `pan_stopObserving...`.
  *
@@ -303,8 +303,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing notifications on a given name within the given app group.
  *
  *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to stop observing
- *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `pan_observe..` method, and call either its `remove` or `removeStoppingReliableCollection` methods.
+ *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from
+ *  `pan_observe..`, and call either its `remove` or `removeStoppingReliableCollection` methods.
  *
  *  For unreliable observations this is equivalent to calling `remove` on the observation. For reliable observations,
  *  this is equivalent to calling its `removeStoppingReliableCollection` method.
@@ -327,8 +327,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  have been saved.
  *
  *  Call on the same object on which you called one of the `pan_observe..` methods. Useful if you want to pause observing
- *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from the
- *  `pan_observe..` method, and call its `remove` method.
+ *  sometime before the receiver is deallocated. Alternately, can save the observation object returned from
+ *  `pan_observe..`, and call its `remove` method.
  *
  *  If called on a unreliable observation then this will have the same effect as `pan_stopObserving...`.
  *

@@ -25,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Receiver observes a KVO key path on the given object.
  *
- *  Details about the what triggered the observation can be found within the `changeDict`, `kind`, `changedValue`,
- *  and `oldValue` properties of the observation when the block is called.
+ *  Details about the what triggered the observation can be found within the `changeDict`, `kind`, `changedValue`, and
+ *  `oldValue` properties of the observation when the block is called.
  *
  *  The observation will automatically be stopped when either the receiver or the object is deallocated.
  *
@@ -128,8 +128,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing a KVO key path on the given object.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from
+ *  `observe..`, and call its `remove` method.
  *
  *  @param object  The object to stop observing.
  *  @param keyPath The key path string to stop observing on `object`.
@@ -227,7 +227,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given CGD dispatch queue.
+ *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given CGD
+ *  dispatch queue.
  *
  *  Variation on `observeForChanges:toKeyPaths:withBlock:` that adds operation queue and GCD dispatch parameters.
  *  See the description for that method.
@@ -248,12 +249,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing the KVO key paths on the given object.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from
+ *  `observe..`, and call its `remove` method.
  *
  *  @param object   The object to stop observing.
- *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed to the
- *                  corresponding `observe..` method.
+ *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed to
+ *                  the corresponding `observe..` method.
  *
  *  @return `YES` if the receiver was previously observing these KVO key paths on `object`, `NO` otherwise.
  */
@@ -361,8 +362,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Stop observing a KVO key path on the receiver.
  *
  *  Call on the same observed object on which you called one of the `observe..` methods above. Use to stop observing
- *  sometime before the object is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  sometime before the object is deallocated. Alternately, can save the observation object returned from `observe..`,
+ *  and call its `remove` method.
  *
  *  @param keyPath The key path string to stop observing the receiver.
  *
@@ -384,8 +385,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  "observer" object.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the observation (same
- *                  as the method result).
+ *  @param block    The block to call when any of the key path observations are triggered, is passed the observation
+ *                  (same as the method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
@@ -461,8 +462,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing the KVO key paths on the receiver.
  *
  *  Call on the same observed object on which you called one of the `observe..` methods above. Use to stop observing
- *  sometime before the object is deallocated. Alternately, can save the observation object returned from the `observe..`
- *  method, and call its `remove` method.
+ *  sometime before the object is deallocated. Alternately, can save the observation object returned from `observe..`,
+ *  and call its `remove` method.
  *
  *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed to the
  *                  corresponding `observe..` method.
@@ -570,8 +571,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing a KVO key path on itself.
  *
  *  Call on the same observed object on which you called one of the `observe..` methods above. Use to stop observing
- *  sometime before the object is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  sometime before the object is deallocated. Alternately, can save the observation object returned from `observe..`,
+ *  and call its `remove` method.
  *
  *  @param keyPath The key path string to stop observing the receiver.
  *
@@ -670,8 +671,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing multiple KVO key paths on itself.
  *
  *  Call on the same observed object on which you called one of the `observe..` methods above. Use to stop observing
- *  sometime before the object is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  sometime before the object is deallocated. Alternately, can save the observation object returned from `observe..`,
+ *  and call its `remove` method.
  *
  *  @param keyPaths The array of KVO key path strings to stop observing the receiver. Must be equal to the array passed to the
  *                  corresponding `observe..` method.

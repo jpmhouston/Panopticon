@@ -15,14 +15,19 @@ FOUNDATION_EXPORT double PanopticonVersionNumber;
 FOUNDATION_EXPORT const unsigned char PanopticonVersionString[];
 
 #import "PANObservation.h"
+#import "PanopticonClass.h"
 #import "PANKeyValueObservation.h"
+#import "Panopticon+PANKeyValue.h"
 #import "NSObject+PANKeyValue.h"
 #import "PANNotificationObservation.h"
+#import "Panopticon+PANNotification.h"
 #import "NSObject+PANNotification.h"
 #import "PANAppGroupObservation.h"
+#import "Panopticon+PANAppGroup.h"
 #import "NSObject+PANAppGroup.h"
 #if TARGET_OS_IPHONE
 #import "PANUIControlObservation.h"
+#import "Panopticon+PANUIControl.h"
 #import "NSObject+PANUIControl.h"
 #import "UIControl+PANUIControl.h"
 #endif

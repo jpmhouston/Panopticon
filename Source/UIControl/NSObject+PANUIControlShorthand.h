@@ -73,8 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing touch-up-inside events by a given control.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver or the control is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  before the receiver or the control is deallocated. Alternately, can save the observation object returned from
+ *  `observe..`, and call its `remove` method.
  *
  *  @param control The control to stop observing
  *
@@ -136,8 +136,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing value-changed events by a given control.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver or the control is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  before the receiver or the control is deallocated. Alternately, can save the observation object returned from
+ *  `observe..`, and call its `remove` method.
  *
  *  @param control The control to stop observing
  *
@@ -202,8 +202,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing artbitrary events by a given control.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver or the control is deallocated. Alternately, can save the observation object returned from the
- *  `observe..` method, and call its `remove` method.
+ *  before the receiver or the control is deallocated. Alternately, can save the observation object returned from
+ *  `observe..`, and call its `remove` method.
  *
  *  @param control The control to stop observing.
  *  @param events  A bitmask of the events to stop observing. Must be equal to the bitmask passed to the corresponding

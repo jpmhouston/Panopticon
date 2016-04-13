@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^PANObservationBlock)(id obj, PANObservation *observation);
 
 /**
- *  A block called when an observation is triggered, if that observation has *no* observing object.
+ *  A block called when an observation is triggered, if that observation has no observing object.
  *
  *  @param observation The triggered observation object. Details about what triggered the observation and
  *                     any payload or associated metadata will be properties of this object.

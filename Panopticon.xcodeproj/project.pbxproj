@@ -27,6 +27,26 @@
 		8F1F4E461C20EE350061E8B9 /* ShorthandAutosetup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8F1F4E4B1C20F0BA0061E8B9 /* PANObservation+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */; };
 		8F1F4E4C1C20F0C90061E8B9 /* PANObservation+Shorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */; };
+		8F201BA51CBDB6ED0029BB72 /* PanopticonClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BA41CBDB6ED0029BB72 /* PanopticonClass.m */; };
+		8F201BA61CBDB6ED0029BB72 /* PanopticonClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BA41CBDB6ED0029BB72 /* PanopticonClass.m */; };
+		8F201BA71CBDB7AB0029BB72 /* PanopticonClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BA31CBDB51D0029BB72 /* PanopticonClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BA81CBDB7AC0029BB72 /* PanopticonClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BA31CBDB51D0029BB72 /* PanopticonClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BAB1CBDB8790029BB72 /* Panopticon+PANAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BA91CBDB8790029BB72 /* Panopticon+PANAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BAC1CBDB8790029BB72 /* Panopticon+PANAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BA91CBDB8790029BB72 /* Panopticon+PANAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BAD1CBDB8790029BB72 /* Panopticon+PANAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BAA1CBDB8790029BB72 /* Panopticon+PANAppGroup.m */; };
+		8F201BAE1CBDB8790029BB72 /* Panopticon+PANAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BAA1CBDB8790029BB72 /* Panopticon+PANAppGroup.m */; };
+		8F201BB01CBDBC030029BB72 /* PanopticonClass+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BAF1CBDBC030029BB72 /* PanopticonClass+Private.h */; };
+		8F201BB11CBDBC030029BB72 /* PanopticonClass+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BAF1CBDBC030029BB72 /* PanopticonClass+Private.h */; };
+		8F201BB41CBDF6FB0029BB72 /* Panopticon+PANNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BB21CBDF6FB0029BB72 /* Panopticon+PANNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BB51CBDF6FB0029BB72 /* Panopticon+PANNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BB21CBDF6FB0029BB72 /* Panopticon+PANNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BB61CBDF6FB0029BB72 /* Panopticon+PANNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BB31CBDF6FB0029BB72 /* Panopticon+PANNotification.m */; };
+		8F201BB71CBDF6FB0029BB72 /* Panopticon+PANNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BB31CBDF6FB0029BB72 /* Panopticon+PANNotification.m */; };
+		8F201BBA1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BB81CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BBB1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BB81CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BBC1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BB91CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m */; };
+		8F201BBD1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BB91CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m */; };
+		8F201BC01CBE02850029BB72 /* Panopticon+PANUIControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F201BBE1CBE02850029BB72 /* Panopticon+PANUIControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F201BC21CBE02850029BB72 /* Panopticon+PANUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F201BBF1CBE02850029BB72 /* Panopticon+PANUIControl.m */; };
 		8F4AFD9F1C1AAFD8005A334F /* PANObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */; };
 		8F4AFDA31C1AAFFF005A334F /* PANObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F4AFDA41C1AAFFF005A334F /* PANObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -72,10 +92,6 @@
 		8FF4FBC41C87CBE200283612 /* PANAppGroupObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */; };
 		8FF4FBC51C87CBE200283612 /* PANAppGroupNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */; };
 		8FF4FBC61C87CBE200283612 /* NSObject+PANAppGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */; };
-		8FF4FBC71C87CC2D00283612 /* PANAppGroupObservation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8FF4FBC81C87CC2D00283612 /* PANAppGroupNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8FF4FBC91C87CC2D00283612 /* NSObject+PANAppGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8FF4FBCA1C87CC2D00283612 /* NSObject+PANAppGroupShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +104,17 @@
 		8F201B971CBDAE510029BB72 /* Panopticon.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Panopticon.podspec; sourceTree = "<group>"; };
 		8F201B981CBDAE510029BB72 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8F201B991CBDAE510029BB72 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8F201BA31CBDB51D0029BB72 /* PanopticonClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PanopticonClass.h; sourceTree = "<group>"; };
+		8F201BA41CBDB6ED0029BB72 /* PanopticonClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanopticonClass.m; sourceTree = "<group>"; };
+		8F201BA91CBDB8790029BB72 /* Panopticon+PANAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Panopticon+PANAppGroup.h"; path = "AppGroups/Panopticon+PANAppGroup.h"; sourceTree = "<group>"; };
+		8F201BAA1CBDB8790029BB72 /* Panopticon+PANAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Panopticon+PANAppGroup.m"; path = "AppGroups/Panopticon+PANAppGroup.m"; sourceTree = "<group>"; };
+		8F201BAF1CBDBC030029BB72 /* PanopticonClass+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PanopticonClass+Private.h"; sourceTree = "<group>"; };
+		8F201BB21CBDF6FB0029BB72 /* Panopticon+PANNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Panopticon+PANNotification.h"; path = "Notifications/Panopticon+PANNotification.h"; sourceTree = "<group>"; };
+		8F201BB31CBDF6FB0029BB72 /* Panopticon+PANNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Panopticon+PANNotification.m"; path = "Notifications/Panopticon+PANNotification.m"; sourceTree = "<group>"; };
+		8F201BB81CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Panopticon+PANKeyValue.h"; path = "KVO/Panopticon+PANKeyValue.h"; sourceTree = "<group>"; };
+		8F201BB91CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Panopticon+PANKeyValue.m"; path = "KVO/Panopticon+PANKeyValue.m"; sourceTree = "<group>"; };
+		8F201BBE1CBE02850029BB72 /* Panopticon+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Panopticon+PANUIControl.h"; path = "UIControl/Panopticon+PANUIControl.h"; sourceTree = "<group>"; };
+		8F201BBF1CBE02850029BB72 /* Panopticon+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Panopticon+PANUIControl.m"; path = "UIControl/Panopticon+PANUIControl.m"; sourceTree = "<group>"; };
 		8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = generate_shorthand_headers.rb; path = Scripts/generate_shorthand_headers.rb; sourceTree = "<group>"; };
 		8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANKeyValueObservation.h; path = KVO/PANKeyValueObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANKeyValueObservation.m; path = KVO/PANKeyValueObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -199,36 +226,47 @@
 			isa = PBXGroup;
 			children = (
 				8FB32B0F1C16DE9C00FD5041 /* Panopticon.h */,
+				8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */,
+				8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */,
+				8F201BA31CBDB51D0029BB72 /* PanopticonClass.h */,
+				8F201BAF1CBDBC030029BB72 /* PanopticonClass+Private.h */,
+				8F201BA41CBDB6ED0029BB72 /* PanopticonClass.m */,
 				8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */,
 				8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */,
 				8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */,
-				8FB32B101C16DE9C00FD5041 /* PanopticonShorthand.h */,
 				8FB32B0B1C16DE9C00FD5041 /* PANObservation+Shorthand.h */,
 				8FB32B0C1C16DE9C00FD5041 /* PANObservation+Shorthand.m */,
-				8FB32B091C16DE9C00FD5041 /* ShorthandAutosetup.h */,
-				8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */,
-				8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */,
-				8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */,
-				8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */,
-				8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */,
-				8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */,
-				8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */,
-				8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */,
 				8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */,
 				8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */,
 				8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */,
+				8F201BB81CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h */,
+				8F201BB91CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m */,
 				8F4F848D1C3EE319008B5019 /* NSObject+PANKeyValue.h */,
 				8F4F848E1C3EE319008B5019 /* NSObject+PANKeyValue.m */,
 				8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */,
 				8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */,
 				8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */,
 				8F4F84881C3EE056008B5019 /* PANNotificationObservation.m */,
+				8F201BB21CBDF6FB0029BB72 /* Panopticon+PANNotification.h */,
+				8F201BB31CBDF6FB0029BB72 /* Panopticon+PANNotification.m */,
 				8F4F84931C3EE3EF008B5019 /* NSObject+PANNotification.h */,
 				8F4F84941C3EE3EF008B5019 /* NSObject+PANNotification.m */,
 				8FB32B081C16DE9C00FD5041 /* NSObject+PANNotificationShorthand.h */,
+				8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */,
+				8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */,
+				8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */,
+				8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */,
+				8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */,
+				8F201BA91CBDB8790029BB72 /* Panopticon+PANAppGroup.h */,
+				8F201BAA1CBDB8790029BB72 /* Panopticon+PANAppGroup.m */,
+				8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */,
+				8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */,
+				8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */,
 				8F4F84A11C3F06F5008B5019 /* PANUIControlObservation.h */,
 				8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */,
 				8F4F84A21C3F06F5008B5019 /* PANUIControlObservation.m */,
+				8F201BBE1CBE02850029BB72 /* Panopticon+PANUIControl.h */,
+				8F201BBF1CBE02850029BB72 /* Panopticon+PANUIControl.m */,
 				8F4F84991C3F05AA008B5019 /* NSObject+PANUIControl.h */,
 				8F4F849A1C3F05AA008B5019 /* NSObject+PANUIControl.m */,
 				8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */,
@@ -257,21 +295,27 @@
 			files = (
 				8FB32AEB1C15F72500FD5041 /* Panopticon.h in Headers */,
 				8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */,
+				8F201BA81CBDB7AC0029BB72 /* PanopticonClass.h in Headers */,
 				8FB32B1B1C16DE9C00FD5041 /* PANObservation.h in Headers */,
 				8F1F4E401C20EE180061E8B9 /* PANObservation+Shorthand.h in Headers */,
 				8FF4FBC21C87CABB00283612 /* PANAppGroupObservation.h in Headers */,
 				8FF4FBC01C87CABB00283612 /* PANAppGroupNotificationManager.h in Headers */,
+				8F201BAB1CBDB8790029BB72 /* Panopticon+PANAppGroup.h in Headers */,
 				8FF4FBBD1C87CABB00283612 /* NSObject+PANAppGroup.h in Headers */,
 				8FF4FBBF1C87CABB00283612 /* NSObject+PANAppGroupShorthand.h in Headers */,
 				8F4F84831C3EE044008B5019 /* PANKeyValueObservation.h in Headers */,
+				8F201BB01CBDBC030029BB72 /* PanopticonClass+Private.h in Headers */,
+				8F201BBA1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h in Headers */,
 				8F4F848F1C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */,
 				8F4F84A71C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */,
 				8F4F84891C3EE056008B5019 /* PANNotificationObservation.h in Headers */,
+				8F201BB41CBDF6FB0029BB72 /* Panopticon+PANNotification.h in Headers */,
 				8F4F84951C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */,
 				8F1F4E411C20EE1E0061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */,
 				8F4F84A31C3F06F5008B5019 /* PANUIControlObservation.h in Headers */,
 				8F4F849B1C3F05AA008B5019 /* NSObject+PANUIControl.h in Headers */,
 				8F4F84AD1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h in Headers */,
+				8F201BC01CBE02850029BB72 /* Panopticon+PANUIControl.h in Headers */,
 				8F4F849F1C3F05D5008B5019 /* UIControl+PANUIControl.h in Headers */,
 				8F1F4E421C20EE200061E8B9 /* UIControl+PANUIControlShorthand.h in Headers */,
 				8F1F4E3E1C20EDF00061E8B9 /* ShorthandAutosetup.h in Headers */,
@@ -289,19 +333,20 @@
 			files = (
 				8F4AFDAA1C1AB01D005A334F /* Panopticon.h in Headers */,
 				8F1F4E431C20EE2C0061E8B9 /* PanopticonShorthand.h in Headers */,
+				8F201BA71CBDB7AB0029BB72 /* PanopticonClass.h in Headers */,
 				8F4AFDA31C1AAFFF005A334F /* PANObservation.h in Headers */,
 				8F1F4E441C20EE2F0061E8B9 /* PANObservation+Shorthand.h in Headers */,
-				8FF4FBC71C87CC2D00283612 /* PANAppGroupObservation.h in Headers */,
-				8FF4FBC81C87CC2D00283612 /* PANAppGroupNotificationManager.h in Headers */,
-				8FF4FBC91C87CC2D00283612 /* NSObject+PANAppGroup.h in Headers */,
-				8FF4FBCA1C87CC2D00283612 /* NSObject+PANAppGroupShorthand.h in Headers */,
+				8F201BB11CBDBC030029BB72 /* PanopticonClass+Private.h in Headers */,
 				8F4F84841C3EE044008B5019 /* PANKeyValueObservation.h in Headers */,
+				8F201BBB1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.h in Headers */,
 				8F4F84901C3EE319008B5019 /* NSObject+PANKeyValue.h in Headers */,
+				8F201BAC1CBDB8790029BB72 /* Panopticon+PANAppGroup.h in Headers */,
 				8F4F84A81C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h in Headers */,
 				8F4F848A1C3EE056008B5019 /* PANNotificationObservation.h in Headers */,
 				8F4F84961C3EE3EF008B5019 /* NSObject+PANNotification.h in Headers */,
 				8F1F4E451C20EE330061E8B9 /* NSObject+PANNotificationShorthand.h in Headers */,
 				8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */,
+				8F201BB51CBDF6FB0029BB72 /* Panopticon+PANNotification.h in Headers */,
 				8F1F4E461C20EE350061E8B9 /* ShorthandAutosetup.h in Headers */,
 				8F4AFDA41C1AAFFF005A334F /* PANObservation+Private.h in Headers */,
 				8F10A88A1C99510800C11ED4 /* PANKeyValueObservation+Private.h in Headers */,
@@ -406,17 +451,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F201BA51CBDB6ED0029BB72 /* PanopticonClass.m in Sources */,
 				8FB32B1C1C16DE9C00FD5041 /* PANObservation.m in Sources */,
+				8F201BB61CBDF6FB0029BB72 /* Panopticon+PANNotification.m in Sources */,
 				8F1F4E4B1C20F0BA0061E8B9 /* PANObservation+Shorthand.m in Sources */,
 				8FF4FBC31C87CABB00283612 /* PANAppGroupObservation.m in Sources */,
 				8FF4FBC11C87CABB00283612 /* PANAppGroupNotificationManager.m in Sources */,
+				8F201BC21CBE02850029BB72 /* Panopticon+PANUIControl.m in Sources */,
 				8FF4FBBE1C87CABB00283612 /* NSObject+PANAppGroup.m in Sources */,
 				8F4F84851C3EE044008B5019 /* PANKeyValueObservation.m in Sources */,
 				8F4F84911C3EE319008B5019 /* NSObject+PANKeyValue.m in Sources */,
 				8F4F848B1C3EE056008B5019 /* PANNotificationObservation.m in Sources */,
+				8F201BAD1CBDB8790029BB72 /* Panopticon+PANAppGroup.m in Sources */,
 				8F4F84971C3EE3EF008B5019 /* NSObject+PANNotification.m in Sources */,
 				8F4F84A41C3F06F5008B5019 /* PANUIControlObservation.m in Sources */,
 				8F4F849C1C3F05AA008B5019 /* NSObject+PANUIControl.m in Sources */,
+				8F201BBC1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m in Sources */,
 				8F4F84A01C3F05D5008B5019 /* UIControl+PANUIControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,14 +475,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F201BA61CBDB6ED0029BB72 /* PanopticonClass.m in Sources */,
+				8F201BBD1CBDFBCA0029BB72 /* Panopticon+PANKeyValue.m in Sources */,
 				8F4AFD9F1C1AAFD8005A334F /* PANObservation.m in Sources */,
 				8F1F4E4C1C20F0C90061E8B9 /* PANObservation+Shorthand.m in Sources */,
+				8F201BAE1CBDB8790029BB72 /* Panopticon+PANAppGroup.m in Sources */,
 				8FF4FBC41C87CBE200283612 /* PANAppGroupObservation.m in Sources */,
 				8FF4FBC51C87CBE200283612 /* PANAppGroupNotificationManager.m in Sources */,
 				8FF4FBC61C87CBE200283612 /* NSObject+PANAppGroup.m in Sources */,
 				8F4F84861C3EE044008B5019 /* PANKeyValueObservation.m in Sources */,
 				8F4F84921C3EE319008B5019 /* NSObject+PANKeyValue.m in Sources */,
 				8F4F848C1C3EE056008B5019 /* PANNotificationObservation.m in Sources */,
+				8F201BB71CBDF6FB0029BB72 /* Panopticon+PANNotification.m in Sources */,
 				8F4F84981C3EE3EF008B5019 /* NSObject+PANNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

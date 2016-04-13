@@ -27,6 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
 
+/**
+ *  A block called when an observation is triggered with potentially multiple results are available at once,
+ *  if that observation has no observing object.
+ *
+ *  @param observations Array of the triggered observation objects. Details about the observation that was
+ *                      triggered, plus any payload or associated metadata will be properties of this object.
+ *                      Some objects in the array may be a copies of the original instance that represents the
+ *                      overall observation. Any of these copies will forward the `remove` method call to the
+ *                      original observer instance.
+ */
+typedef void (^PANAnonymousCollatedObservationBlock)(NSArray *observations);
+
 
 /**
  *  A base class for App Group Notification observation objects.
@@ -101,6 +113,8 @@ typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
  *  (Future versions of Panopticon may locate all app group identifiers in the entitlements for your app,
  *  or maybe that's impossible, I haven't checked)
  *
+ *  There is a class method on `Panopticon` that forwards call to this method.
+ *
  *  @param groupIdentifier The identifier string for your app group.
  *
  *  @return `YES` if app has been setup in its entitlements as member of the app group, `NO` if the entitilements
@@ -113,6 +127,8 @@ typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
  *  (Currently the observations aren't fully removed, even though the observation block will never get called)
  *
  *  It's not necessary to call this method when the app is shutting down.
+ *
+ *  There is a class method on `Panopticon` that forwards call to this method.
  *
  *  @param groupIdentifier The identifier string for your app group.
  */
@@ -128,6 +144,8 @@ typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
  *  end up invoking the observation blocks in the observing objects.
  *
  *  The default app group is the last app group that was registered.
+ *
+ *  There is a class method on `Panopticon` that forwards call to this method.
  *
  *  @param name    The notification name to post.
  *  @param payload The payload object to pass within the notification, or `nil` if none.
@@ -146,6 +164,8 @@ typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
  *  end up invoking the observation blocks in the observing objects.
  *
  *  The default app group is the last app group that was registered.
+ *
+ *  There is a class method on `Panopticon` that forwards call to this method.
  *
  *  @param groupIdentifier The identifier string for your app group.
  *  @param name            The notification name to post.

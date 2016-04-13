@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (PANNotificationShorthand)
 
-#pragma mark - Observe notifications from object
+#pragma mark - Anonymously observe notifications from object
 
 /**
  *  Receiver observes notifications posted with given name by a given object.
@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
  *  before the receiver or the observed object is deallocated. Alternately, can save the observation object returned from
- *  the `observe..` method, and call its `remove` method.
+ *  `observe..`, and call its `remove` method.
  *
  *  @param object The object to stop observing.
  *  @param name   The notification name to stop observing.
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)stopObservingForNotifications:(id)object named:(NSString *)name;
 
 
-#pragma mark - Observe notifications from any object
+#pragma mark - Anonymously observe notifications from any object
 
 /**
  *  Receiver observes notifications posted with given name by any object.
@@ -145,8 +145,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing notifications posted with given name by a given object.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver is deallocated. Alternately, can save the observation object returned from the `observe..`
- *  method, and call its `remove` method.
+ *  before the receiver is deallocated. Alternately, can save the observation object returned from `observe..`, and
+ *  call its `remove` method.
  *
  *  @param name The notification name to stop observing.
  *
@@ -209,8 +209,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Stops observing notifications posted with given name by the receiver.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver is deallocated. Alternately, can save the observation object returned from the `observe..`
- *  method, and call its `remove` method.
+ *  before the receiver is deallocated. Alternately, can save the observation object returned from `observe..`, and
+ *  call its `remove` method.
  *
  *  @param name The notification name to stop observing.
  *
@@ -275,8 +275,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Receiver stops observing notifications it posts with given name.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Use to stop observing sometime
- *  before the receiver is deallocated. Alternately, can save the observation object returned from the `observe..`
- *  method, and call its `remove` method.
+ *  before the receiver is deallocated. Alternately, can save the observation object returned from `observe..`, and
+ *  call its `remove` method.
  *
  *  @param name The notification name to stop observing.
  *

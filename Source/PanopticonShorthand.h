@@ -15,19 +15,24 @@
 //    at least one .m file, instead include <Panopticon/ShorthandAutosetup.h>
 //
 
+#import "PanopticonClass.h"
 #import "PANObservation.h"
 #import "PANObservation+Shorthand.h"
 #import "PANKeyValueObservation.h"
+#import "Panopticon+PANKeyValue.h"
 #import "NSObject+PANKeyValue.h"
 #import "NSObject+PANKeyValueShorthand.h"
 #import "PANNotificationObservation.h"
+#import "Panopticon+PANNotification.h"
 #import "NSObject+PANNotification.h"
 #import "NSObject+PANNotificationShorthand.h"
 #import "PANAppGroupObservation.h"
+#import "Panopticon+PANAppGroup.h"
 #import "NSObject+PANAppGroup.h"
 #import "NSObject+PANAppGroupShorthand.h"
 #if TARGET_OS_IPHONE
 #import "PANUIControlObservation.h"
+#import "Panopticon+PANUIControl.h"
 #import "NSObject+PANUIControl.h"
 #import "NSObject+PANUIControlShorthand.h"
 #import "UIControl+PANUIControl.h"

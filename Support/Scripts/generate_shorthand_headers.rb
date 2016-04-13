@@ -55,6 +55,7 @@ puts "Generating shorthand headers in source directory " + Dir.pwd
 
 Dir.glob("**/*+PAN*.h") do |header|
     next if header =~ /Shorthand.h/
+    next if header =~ /Panopticon+/
     shorthandHeader = header.sub(/.h/, "Shorthand.h")
     
     if File.exists?(shorthandHeader) and File.mtime(shorthandHeader) >= File.mtime(header)

@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.9.0](https://github.com/jpmhouston/Panopticon/tree/0.9.0)
+
+- Renamed TotalObserver to Panopticon
+- Added Panopticon class for simpler access to some class methods and additional anonymous observation methods
+
 ## [0.7.1](https://github.com/jpmhouston/TotalObserver/tree/0.7.1) (2016-04-12)
 
 - Fixed app group notification shorthand header needed regenerating

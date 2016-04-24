@@ -114,6 +114,4 @@ static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationCont
 
 #if __has_feature(nullability)
 NS_ASSUME_NONNULL_END
-#else
-#undef nullable
 #endif

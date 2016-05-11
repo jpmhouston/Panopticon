@@ -1,6 +1,13 @@
 # Change Log
 
-## [0.9.0](https://github.com/jpmhouston/Panopticon/tree/0.9.0)
+## [1.0.0b1](https://github.com/jpmhouston/Panopticon/tree/1.0.0b1) (2016-05-10)
+
+- Refactored observation collecting used by app group's reliable notifications into base observation to be cleaner
+- All kinds of observations support pausing, returning all missed observations upon unpause
+- Fixed bug causing exception when using Panopticon class methods
+- Configuration file for generating docuementation using jazzy (though not recommended it be used yet due to a jazzy bug)
+
+## [0.9.0](https://github.com/jpmhouston/Panopticon/tree/0.9.0) (2016-04-12)
 
 - Renamed TotalObserver to Panopticon
 - Added Panopticon class for simpler access to some class methods and additional anonymous observation methods

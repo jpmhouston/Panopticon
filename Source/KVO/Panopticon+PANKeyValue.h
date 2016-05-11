@@ -88,7 +88,7 @@ PAN_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Stop anonymously observing a KVO key path on the given object.
+ *  Stop anonymous observation of a KVO key path on the given object.
  *
  *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
  *  observation object returned from `observe..`, and call its `remove` method.
@@ -99,6 +99,38 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if was previously observing this KVO key path on `object`, `NO` otherwise.
  */
 + (BOOL)stopObservingForChanges:(id)object toKeyPath:(NSString *)keyPath;
+
+/**
+ *  Pause anonymous observation of a KVO key path on the given object.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param object  The object to pause observing.
+ *  @param keyPath The key path string to pause observing on `object`.
+ *
+ *  @return `YES` if was previously observing this KVO key path on `object`, `NO` otherwise.
+ */
++ (BOOL)pauseObservingForChanges:(id)object toKeyPath:(NSString *)keyPath;
+
+/**
+ *  Resume anonymous observation of a KVO key path on the given object.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param object  The object to resume observing.
+ *  @param keyPath The key path string to resume observing on `object`.
+ *
+ *  @return `YES` if was previously observing this KVO key path on `object`, `NO` otherwise.
+ */
++ (BOOL)resumeObservingForChanges:(id)object toKeyPath:(NSString *)keyPath;
 
 
 #pragma mark - Anonymously observe multiple key paths
@@ -183,18 +215,52 @@ PAN_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Stop anonymously observing the KVO key paths on the given object.
+ *  Stop anonymous observation of the KVO key paths on the given object.
  *
- *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the observation
- *  object returned from `observe..`, and call its `remove` method.
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and call its `remove` method.
  *
  *  @param object   The object to stop observing.
- *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed to
- *                  the corresponding `observe..` method.
+ *  @param keyPaths The array of KVO key path strings to stop observing on `object`. Must be equal to the array passed
+ *                  to the corresponding `observe..` method.
  *
  *  @return `YES` if was previously observing these KVO key paths on `object`, `NO` otherwise.
  */
 + (BOOL)stopObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths;
+
+/**
+ *  Pause anonymous observation of the KVO key paths on the given object.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param object   The object to pause observing.
+ *  @param keyPaths The array of KVO key path strings to pause observing on `object`. Must be equal to the array passed
+ *                  to the corresponding `observe..` method.
+ *
+ *  @return `YES` if was previously observing these KVO key paths on `object`, `NO` otherwise.
+ */
++ (BOOL)pauseObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths;
+
+/**
+ *  Resume anonymous observation of the KVO key paths on the given object.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param object   The object to resume observing.
+ *  @param keyPaths The array of KVO key path strings to resume observing on `object`. Must be equal to the array passed
+ *                  to the corresponding `observe..` method.
+ *
+ *  @return `YES` if was previously observing these KVO key paths on `object`, `NO` otherwise.
+ */
++ (BOOL)resumeObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths;
 
 @end
 

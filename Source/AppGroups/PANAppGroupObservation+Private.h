@@ -20,6 +20,8 @@ PAN_ASSUME_NONNULL_BEGIN
 //+ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name;
 //+ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState;
 
++ (PAN_nullable PANAppGroupObservation *)findObservationForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name;
+
 @end
 
 

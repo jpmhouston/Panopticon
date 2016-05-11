@@ -15,6 +15,8 @@ PAN_ASSUME_NONNULL_BEGIN
 
 @implementation NSObject (PANNotification)
 
+#pragma mark - observer = self, observee = object
+
 - (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
     PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:object name:name queue:nil gcdQueue:nil block:block];
@@ -63,6 +65,36 @@ PAN_ASSUME_NONNULL_BEGIN
     return observation;
 }
 
+
+- (BOOL)pan_stopObservingForNotifications:(id)object named:(NSString *)name
+{
+    return [PANNotificationObservation removeForObserver:self object:object name:name];
+}
+
+- (BOOL)pan_pauseObservingForNotifications:(id)object named:(NSString *)name
+{
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:self object:object name:name];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)pan_resumeObservingForNotifications:(id)object named:(NSString *)name
+{
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:self object:object name:name];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
+
+#pragma mark - observer = self, observee = nil
 
 - (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
@@ -113,54 +145,35 @@ PAN_ASSUME_NONNULL_BEGIN
 }
 
 
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+- (BOOL)pan_stopObservingAllNotificationsNamed:(NSString *)name
 {
-    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:nil block:block];
-    if (paused)
-        observation.paused = observation.collates = YES;
-    [observation register];
-    return observation;
+    return [PANNotificationObservation removeForObserver:self object:nil name:name];
 }
 
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block
+- (BOOL)pan_pauseObservingAllNotificationsNamed:(NSString *)name
 {
-    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:nil block:block];
-    [observation register];
-    return observation;
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:self object:nil name:name];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
 }
 
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+- (BOOL)pan_resumeObservingAllNotificationsNamed:(NSString *)name
 {
-    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:queue gcdQueue:nil block:block];
-    if (paused)
-        observation.paused = observation.collates = YES;
-    [observation register];
-    return observation;
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:self object:nil name:name];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
 }
 
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
-{
-    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:queue gcdQueue:nil block:block];
-    [observation register];
-    return observation;
-}
 
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
-{
-    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:cgdQueue block:block];
-    if (paused)
-        observation.paused = observation.collates = YES;
-    [observation register];
-    return observation;
-}
-
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue withBlock:(PANObservationBlock)block
-{
-    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:cgdQueue block:block];
-    [observation register];
-    return observation;
-}
-
+#pragma mark - observer = nil, observee = self
 
 - (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
@@ -211,26 +224,115 @@ PAN_ASSUME_NONNULL_BEGIN
 }
 
 
-- (BOOL)pan_stopObservingForNotifications:(id)object named:(NSString *)name
+- (BOOL)pan_stopObservingNotificationsNamed:(NSString *)name
 {
-    return [PANNotificationObservation removeForObserver:self object:object name:name];
+    return [PANNotificationObservation removeForObserver:nil object:self name:name];
 }
 
-- (BOOL)pan_stopObservingAllNotificationsNamed:(NSString *)name
+- (BOOL)pan_pauseObservingNotificationsNamed:(NSString *)name
 {
-    return [PANNotificationObservation removeForObserver:self object:nil name:name];
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:nil object:self name:name];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
 }
+
+- (BOOL)pan_resumeObservingNotificationsNamed:(NSString *)name
+{
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:nil object:self name:name];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
+
+
+#pragma mark - observer = self, observee = self
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block
+{
+    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:nil block:block];
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:queue gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
+{
+    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:queue gcdQueue:nil block:block];
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:cgdQueue block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue withBlock:(PANObservationBlock)block
+{
+    PANNotificationObservation *observation = [[PANNotificationObservation alloc] initWithObserver:self object:self name:name queue:nil gcdQueue:cgdQueue block:block];
+    [observation register];
+    return observation;
+}
+
 
 - (BOOL)pan_stopObservingOwnNotificationsNamed:(NSString *)name
 {
     return [PANNotificationObservation removeForObserver:self object:self name:name];
 }
 
-- (BOOL)pan_stopObservingNotificationsNamed:(NSString *)name
+- (BOOL)pan_pauseObservingOwnNotificationsNamed:(NSString *)name
 {
-    return [PANNotificationObservation removeForObserver:nil object:self name:name];
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:self object:self name:name];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
 }
 
+- (BOOL)pan_resumeObservingOwnNotificationsNamed:(NSString *)name
+{
+    PANNotificationObservation *observation = [PANNotificationObservation findObservationForObserver:self object:self name:name];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
+
+#pragma mark - 
 
 - (void)pan_postNotificationNamed:(NSString *)name
 {

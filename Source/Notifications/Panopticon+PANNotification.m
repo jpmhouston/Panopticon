@@ -63,6 +63,16 @@ PAN_ASSUME_NONNULL_BEGIN
     return [[self sharedPanopticonObject] pan_stopObservingAllNotificationsNamed:name];
 }
 
++ (BOOL)pauseObservingAllNotificationsNamed:(NSString *)name
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingAllNotificationsNamed:name];
+}
+
++ (BOOL)resumeObservingAllNotificationsNamed:(NSString *)name
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingAllNotificationsNamed:name];
+}
+
 
 + (void)postNotificationNamed:(NSString *)name
 {

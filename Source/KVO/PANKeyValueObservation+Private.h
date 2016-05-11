@@ -13,11 +13,13 @@ PAN_ASSUME_NONNULL_BEGIN
 
 @interface PANKeyValueObservation (Private)
 
-- (instancetype)initWithObserver:(nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
-- (instancetype)initWithObject:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
+- (instancetype)initWithObject:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
 
 // TODO: consider making this private too
 //+ (BOOL)removeForObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths;
+
++ (PAN_nullable PANKeyValueObservation *)findObservationForObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths;
 
 @end
 

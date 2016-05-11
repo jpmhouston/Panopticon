@@ -20,7 +20,7 @@ PAN_ASSUME_NONNULL_BEGIN
  *  Receiver observes notifications on a given name within the default app group.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
  *
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
@@ -89,7 +89,7 @@ PAN_ASSUME_NONNULL_BEGIN
  *  would normally miss some posts, instead it will catch up and receive several all at once later.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
  *
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
@@ -103,9 +103,9 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
  *                set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *                a weakly captured self), and an array of the observations (unlike callback blocks for other observation
- *                methods, this array will contain different observation instances. Calling remove on one will however
- *                remove the original observation, the result from this method).
+ *                a weakly captured self), and the observation (same as method result). The observation will hold data
+ *                for the most recent post, but its `collated` array, if not `nil`, will contain data for previous posts
+ *                as well.
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
@@ -194,7 +194,34 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-- (BOOL)pan_pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name;
+- (BOOL)pan_suspendObservingReliablyAppGroupNotificationsNamed:(NSString *)name;
+
+
+/**
+ *  Receiver pauses observing notifications on a given name within the default app group.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Alternately, can save the observation
+ *  object returned from, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @param name The notification name to pause observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
+- (BOOL)pan_pauseObservingAppGroupNotificationsNamed:(NSString *)name;
+
+/**
+ *  Receiver resumes observing notifications on a given name within the default app group.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Alternately, can save the observation
+ *  object returned from, and change its `paused` property from `YES` to `NO`.
+ *
+ *  @param name The notification name to resume observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
+- (BOOL)pan_resumeObservingAppGroupNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Observe specific app group
@@ -203,7 +230,7 @@ PAN_ASSUME_NONNULL_BEGIN
  *  Receiver observes notifications on a given name within the given app group.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
  *
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
@@ -275,7 +302,7 @@ PAN_ASSUME_NONNULL_BEGIN
  *  would normally miss some posts, instead it will catch up and receive several all at once later.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
  *
  *  The observation will automatically be stopped when the receiver is deallocated.
  *
@@ -290,9 +317,9 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @param paused          Observation is created with calls to the block paused, if `YES` then `collated` flag is also
  *                         initially set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block           The block to call when observation is triggered, is passed the receiver (which can be used in
- *                         place of a weakly captured self), and an array of the observations (unlike callback blocks
- *                         for other observation methods, this array will contain different observation instances. Calling
- *                         remove on one will however remove the original observation, the result from this method).
+ *                         place of a weakly captured self), and the observation (same as method result). The observation
+ *                         will hold data for the most recent post, but its `collated` array, if not `nil`, will contain
+ *                         data for previous posts as well.
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
@@ -384,7 +411,36 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-- (BOOL)pan_pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+- (BOOL)pan_suspendObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+
+
+/**
+ *  Receiver pauses observing notifications on a given name within the given app group.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Alternately, can save the observation
+ *  object returned from, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @param groupIdentifier The app group identifier in which `name` was being observed.
+ *  @param name            The notification name to pause observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
+- (BOOL)pan_pauseObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+
+/**
+ *  Receiver resumes observing notifications on a given name within the given app group.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods. Alternately, can save the observation
+ *  object returned from, and change its `paused` property from `YES` to `NO`.
+ *
+ *  @param groupIdentifier The app group identifier in which `name` was being observed.
+ *  @param name            The notification name to resume observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
+- (BOOL)pan_resumeObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 
 @end
 

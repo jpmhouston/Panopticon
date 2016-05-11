@@ -129,14 +129,19 @@ static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationCont
 
 + (BOOL)removeForObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths
 {
-    PANObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *observation) {
-        return [observation isKindOfClass:[PANKeyValueObservation class]] && [((PANKeyValueObservation *)observation).keyPaths isEqualToArray:keyPaths];
-    }];
+    PANKeyValueObservation *observation = [self findObservationForObserver:observer object:object keyPaths:keyPaths];
     if (observation != nil) {
         [observation remove];
         return YES;
     }
     return NO;
+}
+
++ (PAN_nullable PANKeyValueObservation *)findObservationForObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths
+{
+    return (PANKeyValueObservation *)[self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *obs) {
+        return [obs isKindOfClass:[PANKeyValueObservation class]] && [((PANKeyValueObservation *)obs).keyPaths isEqualToArray:keyPaths];
+    }];
 }
 
 - (NSString *)description

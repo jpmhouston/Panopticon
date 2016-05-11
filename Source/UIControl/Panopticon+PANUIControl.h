@@ -87,6 +87,31 @@ PAN_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)stopObservingControlForPress:(UIControl *)control;
 
+/**
+ *  Receiver pauses observing touch-up-inside events by a given control.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @param control The control to pause observing
+ *
+ *  @return `YES` if was previously observing touch-up-inside events from the given control, `NO` otherwise.
+ */
++ (BOOL)pauseObservingControlForPress:(UIControl *)control;
+
+/**
+ *  Receiver resumes observing touch-up-inside events by a given control.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  @param control The control to resume observing
+ *
+ *  @return `YES` if was previously observing touch-up-inside events from the given control, `NO` otherwise.
+ */
++ (BOOL)resumeObservingControlForPress:(UIControl *)control;
+
+
 
 #pragma mark - Anonymously observe value-changed events
 
@@ -159,6 +184,30 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if was previously observing value-changed events from the given control, `NO` otherwise.
  */
 + (BOOL)stopObservingControlForValue:(UIControl *)control;
+
+/**
+ *  Receiver pauses observing value-changed events by a given control.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @param control The control to pause observing
+ *
+ *  @return `YES` if was previously observing value-changed events from the given control, `NO` otherwise.
+ */
++ (BOOL)pauseObservingControlForValue:(UIControl *)control;
+
+/**
+ *  Receiver resumes observing value-changed events by a given control.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  @param control The control to resume observing
+ *
+ *  @return `YES` if was previously observing value-changed events from the given control, `NO` otherwise.
+ */
++ (BOOL)resumeObservingControlForValue:(UIControl *)control;
 
 
 #pragma mark - Anonymously observe any events
@@ -236,6 +285,34 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if was previously observing the given events from the given control, `NO` otherwise.
  */
 + (BOOL)stopObservingControl:(UIControl *)control forEvents:(UIControlEvents)events;
+
+/**
+ *  Receiver pauses observing artbitrary events by a given control.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @param control The control to pause observing
+ *  @param events  A bitmask of the events to stop observing. Must be equal to the bitmask passed to the corresponding
+ *                 `observe..` method.
+ *
+ *  @return `YES` if was previously observing the given events from the given control, `NO` otherwise.
+ */
++ (BOOL)pauseObservingControl:(UIControl *)control forEvents:(UIControlEvents)events;
+
+/**
+ *  Receiver resumes observing artbitrary events by a given control.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  @param control The control to resume observing
+ *  @param events  A bitmask of the events to stop observing. Must be equal to the bitmask passed to the corresponding
+ *                 `observe..` method.
+ *
+ *  @return `YES` if was previously observing the given events from the given control, `NO` otherwise.
+ */
++ (BOOL)resumeObservingControl:(UIControl *)control forEvents:(UIControlEvents)events;
 
 @end
 

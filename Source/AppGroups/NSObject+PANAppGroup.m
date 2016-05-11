@@ -15,6 +15,8 @@ PAN_ASSUME_NONNULL_BEGIN
 
 @implementation NSObject (PANAppGroup)
 
+#pragma mark - default app group
+
 - (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:nil block:block];
@@ -118,11 +120,35 @@ PAN_ASSUME_NONNULL_BEGIN
     return [PANAppGroupObservation removeForObserver:self groupIdentifier:nil name:name retainingState:NO];
 }
 
-- (BOOL)pan_pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name
+- (BOOL)pan_suspendObservingReliablyAppGroupNotificationsNamed:(NSString *)name
 {
     return [PANAppGroupObservation removeForObserver:self groupIdentifier:nil name:name retainingState:YES];
 }
 
+- (BOOL)pan_pauseObservingAppGroupNotificationsNamed:(NSString *)name
+{
+    PANAppGroupObservation *observation = [PANAppGroupObservation findObservationForObserver:self groupIdentifier:nil name:name];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)pan_resumeObservingAppGroupNotificationsNamed:(NSString *)name
+{
+    PANAppGroupObservation *observation = [PANAppGroupObservation findObservationForObserver:self groupIdentifier:nil name:name];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
+
+#pragma mark - specific app group
 
 - (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
@@ -227,13 +253,37 @@ PAN_ASSUME_NONNULL_BEGIN
     return [PANAppGroupObservation removeForObserver:self groupIdentifier:groupIdentifier name:name retainingState:NO];
 }
 
-- (BOOL)pan_pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
+- (BOOL)pan_suspendObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
 {
     return [PANAppGroupObservation removeForObserver:self groupIdentifier:groupIdentifier name:name retainingState:YES];
 }
 
+- (BOOL)pan_pauseObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
+{
+    PANAppGroupObservation *observation = [PANAppGroupObservation findObservationForObserver:self groupIdentifier:groupIdentifier name:name];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)pan_resumeObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
+{
+    PANAppGroupObservation *observation = [PANAppGroupObservation findObservationForObserver:self groupIdentifier:groupIdentifier name:name];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
 @end
 
+
+#pragma mark -
 
 @implementation NSData (PANAppGroup)
 

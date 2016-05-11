@@ -89,7 +89,9 @@ PAN_ASSUME_NONNULL_BEGIN
  *  Anonymously observe notifications on a given name within the default app group.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
+ *
+ *  Match with a call to `stopObservingAppGroupNotificationsNamed:`.
  *
  *  Will fail and return `nil` if a default app group has not first been setup using
  *  `+[PANAppGroupObservation registerAppGroup:]`.
@@ -153,7 +155,11 @@ PAN_ASSUME_NONNULL_BEGIN
  *  would normally miss some posts, instead it will catch up and receive several all at once later.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
+ *
+ *  Match with a call to `suspendObservingReliablyAppGroupNotificationsNamed:` to have posts collected while app is not
+ *  running, to be received when app relaunched and call `observeReliably..` again. Or match with call to
+ *  `stopObservingAppGroupNotificationsNamed:` to have those posts dropped.
  *
  *  Will fail and return `nil` if a default app group has not first been setup using
  *  `+[PANAppGroupObservation registerAppGroup:]`.
@@ -162,11 +168,10 @@ PAN_ASSUME_NONNULL_BEGIN
  *  in that case as well.
  *
  *  @param name   The notification name to observe.
- *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
- *                set to `YES`. Default is `NO` if parameter is omitted.
- *  @param block  The block to call when observation is triggered, is passed an array of the observations (unlike callback
- *                blocks for other observation methods, this array will contain different observation instances.
- *                Calling remove on one will however remove the original observation, the result from this method).
+ *  @param paused Observation is created with calls to the block paused. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the observation (same as method result).
+ *                It will hold data for the most recent post, but its `collated` array, if not `nil`, will contain data
+ *                for previous posts as well.
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
  */
@@ -175,16 +180,15 @@ PAN_ASSUME_NONNULL_BEGIN
 + (PAN_nullable PANAppGroupObservation *)observeReliablyAppGroupNotificationsNamed:(NSString *)name withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Anonymously observe notifications on a given name within the default app group, calling its block on the given
- *  operation queue.
+ *  Anonymously observe notifications on a given name within the default app group, such that all posts sent are recevied
+ *  in order, and calling its block on the given operation queue.
  *
  *  Variation on `observeReliablyAppGroupNotificationsNamed:[initiallyPaused:]withBlock:` that adds an operation queue
  *  parameter. See the description for that method.
  *
  *  @param name   The notification name to observe.
  *  @param queue  The operation queue on which to call `block`.
- *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
- *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param paused Observation is created with calls to the block paused. Default is `NO` if parameter is omitted.
  *  @param block  The block to call when observation is triggered, is passed the observation (same as method result).
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
@@ -194,16 +198,15 @@ PAN_ASSUME_NONNULL_BEGIN
 + (PAN_nullable PANAppGroupObservation *)observeReliablyAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Anonymously observe notifications on a given name within the default app group, calling its block on the given
- *  Grand Central Dispatch queue.
+ *  Anonymously observe notifications on a given name within the default app group, such that all posts sent are recevied
+ *  in order, and calling its block on the given Grand Central Dispatch queue.
  *
  *  Variation on `observeReliablyAppGroupNotificationsNamed:[initiallyPaused:]withBlock:` that adds a GCD queue parameter.
  *  See the description for that method.
  *
  *  @param name   The notification name to observe.
  *  @param queue  The GCD queue on which to call `block`.
- *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
- *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param paused Observation is created with calls to the block paused. Default is `NO` if parameter is omitted.
  *  @param block  The block to call when observation is triggered, is passed the observation (same as method result).
  *
  *  @return An observation object if registration successful, `nil` otherwise. You often don't need to keep this result.
@@ -216,7 +219,7 @@ PAN_ASSUME_NONNULL_BEGIN
 /**
  *  Stop anonymously observed notifications on a given name within the default app group.
  *
- *  Call on the same object on which you called one of the `observe..` methods. Alternately, can save the observation
+ *  Call with the same name you passed to one of the `observe..` methods. Alternately, can save the observation
  *  object returned from `observe..`, and call either its `remove` or `removeStoppingReliableCollection` methods.
  *
  *  For unreliable observations this is equivalent to calling `remove` on the observation. For reliable observations,
@@ -238,8 +241,8 @@ PAN_ASSUME_NONNULL_BEGIN
  *  you were to call `stopObserving...`, then when starting to observe again, some of the intervening posts will not
  *  have been saved.
  *
- *  Call on the same object on which you called one of the `observe..` methods. Alternately, can save the observation
- *  object returned from `observe..`, and call its `remove` method.
+ *  Call with the same name you passed to one of the `observe..` methods. Alternately, can save the observation
+ *  object returned from `observeReliably..`, and call its `remove` method.
  *
  *  If called on a unreliable observation then this will have the same effect as `stopObserving...`.
  *
@@ -251,7 +254,40 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-+ (BOOL)pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name;
++ (BOOL)suspendObservingReliablyAppGroupNotificationsNamed:(NSString *)name;
+
+
+/**
+ *  Pause anonymously observed notifications on a given name within the default app group.
+ *
+ *  Call with the same name you passed to one of the `observe..` methods. Alternately, can save the observation
+ *  object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any notifications that are posted after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param name The notification name to pause observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
++ (BOOL)pauseObservingAppGroupNotificationsNamed:(NSString *)name;
+
+/**
+ *  Resume anonymously observed notifications on a given name within the default app group.
+ *
+ *  Call with the same name you passed to one of the `observe..` methods. Alternately, can save the observation
+ *  object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and notifications had been posted during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param name The notification name to resume observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
++ (BOOL)resumeObservingAppGroupNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Anonymously observe specific app group
@@ -260,7 +296,9 @@ PAN_ASSUME_NONNULL_BEGIN
  *  Anonymously observe notifications on a given name within the given app group.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
+ *
+ *  Match with a call to `stopObservingNotificationsForAppGroup:named:`.
  *
  *  Will fail and return `nil` if the given app group has not first been setup using
  *  `+[PANAppGroupObservation registerAppGroup:]`.
@@ -330,9 +368,11 @@ PAN_ASSUME_NONNULL_BEGIN
  *  would normally miss some posts, instead it will catch up and receive several all at once later.
  *
  *  As notifications may be received sometime after they were posts, a timestamp when the notification was posted can be
- *  found within the `postedDate` property of the observation when the block is called.
+ *  found within the `timestamp` property of the observation when the block is called.
  *
- *  The observation will automatically be stopped when the receiver is deallocated.
+ *  Match with a call to `suspendObservingReliablyNotificationsForAppGroup:named:` to have posts collected while app is
+ *  not running, to be received when app relaunched and call `observeReliably..` again. Or match with call to
+ *  `stopObservingNotificationsForAppGroup:named:` to have those posts dropped.
  *
  *  Will fail and return `nil` if the given app group has not first been setup using
  *  `+[PANAppGroupObservation registerAppGroup:]`.
@@ -342,8 +382,8 @@ PAN_ASSUME_NONNULL_BEGIN
  *
  *  @param groupIdentifier The app group identifier in which to observe.
  *  @param name            The notification name to observe.
- *  @param paused          Observation is created with calls to the block paused, if `YES` then `collated` flag is also
- *                         initially set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param paused          Observation is created with calls to the block paused. Default is `NO` if parameter is
+ *                         omitted.
  *  @param block           The block to call when observation is triggered, is passed an array of the observations
  *                         (unlike callback blocks for other observation methods, this array will contain different
  *                         observation instances. Calling remove on one will however remove the original observation,
@@ -356,8 +396,8 @@ PAN_ASSUME_NONNULL_BEGIN
 + (PAN_nullable PANAppGroupObservation *)observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Anonymously observe notifications on a given name within the default app group, calling its block on the given
- *  operation queue.
+ *  Anonymously observe notifications on a given name within the default app group, such that all posts sent are recevied
+ *  in order, calling its block on the given operation queue.
  *
  *  Variation on `observeReliablyNotificationsForAppGroup:named:[initiallyPaused:]withBlock:` that adds an operation
  *  queue parameter. See the description for that method.
@@ -365,8 +405,8 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @param groupIdentifier The app group identifier in which to observe.
  *  @param name            The notification name to observe.
  *  @param queue           The operation queue on which to call `block`.
- *  @param paused          Observation is created with calls to the block paused, if `YES` then `collated` flag is also
- *                         initially set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param paused          Observation is created with calls to the block paused. Default is `NO` if parameter is
+ *                         omitted.
  *  @param block           The block to call when observation is triggered, is passed the observation (same as method
  *                         result).
  *
@@ -377,8 +417,8 @@ PAN_ASSUME_NONNULL_BEGIN
 + (PAN_nullable PANAppGroupObservation *)observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Anonymously observe notifications on a given name within the default app group, calling its block on the given
- *  Grand Central Dispatch queue.
+ *  Anonymously observe notifications on a given name within the default app group, such that all posts sent are recevied
+ *  in order, calling its block on the given Grand Central Dispatch queue.
  *
  *  Variation on `observeReliablyNotificationsForAppGroup:named:[initiallyPaused:]withBlock:` that adds a GCD queue
  *  parameter. See the description for that method.
@@ -386,8 +426,8 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @param groupIdentifier The app group identifier in which to observe.
  *  @param name            The notification name to observe.
  *  @param queue           The GCD queue on which to call `block`.
- *  @param paused          Observation is created with calls to the block paused, if `YES` then `collated` flag is also
- *                         initially set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param paused          Observation is created with calls to the block paused. Default is `NO` if parameter is
+ *                         omitted.
  *  @param block           The block to call when observation is triggered, is passed the observation (same as method
  *                         result).
  *
@@ -432,12 +472,48 @@ PAN_ASSUME_NONNULL_BEGIN
  *  (Unreliable observations are ones started with a `observe...` method, reliable observations are ones started
  *  with a `observeReliably...` method.)
  *
- *  @param name The notification name to pause observing.
+ *  @param groupIdentifier The app group identifier in which `name` was being observed.
+ *  @param name            The notification name to stop observing.
  *
  *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
  *          otherwise.
  */
-+ (BOOL)pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
++ (BOOL)suspendObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+
+
+/**
+ *  Pause anonymously observed notifications on a given name within the given app group.
+ *
+ *  Call with the same name you passed to one of the `observe..` methods. Alternately, can save the observation
+ *  object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any notifications that are posted after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param groupIdentifier The app group identifier in which `name` was being observed.
+ *  @param name            The notification name to pause observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
++ (BOOL)pauseObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+
+/**
+ *  Resume anonymously observed notifications on a given name within the given app group.
+ *
+ *  Call with the same name you passed to one of the `observe..` methods. Alternately, can save the observation
+ *  object returned from `observe..`, and and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and notifications had been posted during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param groupIdentifier The app group identifier in which `name` was being observed.
+ *  @param name            The notification name to resume observing.
+ *
+ *  @return `YES` if a default app group was registered and was previously observing notification on this name, `NO`
+ *          otherwise.
+ */
++ (BOOL)resumeObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
 
 @end
 

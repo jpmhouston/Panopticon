@@ -36,7 +36,7 @@ PAN_ASSUME_NONNULL_BEGIN
 
 @synthesize postedGroupIdentifier;
 
-- (instancetype)initWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue orGCDQueue:(nullable dispatch_queue_t)gcdQueue withBlock:(PANObservationBlock)block
+- (instancetype)initWithObserver:(PAN_nullable id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue orGCDQueue:(PAN_nullable dispatch_queue_t)gcdQueue withBlock:(PANObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:nil queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -47,7 +47,7 @@ PAN_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initForReliableDeliveryWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block
+- (instancetype)initForReliableDeliveryWithObserver:(PAN_nullable id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:nil queue:queue gcdQueue:gcdQueue block:nil]))
         return nil;
@@ -182,28 +182,19 @@ PAN_ASSUME_NONNULL_BEGIN
     }
 }
 
-+ (BOOL)removeForObserver:(id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name
++ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name
 {
     return [self removeForObserver:observer groupIdentifier:identifier name:name updatingRetainStateMode:nil]; // nil to use the default retaining behavior
 }
 
-+ (BOOL)removeForObserver:(id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState
++ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name retainingState:(BOOL)retainState
 {
     return [self removeForObserver:observer groupIdentifier:identifier name:name updatingRetainStateMode:&retainState];
 }
 
-+ (BOOL)removeForObserver:(id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name updatingRetainStateMode:(nullable BOOL *)inRetainState
++ (BOOL)removeForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name updatingRetainStateMode:(PAN_nullable BOOL *)inRetainState
 {
-    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
-    NSString *groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
-    if (groupIdentifier == nil) {
-        return NO;
-    }
-    
-    PANAppGroupObservation *observation = (PANAppGroupObservation *)[self findObservationForObserver:observer object:nil matchingTest:^BOOL(PANObservation *observation) {
-        PANAppGroupObservation *groupObservation = (PANAppGroupObservation *)observation;
-        return [observation isKindOfClass:[PANAppGroupObservation class]] && [name isEqualToString:groupObservation.name] && [groupIdentifier isEqualToString:groupObservation.groupIdentifier];
-    }];
+    PANAppGroupObservation *observation = [self findObservationForObserver:observer groupIdentifier:identifier name:name];
     if (observation != nil) {
         NSAssert([observation isKindOfClass:[PANAppGroupObservation class]], @"");
         if (inRetainState != nil && observation.reliable) {
@@ -215,7 +206,21 @@ PAN_ASSUME_NONNULL_BEGIN
     return NO;
 }
 
-+ (BOOL)postNotificationNamed:(NSString *)name payload:(nullable id)payload
++ (PAN_nullable PANAppGroupObservation *)findObservationForObserver:(id)observer groupIdentifier:(PAN_nullable NSString *)identifier name:(NSString *)name
+{
+    PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
+    NSString *groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
+    if (groupIdentifier == nil) {
+        return nil;
+    }
+    
+    return (PANAppGroupObservation *)[self findObservationForObserver:observer object:nil matchingTest:^BOOL(PANObservation *obs) {
+        PANAppGroupObservation *groupObservation = (PANAppGroupObservation *)obs;
+        return [obs isKindOfClass:[PANAppGroupObservation class]] && [name isEqualToString:groupObservation.name] && [groupIdentifier isEqualToString:groupObservation.groupIdentifier];
+    }];
+}
+
++ (BOOL)postNotificationNamed:(NSString *)name payload:(PAN_nullable id)payload
 {
     PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     NSString *groupIdentifier = appGroupNotificationManager.defaultGroupIdentifier;
@@ -226,7 +231,7 @@ PAN_ASSUME_NONNULL_BEGIN
     return YES;
 }
 
-+ (BOOL)postNotificationForAppGroup:(NSString *)groupIdentifier named:(NSString *)name payload:(nullable id)payload
++ (BOOL)postNotificationForAppGroup:(NSString *)groupIdentifier named:(NSString *)name payload:(PAN_nullable id)payload
 {
     PANAppGroupNotificationManager *appGroupNotificationManager = [PANAppGroupNotificationManager sharedManager];
     return [appGroupNotificationManager postNotificationForGroupIdentifier:groupIdentifier named:name payload:payload];

@@ -19,6 +19,8 @@ PAN_ASSUME_NONNULL_BEGIN
 // TODO: consider making this private too
 //+ (BOOL)removeForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name;
 
++ (PAN_nullable PANNotificationObservation *)findObservationForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name;
+
 @end
 
 

@@ -107,14 +107,20 @@ PAN_ASSUME_NONNULL_BEGIN
 + (BOOL)removeForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name
 {
     NSParameterAssert(observer != nil || object != nil);
-    PANObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *observation) {
-        return [observation isKindOfClass:[PANNotificationObservation class]] && [((PANNotificationObservation *)observation).name isEqualToString:name];
-    }];
+    PANNotificationObservation *observation = [self findObservationForObserver:observer object:object name:name];
     if (observation != nil) {
         [observation remove];
         return YES;
     }
     return NO;
+}
+
++ (PAN_nullable PANNotificationObservation *)findObservationForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name
+{
+    NSParameterAssert(observer != nil || object != nil);
+    return (PANNotificationObservation *)[self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *obs) {
+        return [obs isKindOfClass:[PANNotificationObservation class]] && [((PANNotificationObservation *)obs).name isEqualToString:name];
+    }];
 }
 
 - (NSString *)description

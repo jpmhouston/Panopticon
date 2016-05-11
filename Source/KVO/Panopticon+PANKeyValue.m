@@ -105,6 +105,16 @@ PAN_ASSUME_NONNULL_BEGIN
     return [[self sharedPanopticonObject] pan_stopObservingForChanges:object toKeyPath:keyPath];
 }
 
++ (BOOL)pauseObservingForChanges:(id)object toKeyPath:(NSString *)keyPath
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingForChanges:object toKeyPath:keyPath];
+}
+
++ (BOOL)resumeObservingForChanges:(id)object toKeyPath:(NSString *)keyPath
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingForChanges:object toKeyPath:keyPath];
+}
+
 
 + (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
@@ -194,6 +204,16 @@ PAN_ASSUME_NONNULL_BEGIN
 + (BOOL)stopObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths
 {
     return [[self sharedPanopticonObject] pan_stopObservingForChanges:object toKeyPaths:keyPaths];
+}
+
++ (BOOL)pauseObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingForChanges:object toKeyPaths:keyPaths];
+}
+
++ (BOOL)resumeObservingForChanges:(id)object toKeyPaths:(NSArray *)keyPaths
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingForChanges:object toKeyPaths:keyPaths];
 }
 
 @end

@@ -15,6 +15,8 @@ PAN_ASSUME_NONNULL_BEGIN
 
 @implementation NSObject (PANUIControl)
 
+#pragma mark - touch-up-inside events
+
 - (PAN_nullable PANUIControlObservation *)pan_observeControlForPress:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
     PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithObserver:self control:control events:UIControlEventTouchUpInside queue:nil gcdQueue:nil block:block];
@@ -63,6 +65,36 @@ PAN_ASSUME_NONNULL_BEGIN
     return observation;
 }
 
+
+- (BOOL)pan_stopObservingControlForPress:(UIControl *)control
+{
+    return [PANUIControlObservation removeForObserver:self control:control events:UIControlEventTouchUpInside];
+}
+
+- (BOOL)pan_pauseObservingControlForPress:(UIControl *)control
+{
+    PANUIControlObservation *observation = [PANUIControlObservation findObservationForObserver:self control:control events:UIControlEventTouchUpInside];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)pan_resumeObservingControlForPress:(UIControl *)control
+{
+    PANUIControlObservation *observation = [PANUIControlObservation findObservationForObserver:self control:control events:UIControlEventTouchUpInside];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
+
+#pragma mark - value-changed events
 
 - (PAN_nullable PANUIControlObservation *)pan_observeControlForValue:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
@@ -113,6 +145,36 @@ PAN_ASSUME_NONNULL_BEGIN
 }
 
 
+- (BOOL)pan_stopObservingControlForValue:(UIControl *)control
+{
+    return [PANUIControlObservation removeForObserver:self control:control events:UIControlEventValueChanged];
+}
+
+- (BOOL)pan_pauseObservingControlForValue:(UIControl *)control
+{
+    PANUIControlObservation *observation = [PANUIControlObservation findObservationForObserver:self control:control events:UIControlEventValueChanged];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)pan_resumeObservingControlForValue:(UIControl *)control
+{
+    PANUIControlObservation *observation = [PANUIControlObservation findObservationForObserver:self control:control events:UIControlEventValueChanged];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
+}
+
+
+#pragma mark - any events
+
 - (PAN_nullable PANUIControlObservation *)pan_observeControl:(UIControl *)control forEvents:(UIControlEvents)events initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
     PANUIControlObservation *observation = [[PANUIControlObservation alloc] initWithObserver:self control:control events:events queue:nil gcdQueue:nil block:block];
@@ -162,19 +224,31 @@ PAN_ASSUME_NONNULL_BEGIN
 }
 
 
-- (BOOL)pan_stopObservingControlForPress:(UIControl *)control
-{
-    return [PANUIControlObservation removeForObserver:self control:control events:UIControlEventTouchUpInside];
-}
-
-- (BOOL)pan_stopObservingControlForValue:(UIControl *)control
-{
-    return [PANUIControlObservation removeForObserver:self control:control events:UIControlEventValueChanged];
-}
-
 - (BOOL)pan_stopObservingControl:(UIControl *)control forEvents:(UIControlEvents)events
 {
     return [PANUIControlObservation removeForObserver:self control:control events:events];
+}
+
+- (BOOL)pan_pauseObservingControl:(UIControl *)control forEvents:(UIControlEvents)events
+{
+    PANUIControlObservation *observation = [PANUIControlObservation findObservationForObserver:self control:control events:events];
+    if (observation != nil) {
+        if (!observation.paused)
+            observation.paused = YES;
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)pan_resumeObservingControl:(UIControl *)control forEvents:(UIControlEvents)events
+{
+    PANUIControlObservation *observation = [PANUIControlObservation findObservationForObserver:self control:control events:events];
+    if (observation != nil) {
+        if (observation.paused)
+            observation.paused = NO;
+        return YES;
+    }
+    return NO;
 }
 
 @end

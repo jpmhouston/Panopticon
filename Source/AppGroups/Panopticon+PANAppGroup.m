@@ -37,6 +37,8 @@ PAN_ASSUME_NONNULL_BEGIN
 }
 
 
+#pragma mark - default app group
+
 + (PAN_nullable PANAppGroupObservation *)observeAppGroupNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeAppGroupNotificationsNamed:name initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
@@ -128,11 +130,23 @@ PAN_ASSUME_NONNULL_BEGIN
     return [[self sharedPanopticonObject] pan_stopObservingAppGroupNotificationsNamed:name];
 }
 
-+ (BOOL)pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name
++ (BOOL)suspendObservingReliablyAppGroupNotificationsNamed:(NSString *)name
 {
-    return [[self sharedPanopticonObject] pan_pauseObservingReliablyAppGroupNotificationsNamed:name];
+    return [[self sharedPanopticonObject] pan_suspendObservingReliablyAppGroupNotificationsNamed:name];
 }
 
++ (BOOL)pauseObservingAppGroupNotificationsNamed:(NSString *)name
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingAppGroupNotificationsNamed:name];
+}
+
++ (BOOL)resumeObservingAppGroupNotificationsNamed:(NSString *)name
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingAppGroupNotificationsNamed:name];
+}
+
+
+#pragma mark - specific app group
 
 + (PAN_nullable PANAppGroupObservation *)observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
@@ -225,9 +239,19 @@ PAN_ASSUME_NONNULL_BEGIN
     return [[self sharedPanopticonObject] pan_stopObservingNotificationsForAppGroup:groupIdentifier named:name];
 }
 
-+ (BOOL)pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
++ (BOOL)suspendObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
 {
-    return [[self sharedPanopticonObject] pan_pauseObservingReliablyNotificationsForAppGroup:groupIdentifier named:name];
+    return [[self sharedPanopticonObject] pan_suspendObservingReliablyNotificationsForAppGroup:groupIdentifier named:name];
+}
+
++ (BOOL)pauseObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingNotificationsForAppGroup:groupIdentifier named:name];
+}
+
++ (BOOL)resumeObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name;
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingNotificationsForAppGroup:groupIdentifier named:name];
 }
 
 @end

@@ -19,6 +19,8 @@ PAN_ASSUME_NONNULL_BEGIN
 // TODO: consider making this private too
 //+ (BOOL)removeForObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events;
 
++ (PAN_nullable PANUIControlObservation *)findObservationForObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events;
+
 @end
 
 

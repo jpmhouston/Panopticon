@@ -97,6 +97,38 @@ PAN_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)pan_stopObservingForNotifications:(id)object named:(NSString *)name;
 
+/**
+ *  Receiver pauses observing notifications posted with given name by a given object.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param object The object to stop observing.
+ *  @param name   The notification name to stop observing.
+ *
+ *  @return `YES` if the receiver was previously observing notifications named `name` by `object`, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingForNotifications:(id)object named:(NSString *)name;
+
+/**
+ *  Receiver resumes observing notifications posted with given name by a given object.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param object The object to stop observing.
+ *  @param name   The notification name to stop observing.
+ *
+ *  @return `YES` if the receiver was previously observing notifications named `name` by `object`, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingForNotifications:(id)object named:(NSString *)name;
+
 
 #pragma mark - Anonymously observe notifications from any object
 
@@ -172,6 +204,36 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the receiver was previously observing notifications named `name` by any object, `NO` otherwise.
  */
 - (BOOL)pan_stopObservingAllNotificationsNamed:(NSString *)name;
+
+/**
+ *  Receiver pauses observing notifications posted with given name by a given object.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if the receiver was previously observing notifications named `name` by any object, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingAllNotificationsNamed:(NSString *)name;
+
+/**
+ *  Receiver resumes observing notifications posted with given name by a given object.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if the receiver was previously observing notifications named `name` by any object, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingAllNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Anonymously observe notifications from object
@@ -250,6 +312,36 @@ PAN_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)pan_stopObservingNotificationsNamed:(NSString *)name;
 
+/**
+ *  Pauses observing notifications posted with given name by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if was previously observing notifications named `name` by the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingNotificationsNamed:(NSString *)name;
+
+/**
+ *  Resumes observing notifications posted with given name by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if was previously observing notifications named `name` by the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingNotificationsNamed:(NSString *)name;
+
 
 #pragma mark - Have receiver observe notifications from itself
 
@@ -327,6 +419,36 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if was receiver previously observing notifications named `name` by itself, `NO` otherwise.
  */
 - (BOOL)pan_stopObservingOwnNotificationsNamed:(NSString *)name;
+
+/**
+ *  Receiver pauses observing notifications it posts with given name.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if was receiver previously observing notifications named `name` by itself, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingOwnNotificationsNamed:(NSString *)name;
+
+/**
+ *  Receiver resumes observing notifications it posts with given name.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if was receiver previously observing notifications named `name` by itself, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingOwnNotificationsNamed:(NSString *)name;
 
 
 #pragma mark - Convenince posting methods

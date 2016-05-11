@@ -15,6 +15,8 @@ PAN_ASSUME_NONNULL_BEGIN
 
 @implementation Panopticon (PANUIControl)
 
+#pragma mark - touch-up-inside events
+
 + (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForPress:control initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
@@ -63,6 +65,18 @@ PAN_ASSUME_NONNULL_BEGIN
     return [[self sharedPanopticonObject] pan_stopObservingControlForPress:control];
 }
 
++ (BOOL)pauseObservingControlForPress:(UIControl *)control
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingControlForPress:control];
+}
+
++ (BOOL)resumeObservingControlForPress:(UIControl *)control
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingControlForPress:control];
+}
+
+
+#pragma mark - value-changed events
 
 + (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
@@ -112,6 +126,18 @@ PAN_ASSUME_NONNULL_BEGIN
     return [[self sharedPanopticonObject] pan_stopObservingControlForValue:control];
 }
 
++ (BOOL)pauseObservingControlForValue:(UIControl *)control
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingControlForValue:control];
+}
+
++ (BOOL)resumeObservingControlForValue:(UIControl *)control
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingControlForValue:control];
+}
+
+
+#pragma mark - any events
 
 + (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
 {
@@ -159,6 +185,16 @@ PAN_ASSUME_NONNULL_BEGIN
 + (BOOL)stopObservingControl:(UIControl *)control forEvents:(UIControlEvents)events
 {
     return [[self sharedPanopticonObject] pan_stopObservingControl:control forEvents:events];
+}
+
++ (BOOL)pauseObservingControl:(UIControl *)control forEvents:(UIControlEvents)events
+{
+    return [[self sharedPanopticonObject] pan_pauseObservingControl:control forEvents:events];
+}
+
++ (BOOL)resumeObservingControl:(UIControl *)control forEvents:(UIControlEvents)events
+{
+    return [[self sharedPanopticonObject] pan_resumeObservingControl:control forEvents:events];
 }
 
 @end

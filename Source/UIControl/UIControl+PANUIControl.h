@@ -79,9 +79,29 @@ PAN_ASSUME_NONNULL_BEGIN
  *  before the control is deallocated. Alternately, can save the observation object returned from `pan_observe..`,
  *  and call its `remove` method.
  *
- *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
+ *  @return `YES` if the receiver was previously observing touch-up-inside events from the receiver, `NO` otherwise.
  */
 - (BOOL)pan_stopObservingForPress;
+
+/**
+ *  Pause observing touch-up-inside events by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @return `YES` if the receiver was previously observing touch-up-inside events from the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingForPress;
+
+/**
+ *  Resume observing touch-up-inside events by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @return `YES` if the receiver was previously observing touch-up-inside events from the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingForPress;
 
 
 #pragma mark - Observe value-changed events
@@ -152,6 +172,26 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
  */
 - (BOOL)pan_stopObservingForValue;
+
+/**
+ *  Pause observing value-changed events by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingForValue;
+
+/**
+ *  Resume observing value-changed events by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingForValue;
 
 
 #pragma mark - Observe any events
@@ -225,9 +265,29 @@ PAN_ASSUME_NONNULL_BEGIN
  *  @param events A bitmask of the events to stop observing. Must be equal to the bitmask passed to the corresponding
  *                `pan_observe..` method.
  *
- *  @return `YES` if the receiver was previously observing value-changed events from the receiver, `NO` otherwise.
+ *  @return `YES` if the receiver was previously observing the given events from the receiver, `NO` otherwise.
  */
 - (BOOL)pan_stopObservingForEvents:(UIControlEvents)events;
+
+/**
+ *  Pause observing artbitrary events by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @return `YES` if the receiver was previously observing the given events from the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_pauseObservingForEvents:(UIControlEvents)events;
+
+/**
+ *  Resume observing artbitrary events by the receiver.
+ *
+ *  Call on the same object on which you called one of the `pan_observe..` methods above. Alternately, can save the
+ *  observation object returned from `pan_observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  @return `YES` if the receiver was previously observing the given events from the receiver, `NO` otherwise.
+ */
+- (BOOL)pan_resumeObservingForEvents:(UIControlEvents)events;
 
 @end
 

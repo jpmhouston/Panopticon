@@ -34,7 +34,7 @@ PAN_ASSUME_NONNULL_BEGIN
 @synthesize event;
 @dynamic control;
 
-- (instancetype)initWithObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
 {
     if (!(self = [super initWithObserver:observer object:control queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -42,7 +42,7 @@ PAN_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initWithControl:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block
+- (instancetype)initWithControl:(UIControl *)control events:(UIControlEvents)events queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block
 {
     if (!(self = [super initWithObject:control queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -91,16 +91,21 @@ PAN_ASSUME_NONNULL_BEGIN
     [(UIControl *)self.object removeTarget:self action:@selector(action:forEvent:) forControlEvents:self.events];
 }
 
-+ (BOOL)removeForObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events
++ (BOOL)removeForObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events
 {
-    PANObservation *observation = [self findObservationForObserver:observer object:control matchingTest:^BOOL(PANObservation *observation) {
-        return [observation isKindOfClass:[PANUIControlObservation class]] && ((PANUIControlObservation *)observation).events == events;
-    }];
+    PANUIControlObservation *observation = [self findObservationForObserver:observer control:control events:events];
     if (observation != nil) {
         [observation remove];
         return YES;
     }
     return NO;
+}
+
++ (PAN_nullable PANUIControlObservation *)findObservationForObserver:(PAN_nullable id)observer control:(UIControl *)control events:(UIControlEvents)events
+{
+    return (PANUIControlObservation *)[self findObservationForObserver:observer object:control matchingTest:^BOOL(PANObservation *obs) {
+        return [obs isKindOfClass:[PANUIControlObservation class]] && ((PANUIControlObservation *)obs).events == events;
+    }];
 }
 
 - (NSString *)description

@@ -90,6 +90,36 @@ PAN_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)stopObservingAllNotificationsNamed:(NSString *)name;
 
+/**
+ *  Pause anonymously observing notifications posted with given name by a given object.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `NO` to `YES`.
+ *
+ *  If `collates` is set to `YES` on the observation, any observations that are triggered after being paused will be
+ *  stored, otherwise they will be dropped.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if the receiver was previously observing notifications named `name` by any object, `NO` otherwise.
+ */
++ (BOOL)pauseObservingAllNotificationsNamed:(NSString *)name;
+
+/**
+ *  Resume anonymously observing notifications posted with given name by a given object.
+ *
+ *  Call on the same object on which you called one of the `observe..` methods above. Alternately, can save the
+ *  observation object returned from `observe..`, and change its `paused` property from `YES` to `NO`.
+ *
+ *  If `collates` is set to `YES` on the observation, and observations had been triggered during the time it was paused,
+ *  then the observation's block will be invoked during this call.
+ *
+ *  @param name The notification name to stop observing.
+ *
+ *  @return `YES` if the receiver was previously observing notifications named `name` by any object, `NO` otherwise.
+ */
++ (BOOL)resumeObservingAllNotificationsNamed:(NSString *)name;
+
 
 #pragma mark - Convenince posting methods
 

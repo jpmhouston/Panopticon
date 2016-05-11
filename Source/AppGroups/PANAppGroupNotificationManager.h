@@ -30,7 +30,7 @@ typedef void (^PANAppGroupReliableSubscriberBlock)(NSString *identifier, NSStrin
 - (void)addGroupIdentifier:(NSString *)identifier;
 - (void)removeGroupIdentifier:(NSString *)identifier;
 
-@property (nonatomic, readonly, nullable) NSString *defaultGroupIdentifier; // the last identifier added
+@property (nonatomic, readonly, PAN_nullable) NSString *defaultGroupIdentifier; // the last identifier added
 
 - (BOOL)subscribeToNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name withBlock:(PANAppGroupSubscriberBlock)block;
 - (BOOL)unsubscribeFromNotificationsForGroupIdentifier:(NSString *)identifier named:(NSString *)name;

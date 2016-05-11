@@ -79,6 +79,8 @@ There are additional methods which:
 - observe an object's own KVO changes or notifications
 - call the observation block on a specific NSOperationQueue or GCD queue
 
+There's a mechanism for pausing an observation such that when unpaused, the data and a timestamp from every missed call is available.
+
 ### Also
 
 Panopticon can be easily extended to other flavor of observations. For example, I've added these capabilities:

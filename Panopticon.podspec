@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Panopticon'
-  s.version          = '0.9.0'
+  s.version          = '1.0.0b1'
   s.summary          = 'Consistent blocks API for disparate Cocoa observers: KVO, NSNotification, cross-app Darwin Notifications, and more.'
   
   s.description      = <<-DESC

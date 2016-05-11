@@ -1,0 +1,6 @@
+clean: true
+objc: true
+umbrella_header: Source/Panopticon.h
+framework_root: Source
+sdk: iphonesimulator
+module_version: 1.0

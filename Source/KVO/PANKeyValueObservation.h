@@ -8,35 +8,14 @@
 
 #import "PANObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 /**
- *  A base class for KVO observation objects.
- *
- *  An object of this class is returned from each `PANKeyValue` `pan_observe...` method. This result can be saved
- *  for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't necessary
- *  since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
- *
- *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
- *  the key path, change kind, the change dictionary, or its specific values directly such as old and changed values.
+ *  A protocol for providing the data generated from a KVO change. `PANKeyValueObservation` confirms to
+ *  this protocol and so has all these properties.
  */
-@interface PANKeyValueObservation : PANObservation
-
-/**
- *  An array of the key paths being observed.
- */
-@property (nonatomic, readonly) NSArray *keyPaths;
-
-/**
- *  The KVO options of an observation.
- */
-@property (nonatomic, readonly) NSKeyValueObservingOptions options;
-
+@protocol PANKeyValueChange <PANDetectedObservation>
 
 /**
  *  Key path that triggered a KVO observation. Value undefined except within call to an observation block.
@@ -45,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Change dictionary for a KVO observation. Value undefined except within call to an observation block.
+ *  A synonym for the `payload` property.
  */
 @property (nonatomic, readonly) NSDictionary *changeDict;
 
@@ -78,6 +58,41 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, PAN_nullable) NSIndexSet *indexes;
 
+@end
+
+
+/**
+ *  An object conforming to the PANDetectedObservation protocol. `PANKeyValueObservation` property `collated` is
+ *  an array of these.
+ */
+@interface PANKeyValueChange : PANDetectedObservation <PANKeyValueChange>
+@end
+
+
+#pragma mark -
+
+/**
+ *  A base class for KVO observation objects.
+ *
+ *  An object of this class is returned from each `PANKeyValue` `pan_observe...` method. This result can be saved
+ *  for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't necessary
+ *  since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
+ *
+ *  The observation object is passed as a parameter to the observation block, and has properties defined by
+ *  `PANKeyValueChange` for accessing the key path, change kind, the change dictionary, or its specific values
+ *  directly such as old and changed values.
+ */
+@interface PANKeyValueObservation : PANObservation <PANKeyValueChange>
+
+/**
+ *  An array of the key paths being observed.
+ */
+@property (nonatomic, readonly) NSArray *keyPaths;
+
+/**
+ *  The KVO options of an observation.
+ */
+@property (nonatomic, readonly) NSKeyValueObservingOptions options;
 
 /**
  *  Remove an observer with matching parameters. Can use this class method to look-up a previously registered
@@ -97,7 +112,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

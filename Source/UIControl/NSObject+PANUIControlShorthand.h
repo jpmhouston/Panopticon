@@ -11,12 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "PANUIControlObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @interface NSObject (PANUIControlShorthand)
 
@@ -31,41 +27,54 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when either the receiver or the control is deallocated.
  *
  *  @param control The control to observe.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes touch-up-inside events by a given control, calling its block on the given operation queue.
  *
- *  Variation on `observeControlForPress:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `observeControlForPress:[initiallyPaused:]withBlock:` that adds an operation queue parameter. See the
+ *  description for that method.
  *
  *  @param control The control to observe.
  *  @param queue   The operation queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes touch-up-inside events by a given control, calling its block on the given GCD dispatch queue.
+ *  Receiver observes touch-up-inside events by a given control, calling its block on the given Grand Central Dispatch
+ *  queue.
  *
- *  Variation on `observeControlForPress:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `observeControlForPress:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
  *  @param control The control to observe.
- *  @param queue   The GCD dispatch queue on which to call `block`.
+ *  @param queue   The GCD queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
@@ -94,41 +103,54 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when either the receiver or the control is deallocated.
  *
  *  @param control The control to observe.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes value-changed inside events by a given control, calling its block on the given operation queue.
  *
- *  Variation on `observeControlForValue:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `observeControlForValue:[initiallyPaused:]withBlock:` that adds an operation queue parameter. See the
+ *  description for that method.
  *
  *  @param control The control to observe.
  *  @param queue   The operation queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes value-changed inside events by a given control, calling its block on the given GCD dispatch queue.
+ *  Receiver observes value-changed inside events by a given control, calling its block on the given Grand Central Dispatch
+ *  queue.
  *
- *  Variation on `observeControlForValue:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `observeControlForValue:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
  *  @param control The control to observe.
- *  @param queue   The GCD dispatch queue on which to call `block`.
+ *  @param queue   The GCD queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
@@ -158,43 +180,55 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param control The control to observe.
  *  @param events  A bitmask of the events to observe.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes artbitrary events by a given control, calling its block on the given operation queue.
  *
- *  Variation on `observeControl:forEvents:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `observeControl:forEvents:[initiallyPaused:]withBlock:` that adds an operation queue parameter. See
+ *  the description for that method.
  *
  *  @param control The control to observe.
  *  @param events  A bitmask of the events to observe.
  *  @param queue   The operation queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes artbitrary events by a given control, calling its block on the given GCD dispatch queue.
+ *  Receiver observes artbitrary events by a given control, calling its block on the given Grand Central Dispatch queue.
  *
- *  Variation on `observeControl:forEvents:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `observeControl:forEvents:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
  *  @param control The control to observe.
  *  @param events  A bitmask of the events to observe.
- *  @param queue   The GCD dispatch queue on which to call `block`.
+ *  @param queue   The GCD queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                 a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
@@ -215,7 +249,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

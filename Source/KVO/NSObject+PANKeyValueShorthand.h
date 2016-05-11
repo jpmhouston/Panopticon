@@ -11,12 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "PANKeyValueObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @interface NSObject (PANKeyValueShorthand)
 
@@ -34,94 +30,72 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param object  The object to observe.
  *  @param keyPath The key path string to observe on `object`.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used
  *                 in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes a KVO key path on the given object with options.
- *
- *  Variation on `observeForChanges:toKeyPath:withBlock:` that adds a KVO options parameter. See the description for
- *  that method.
- *
- *  @param object  The object to observe.
- *  @param keyPath The key path string to observe on `object`.
- *  @param options The KVO observation options.
- *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used
- *                 in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on the given object, calling its block on the given operation queue.
  *
- *  Variation on `observeForChanges:toKeyPath:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `observeForChanges:toKeyPath:[options:][initiallyPaused:]withBlock:` that adds an operation
+ *  queue parameter. See the description for that method.
  *
  *  @param object  The object to observe.
  *  @param keyPath The key path string to observe on `object`.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
  *  @param queue   The operation queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used
  *                 in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes a KVO key path on the given object with options, calling its block on the given operation queue.
+ *  Receiver observes a KVO key path on the given object, calling its block on the given Grand Central Dispatch
+ *  queue.
  *
- *  Variation on `observeForChanges:toKeyPath:withBlock:` that adds operation queue and KVO options parameters.
- *  See the description for that method.
+ *  Variation on `observeForChanges:toKeyPath:[options:][initiallyPaused:]withBlock:` that adds a GCD queue
+ *  parameter. See the description for that method.
  *
  *  @param object  The object to observe.
  *  @param keyPath The key path string to observe on `object`.
- *  @param options The KVO observation options.
- *  @param queue   The operation queue on which to call `block`.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param queue   The GCD queue. on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used
  *                 in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes a KVO key path on the given object, calling its block on the given GCD dispatch queue.
- *
- *  Variation on `observeForChanges:toKeyPath:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
- *
- *  @param object  The object to observe.
- *  @param keyPath The key path string to observe on `object`.
- *  @param queue   The GCD dispatch queue. on which to call `block`.
- *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used
- *                 in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
-- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
-
-/**
- *  Receiver observes a KVO key path on the given object with options, calling its block on the given GCD dispatch queue.
- *
- *  Variation on `observeForChanges:toKeyPath:withBlock:` that adds operation queue and KVO options parameters.
- *  See the description for that method.
- *
- *  @param object  The object to observe.
- *  @param keyPath The key path string to observe on `object`.
- *  @param options The KVO observation options.
- *  @param queue   The GCD dispatch queue on which to call `block`.
- *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used
- *                 in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -154,95 +128,72 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param object   The object to observe.
  *  @param keyPaths Array of key path strings to observe on `object`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
  *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes multiple KVO key paths on the given object with options.
- *
- *  Variation on `observeForChanges:toKeyPaths:withBlock:` that adds a KVO options parameter. See the description for
- *  that method.
- *
- *  @param object   The object to observe.
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
- *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on the given object, calling its block on the given operation queue.
  *
- *  Variation on `observeForChanges:toKeyPaths:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `observeForChanges:toKeyPaths:[options:][initiallyPaused:]withBlock:` that adds an operation
+ *  queue parameter. See the description for that method.
  *
  *  @param object   The object to observe.
  *  @param keyPaths Array of key path strings to observe on `object`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
  *  @param queue    The operation queue on which to call `block`.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
  *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given operation queue.
+ *  Receiver observes multiple KVO key paths on the given object, calling its block on the given Grand Central
+ *  Dispatch queue.
  *
- *  Variation on `observeForChanges:toKeyPaths:withBlock:` that adds operation queue and KVO options parameters.
- *  See the description for that method.
+ *  Variation on `observeForChanges:toKeyPaths:[options:][initiallyPaused:]withBlock:` that adds a GCD queue
+ *  parameter. See the description for that method.
  *
  *  @param object   The object to observe.
  *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param queue    The operation queue on which to call `block`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param queue    The GCD queue on which to call `block`.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
  *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes multiple KVO key paths on the given object, calling its block on the given CGD dispatch queue.
- *
- *  Variation on `observeForChanges:toKeyPaths:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
- *
- *  @param object   The object to observe.
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param queue    The CGD dispatch queue on which to call `block`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
- *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
- */
-- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
-
-/**
- *  Receiver observes multiple KVO key paths on the given object with options, calling its block on the given CGD
- *  dispatch queue.
- *
- *  Variation on `observeForChanges:toKeyPaths:withBlock:` that adds operation queue and GCD dispatch parameters.
- *  See the description for that method.
- *
- *  @param object   The object to observe.
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param queue    The CGD dispatch queue on which to call `block`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
- *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeForChanges:(id)object toKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -273,89 +224,69 @@ NS_ASSUME_NONNULL_BEGIN
  *  "observer" object.
  *
  *  @param keyPath The key path string to observe on the receiver.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the key path observation is triggered, is passed the observation (same as the
  *                 method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath withBlock:(PANAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
 
-/**
- *  Observe a KVO key path on the receiver with options.
- *
- *  Variation on `observeChangesToKeyPath:withBlock:` that adds a KVO options parameter. See the description for that
- *  method.
- *
- *  @param keyPath The key path string to observe on the receiver.
- *  @param options The KVO observation options.
- *  @param block   The block to call when the key path observation is triggered, is passed the observation (same as the
- *                 method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe a KVO key path on the receiver, calling its block on the given operation queue.
  *
- *  Variation on `observeChangesToKeyPath:withBlock:` that adds a operation queue parameter. See the description for that
- *  method.
+ *  Variation on `observeChangesToKeyPath:[options:][initiallyPaused:]withBlock:` that adds a operation queue
+ *  parameter. See the description for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
  *  @param queue   The operation queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the key path observation is triggered, is passed the observation (same as the
  *                 method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Observe a KVO key path on the receiver with options, calling its block on the given operation queue.
+ *  Observe a KVO key path on the receiver, calling its block on the given Grand Central Dispatch queue.
  *
- *  Variation on `observeChangesToKeyPath:withBlock:` that adds KVO options and operation queue parameters. See the
- *  description for that method.
+ *  Variation on `observeChangesToKeyPath:[options:][initiallyPaused:]withBlock:` that adds a GCD queue parameter.
+ *  See the description for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
- *  @param options The KVO observation options.
- *  @param queue   The operation queue on which to call `block`.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param queue   The GCD queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the key path observation is triggered, is passed the observation (same as the
  *                 method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
 
-/**
- *  Observe a KVO key path on the receiver, calling its block on the given GCD dispatch queue.
- *
- *  Variation on `observeChangesToKeyPath:withBlock:` that adds a GCD dispatch queue parameter. See the description for
- *  that method.
- *
- *  @param keyPath The key path string to observe on the receiver.
- *  @param queue   The GCD dispatch queue on which to call `block`.
- *  @param block   The block to call when the key path observation is triggered, is passed the observation (same as the
- *                 method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
-- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
-
-/**
- *  Observe a KVO key path on the receiver with options, calling its block on the given GCD dispatch queue.
- *
- *  Variation on `observeChangesToKeyPath:withBlock:` that adds KVO options and GCD dispatch queue parameters. See the
- *  description for that method.
- *
- *  @param keyPath The key path string to observe on the receiver.
- *  @param options The KVO observation options.
- *  @param queue   The GCD dispatch queue on which to call `block`.
- *  @param block   The block to call when the key path observation is triggered, is passed the observation (same as the
- *                 method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -385,77 +316,69 @@ NS_ASSUME_NONNULL_BEGIN
  *  "observer" object.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the observation
  *                  (same as the method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
 
-/**
- *  Observe multiple KVO key paths on the receiver with options.
- *
- *  Variation on `observeChangesToKeyPaths:withBlock:` that adds a KVO options parameter. See the description for
- *  that method.
- *
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the observation (same
- *                  as the method result).
- *
- *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe multiple KVO key paths on the receiver, calling its block on the given operation queue.
  *
+ *  Variation on `observeChangesToKeyPaths:[options:][initiallyPaused:]withBlock:` that adds an operation queue
+ *  parameter. See the description for that method.
+ *
  *  @param keyPaths Array of key path strings to observe on `object`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
  *  @param queue    The operation queue on which to call `block`.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the observation (same
  *                  as the method result).
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Observe multiple KVO key paths on the receiver with options, calling its block on the given operation queue.
+ *  Observe multiple KVO key paths on the receiver, calling its block on the given Grand Central Dispatch queue.
+ *
+ *  Variation on `observeChangesToKeyPaths:[options:][initiallyPaused:]withBlock:` that adds a GCD queue parameter.
+ *  See the description for that method.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param queue    The operation queue on which to call `block`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param queue    The GCD queue on which to call `block`.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the observation (same
  *                  as the method result).
  *
  *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
 
-/**
- *  Observe multiple KVO key paths on the receiver, calling its block on the given GCD dispatch queue.
- *
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param queue    The GCD dispatch queue on which to call `block`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the observation (same
- *                  as the method result).
- *
- *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
- */
-- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
-
-/**
- *  Observe multiple KVO key paths on the receiver with options, calling its block on the given GCD dispatch queue.
- *
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param queue    The GCD dispatch queue on which to call `block`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the observation (same
- *                  as the method result).
- *
- *  @return An object representing observations of all key paths combined. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -488,83 +411,69 @@ NS_ASSUME_NONNULL_BEGIN
  *  block, or when you want to make extra clear that the object is intentionally observing itself.
  *
  *  @param keyPath The key path string to observe on the receiver.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used in place
  *                 of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes a KVO key path on itself with options.
- *
- *  Variation on `observeOwnChangesToKeyPath:withBlock:` that adds a KVO options parameter. See the description for that
- *  method.
- *
- *  @param keyPath The key path string to observe on the receiver.
- *  @param options The KVO observation options.
- *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used in place
- *                 of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes a KVO key path on itself, calling its block on the given operation queue.
  *
- *  Variation on `observeOwnChangesToKeyPath:withBlock:` that adds an operation queue parameter. See the description for
- *  that method.
+ *  Variation on `observeOwnChangesToKeyPath:[options:][initiallyPaused:]withBlock:` that adds an operation queue
+ *  parameter. See the description for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
  *  @param queue   The operation queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used in place
  *                 of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes a KVO key path on itself with options, calling its block on the given operation queue.
+ *  Receiver observes a KVO key path on itself, calling its block on the given Grand Central Dispatch queue.
+ *
+ *  Variation on `observeOwnChangesToKeyPath:[options:][initiallyPaused:]withBlock:` that adds a GCD queue parameter.
+ *  See the description for that method.
  *
  *  @param keyPath The key path string to observe on the receiver.
- *  @param options The KVO observation options.
- *  @param queue   The operation queue on which to call `block`.
+ *  @param options The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param queue   The GCD queue on which to call `block`.
+ *  @param paused  Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                 set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used in place
  *                 of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes a KVO key path on itself, calling its block on the given GCD dispatch queue.
- *
- *  Variation on `observeOwnChangesToKeyPath:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
- *
- *  @param keyPath The key path string to observe on the receiver.
- *  @param queue   The GCD dispatch queue on which to call `block`.
- *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used in place
- *                 of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
-- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
-
-/**
- *  Receiver observes a KVO key path on itself with options, calling its block on the given GCD dispatch queue.
- *
- *  @param keyPath The key path string to observe on the receiver.
- *  @param options The KVO observation options.
- *  @param queue   The GCD dispatch queue on which to call `block`.
- *  @param block   The block to call when the observation is triggered, is passed the receiver (which can be used in place
- *                 of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPath:(NSString *)keyPath onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -597,74 +506,69 @@ NS_ASSUME_NONNULL_BEGIN
  *  block, or when you want to make extra clear that the object is intentionally observing itself.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
  *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes multiple KVO key paths on itself with options.
- *
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
- *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes multiple KVO key paths on itself, calling its block on the given operation queue.
  *
+ *  Variation on `observeOwnChangesToKeyPaths:[options:][initiallyPaused:]withBlock:` that adds an operation queue
+ *  parameter. See the description for that method.
+ *
  *  @param keyPaths Array of key path strings to observe on `object`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
  *  @param queue    The operation queue on which to call `block`.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
  *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes multiple KVO key paths on itself with options, calling its block on the given operation queue.
+ *  Receiver observes multiple KVO key paths on itself, calling its block on the given Grand Central Dispatch queue.
+ *
+ *  Variation on `observeOwnChangesToKeyPaths:[options:][initiallyPaused:]withBlock:` that adds a GCD queue parameter.
+ *  See the description for that method.
  *
  *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param queue    The operation queue on which to call `block`.
+ *  @param options  The KVO observation options. Default is `0` if parameter is omitted.
+ *  @param queue    The GCD queue on which to call `block`.
+ *  @param paused   Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                  set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
  *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
 
-/**
- *  Receiver observes multiple KVO key paths on itself, calling its block on the given GCD dispatch queue.
- *
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param queue    The GCD dispatch queue on which to call `block`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
- *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
-- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
-
-/**
- *  Receiver observes multiple KVO key paths on itself with options, calling its block on the given GCD dispatch queue.
- *
- *  @param keyPaths Array of key path strings to observe on `object`.
- *  @param options  The KVO observation options.
- *  @param queue    The GCD dispatch queue on which to call `block`.
- *  @param block    The block to call when any of the key path observations are triggered, is passed the receiver
- *                  (which can be used in place of a weakly captured self), and the observation (same as method result).
- *
- *  @return An observation object. You often don't need to keep this result.
- */
 - (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths options:(int)options onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANKeyValueObservation *)observeOwnChangesToKeyPaths:(NSArray *)keyPaths onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -683,7 +587,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

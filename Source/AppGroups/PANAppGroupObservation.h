@@ -8,37 +8,34 @@
 
 #import "PANObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 /**
- *  A block called when an observation is triggered with potentially multiple results are available at once.
- *
- *  @param obj          The observing object. Often this can be used in place of a weak `self` capture.
- *  @param observations Array of the triggered observation objects. Details about the observation that was
- *                      triggered, plus any payload or associated metadata will be properties of this object.
- *                      Some objects in the array may be a copies of the original instance that represents the
- *                      overall observation. Any of these copies will forward the `remove` method call to the
- *                      original observer instance.
+ *  A protocol for providing the data generated from an app grounp notification. `PANNotificationObservation`
+ *  confirms to this protocol and so has these properties, plus notably `payload` and `timestamp` from the
+ *  parent protocol.
  */
-typedef void (^PANCollatedObservationBlock)(id obj, NSArray *observations);
+@protocol PANAppGroupPost <PANDetectedObservation>
 
 /**
- *  A block called when an observation is triggered with potentially multiple results are available at once,
- *  if that observation has no observing object.
- *
- *  @param observations Array of the triggered observation objects. Details about the observation that was
- *                      triggered, plus any payload or associated metadata will be properties of this object.
- *                      Some objects in the array may be a copies of the original instance that represents the
- *                      overall observation. Any of these copies will forward the `remove` method call to the
- *                      original observer instance.
+ *  Group identifier from a posted app group notification. Useful in cases where the observation's
+ *  `groupIdentifier` is `nil`.
  */
-typedef void (^PANAnonymousCollatedObservationBlock)(NSArray *observations);
+@property (nonatomic, readonly) NSString *postedGroupIdentifier;
 
+@end
+
+
+/**
+ *  An object conforming to the PANDetectedObservation protocol. `PANNotificationObservation` property `collated`
+ *  is an array of these.
+ */
+@interface PANAppGroupPost : PANDetectedObservation <PANAppGroupPost>
+@end
+
+
+#pragma mark -
 
 /**
  *  A base class for App Group Notification observation objects.
@@ -47,10 +44,10 @@ typedef void (^PANAnonymousCollatedObservationBlock)(NSArray *observations);
  *  saved for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't
  *  necessary since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
  *
- *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
- *  the name, payload, and a timestamp when the notification was posted.
+ *  The observation object is passed as a parameter to the observation block, and has properties defined by
+ *  `PANAppGroupPost` for accessing the payload, and a timestamp when the notification was posted.
  */
-@interface PANAppGroupObservation : PANObservation
+@interface PANAppGroupObservation : PANObservation <PANAppGroupPost>
 
 /**
  *  The notification name being observed.
@@ -58,42 +55,15 @@ typedef void (^PANAnonymousCollatedObservationBlock)(NSArray *observations);
 @property (nonatomic, readonly) NSString *name;
 
 /**
- *  Whether this is a reliable observation.
+ *  Group identifier being observed.
+ */
+@property (nonatomic, readonly, PAN_nullable) NSString *groupIdentifier;
+
+/**
+ *  Whether this is a reliable observation, which by default will retain all missed posts not only while the
+ *  observation is paused, but also while the app is inactive and even between app termination and relaunch.
  */
 @property (nonatomic, readonly, getter=isReliable) BOOL reliable;
-
-
-/**
- *  Payload object from a posted app group notification. Value undefined except within call to an observation block.
- */
-@property (nonatomic, readonly, PAN_nullable) id payload;
-
-/**
- *  Group identifier from a posted app group notification. Value undefined except within call to an observation block.
- */
-@property (nonatomic, readonly) NSString *groupIdentifier;
-
-/**
- *  Timestamp from a posted app group notification. Value undefined except within call to an observation block.
- */
-@property (nonatomic, readonly) NSDate *postedDate;
-
-
-
-/**
- *  The block provided when the reliable observation was created, which will be executed when the observation is
- *  triggered. Can be `nil` if the observation was created as reliable, and thus the `objectBlock` property.
- *  (read-only)
- *
- *  When this property is not `nil`, should never reference `objectBlock` as its value will be undefined.
- */
-@property (nonatomic, readonly, copy, PAN_nullable) PANCollatedObservationBlock collatedBlock;
-
-/**
- *  If this instance is a copy observation passed in the `observations` parameter to a `PANCollatedObservationBlock`
- *  then this is a reference to the original.
- */
-@property (nonatomic, readonly, weak, PAN_nullable) PANAppGroupObservation *originalObservation;
 
 
 /**
@@ -225,7 +195,5 @@ typedef void (^PANAnonymousCollatedObservationBlock)(NSArray *observations);
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

@@ -10,21 +10,28 @@
 #import "PANUIControlObservation+Private.h"
 #import "PANObservation+Private.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
 
-@interface PANUIControlObservation ()
-@property (nonatomic, readwrite) UIControlEvents events;
+
+@protocol PANMutableUIControlEvent <PANUIControlEvent, PANMutableDetectedObservation>
 @property (nonatomic, readwrite) id sender;
 @property (nonatomic, readwrite) UIEvent *event;
 @end
 
+@interface PANUIControlObservation () <PANMutableUIControlEvent>
+@property (nonatomic, readwrite) UIControlEvents events;
+@end
+
+@interface PANUIControlEvent () <PANMutableUIControlEvent>
+@end
+
+
+#pragma mark -
 
 @implementation PANUIControlObservation
 
+@synthesize sender;
+@synthesize event;
 @dynamic control;
 
 - (instancetype)initWithObserver:(nullable id)observer control:(UIControl *)control events:(UIControlEvents)events queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
@@ -55,13 +62,26 @@ NS_ASSUME_NONNULL_BEGIN
     [(UIControl *)self.object addTarget:self action:@selector(action:forEvent:) forControlEvents:self.events];
 }
 
-- (void)action:(id)sender forEvent:(UIEvent *)event
+- (void)action:(id)senderobj forEvent:(UIEvent *)uievent
 {
-    //NSAssert3(sender == self.object, @"Action called with sender %@ doesn't match control %@ for %@", sender, self.object, self); -- maybe this happens, and if not, probably can remove the sender property
-    [self invokeOnQueueAfter:^{
-        self.sender = sender;
-        self.event = event;
+    //NSAssert3(senderobj == self.object, @"Action called with sender %@ doesn't match control %@ for %@", senderobj, self.object, self); -- i think this is ok to happen. if not, probably can remove the sender property
+    [self triggerWithSetupBlock:^(id<PANDetectedObservation> obs) {
+        if (![obs conformsToProtocol:@protocol(PANMutableUIControlEvent)])
+            return;
+        id<PANMutableUIControlEvent> ev = (id<PANMutableUIControlEvent>)obs;
+        ev.sender = senderobj;
+        ev.event = uievent;
     }];
+}
+
+- (void)duplicateFrom:(id<PANDetectedObservation>)source
+{
+    [super duplicateFrom:source];
+    if (![source conformsToProtocol:@protocol(PANUIControlEvent)])
+        return;
+    id<PANUIControlEvent> ev = (id<PANUIControlEvent>)source;
+    self.sender = ev.sender;
+    self.event = ev.event;
 }
 
 - (void)deregisterInternal
@@ -90,6 +110,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+#pragma mark -
+
+@implementation PANUIControlEvent
+
+@synthesize sender;
+@synthesize event;
+
+@end
+
+
+PAN_ASSUME_NONNULL_END

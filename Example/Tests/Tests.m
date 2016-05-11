@@ -17,10 +17,10 @@
 @property (nonatomic, assign) BOOL flag;
 @end
 
-@interface PANObservation (PrivateMethodExposedForTesting)
+@interface PANObservation (PrivateMethodsExposedForTesting)
 + (NSSet *)associatedObservationsForObserver:(id)observer;
 + (NSSet *)associatedObservationsForObservee:(id)object;
-+ (NSSet *)associatedObservationsForObserver:(nullable id)observer object:(nullable id)object;
++ (NSSet *)associatedObservationsForObserver:(nullable id)observer observee:(nullable id)observee;
 @end
 
 
@@ -317,7 +317,7 @@
         observation2 = [self pan_observeAllNotificationsNamed:NameChangedNotification withBlock:^(id obj, PANObservation *obs) { }];
     }
     
-    NSSet *observationsBeforeRemoval = [PANObservation associatedObservationsForObserver:self object:nil];
+    NSSet *observationsBeforeRemoval = [PANObservation associatedObservationsForObserver:self observee:nil];
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation1]);
     XCTAssertTrue([observationsBeforeRemoval containsObject:observation2]);
     
@@ -326,7 +326,7 @@
     // without use of @autoreleasepool above, the property would have a strong retain by the main autorelease pool until after this method exited
     // so modelObject's dealloc wouldn't run until then, which would mean observation1 would not be removed here and the first assertion below would fail
     
-    NSSet *observationsAfterRemoval = [PANObservation associatedObservationsForObserver:self object:nil];
+    NSSet *observationsAfterRemoval = [PANObservation associatedObservationsForObserver:self observee:nil];
     XCTAssertFalse([observationsAfterRemoval containsObject:observation1]);
     XCTAssertTrue([observationsAfterRemoval containsObject:observation2]);
 }

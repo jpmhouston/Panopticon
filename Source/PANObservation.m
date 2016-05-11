@@ -18,24 +18,24 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
 
-@interface PANObservation ()
-@property (nonatomic, readwrite, weak, nullable) id observer;
-@property (nonatomic, readwrite, weak, nullable) id object; // some overlap of term 'object' in here, consider naming this 'observee'
 
-@property (nonatomic, readwrite, nullable) NSOperationQueue *queue;
-@property (nonatomic, readwrite, nullable) dispatch_queue_t gcdQueue;
+@interface PANObservation () <PANMutableDetectedObservation>
+@property (nonatomic, readwrite, weak, PAN_nullable) id observer;
+@property (nonatomic, readwrite, weak, PAN_nullable) id observee;
 
-@property (nonatomic, readwrite, copy, nullable) PANAnonymousObservationBlock anonymousBlock; // code enforces one of these will be nonnull
-@property (nonatomic, readwrite, copy, nullable) PANObservationBlock objectBlock;
+@property (nonatomic, readwrite, PAN_nullable) NSOperationQueue *queue;
+@property (nonatomic, readwrite, PAN_nullable) dispatch_queue_t gcdQueue;
+
+@property (nonatomic, readwrite, copy, PAN_nullable) PANAnonymousObservationBlock anonymousBlock; // code enforces one of these will be nonnull
+@property (nonatomic, readwrite, copy, PAN_nullable) PANObservationBlock objectBlock;
 
 @property (nonatomic, readwrite) BOOL registered;
+
+@property (nonatomic) BOOL inactive; // perhaps will be made public
 @end
+
 
 static const int PANObservationSetKeyVar;
 static void *PANObservationSetKey = (void *)&PANObservationSetKeyVar;
@@ -46,6 +46,10 @@ static NSMutableSet *classesSwizzledSet = nil;
 #pragma mark -
 
 @implementation PANObservation
+
+@synthesize object;
+@synthesize payload;
+@synthesize timestamp;
 
 - (instancetype)init
 {
@@ -58,12 +62,12 @@ static NSMutableSet *classesSwizzledSet = nil;
     return nil;
 }
 
-- (instancetype)initWithObserver:(nullable id)observer object:(nullable id)object queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)cgdQueue block:(nullable PANObservationBlock)block
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(PAN_nullable id)observee queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANObservationBlock)block
 {
     if (!(self = [super init]))
         return nil;
     _observer = observer;
-    _object = object;
+    _observee = observee;
     _queue = queue;
     _gcdQueue = cgdQueue;
     _objectBlock = block;
@@ -71,11 +75,11 @@ static NSMutableSet *classesSwizzledSet = nil;
     return self;
 }
 
-- (instancetype)initWithObject:(nullable id)object queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)cgdQueue block:(nullable PANAnonymousObservationBlock)block
+- (instancetype)initWithObject:(PAN_nullable id)observee queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANAnonymousObservationBlock)block
 {
     if (!(self = [super init]))
         return nil;
-    _object = object;
+    _observee = observee;
     _queue = queue;
     _gcdQueue = cgdQueue;
     _anonymousBlock = block;
@@ -104,25 +108,98 @@ static NSMutableSet *classesSwizzledSet = nil;
     self.registered = NO;
 }
 
-- (void)invoke
+- (void)setPaused:(BOOL)paused
 {
-    if (self.anonymousBlock != nil)
-        self.anonymousBlock(self);
-    else if (self.objectBlock != nil)
-        self.objectBlock(self.observer, self);
+    if (paused && !self.inactive) {
+        [self pause];
+    }
+    else if (!paused && !self.inactive) {
+        [self unpause];
+    }
+    _paused = paused;
+}
+
+- (void)setInactive:(BOOL)inactive
+{
+    if (inactive && !self.paused) {
+        [self pause];
+    }
+    else if (!inactive && !self.paused) {
+        [self unpause];
+    }
+    _inactive = inactive;
+}
+
+- (void)pause
+{
+    if (self.collates) {
+        self.collated = [NSArray array];
+    }
+    else {
+        self.collated = nil;
+    }
+}
+
+- (void)unpause
+{
+    if (self.collated.count > 0) {
+        [self invokeSynchronously:NO afterSetup:^{
+            [self duplicateFrom:self.collated.lastObject];
+        }];
+    }
+    self.collated = nil;
+}
+
+- (void)triggerWithSetupBlock:(void(^)(id<PANDetectedObservation>))setup
+{
+    [self triggerSynchronously:NO withSetupBlock:setup];
+}
+
+- (void)triggerSynchronously:(BOOL)synchronously withSetupBlock:(void(^)(id<PANDetectedObservation>))setup
+{
+    if (self.collated != nil) {
+        PANDetectedObservation *detectedObservation = [self createDetectedObservation];
+        detectedObservation.object = self.observee;
+        detectedObservation.timestamp = [NSDate date];
+        setup(detectedObservation);
+        
+        self.collated = [self.collated arrayByAddingObject:detectedObservation];
+    }
+    else if (!self.paused && !self.inactive) {
+        [self invokeSynchronously:synchronously afterSetup:^{
+            self.object = self.observee;
+            self.timestamp = [NSDate date];
+            setup(self);
+        }];
+    }
+    // if paused or inactive, ignore the triggered observation
+}
+
+- (void)invokeSynchronously:(BOOL)synchronously afterSetup:(void(^)(void))setup
+{
+    if (self.anonymousBlock != nil) {
+        [self invokeSynchronously:synchronously afterSetup:setup using:^{
+            self.anonymousBlock(self);
+        }];
+    }
+    else if (self.objectBlock != nil) {
+        [self invokeSynchronously:synchronously afterSetup:setup using:^{
+            self.objectBlock(self.observer, self);
+        }];
+    }
     else
         [NSException raise:NSInternalInconsistencyException format:@"Nil 'block' & 'objectBlock' properties when invoking observation %@", self];
 }
 
-- (void)invokeOnQueueAfter:(void(^)(void))setup by:(void(^)(void))invoke
+- (void)invokeSynchronously:(BOOL)synchronously afterSetup:(void(^)(void))setup using:(void(^)(void))invoke
 {
-    if (self.queue != nil) {
+    if (!synchronously && self.queue != nil) {
         [self.queue addOperationWithBlock:^{
             setup();
             invoke();
         }];
     }
-    else if (self.gcdQueue != nil) {
+    else if (!synchronously && self.gcdQueue != nil) {
         dispatch_async(self.gcdQueue, ^{
             setup();
             invoke();
@@ -135,20 +212,17 @@ static NSMutableSet *classesSwizzledSet = nil;
 }
 
 
-- (void)invokeOnQueueAfter:(void(^)(void))setup
+- (void)duplicateFrom:(id<PANDetectedObservation>)source
 {
-    if (self.anonymousBlock != nil) {
-        [self invokeOnQueueAfter:setup by:^{
-            self.anonymousBlock(self);
-        }];
-    }
-    else if (self.objectBlock != nil) {
-        [self invokeOnQueueAfter:setup by:^{
-            self.objectBlock(self.observer, self);
-        }];
-    }
-    else
-        [NSException raise:NSInternalInconsistencyException format:@"Nil 'block' & 'objectBlock' properties when invoking observation %@", self];
+    self.object = source.object;
+    self.timestamp = source.timestamp;
+    self.payload = source.payload;
+}
+
+- (PANDetectedObservation *)createDetectedObservation
+{
+    [NSException raise:NSInternalInconsistencyException format:@"PANObservation createDetectedObservation should not be called"];
+    return [PANDetectedObservation new];
 }
 
 - (void)registerInternal
@@ -161,33 +235,27 @@ static NSMutableSet *classesSwizzledSet = nil;
     [NSException raise:NSInternalInconsistencyException format:@"PANObservation registerInternal should not be called"];
 }
 
-- (NSString *)hashKey
-{
-    [NSException raise:NSInternalInconsistencyException format:@"PANObservation hashKey should not be called"];
-    return nil;
-}
-
 
 #pragma mark -
 
 - (void)storeAssociatedObservation
 {
-    NSAssert1(self.observer != nil || self.object != nil, @"Nil 'observer' & 'object' properties when storing observation %@", self);
+    NSAssert1(self.observer != nil || self.observee != nil, @"Nil 'observer' & 'observee' properties when storing observation %@", self);
     // store into *both* observer & observee, although that may not be obvious
     // of course we want to remove the observation if the observer goes away, but also if the observee does too
     if (self.observer != nil)
         [[self class] storeAssociatedObservation:self intoObject:self.observer];
-    if (self.object != nil && self.object != self.observer)
-        [[self class] storeAssociatedObservation:self intoObject:self.object];
+    if (self.observee != nil && self.observee != self.observer)
+        [[self class] storeAssociatedObservation:self intoObject:self.observee];
 }
 
 - (void)removeAssociatedObservation
 {
-    NSAssert1(self.observer != nil || self.object != nil, @"Nil 'observer' & 'object' properties when removing observation %@", self);
+    NSAssert1(self.observer != nil || self.observee != nil, @"Nil 'observer' & 'observee' properties when removing observation %@", self);
     if (self.observer != nil)
         [[self class] removeAssociatedObservation:self fromObject:self.observer];
-    if (self.object != nil && self.object != self.observer)
-        [[self class] removeAssociatedObservation:self fromObject:self.object];
+    if (self.observee != nil && self.observee != self.observer)
+        [[self class] removeAssociatedObservation:self fromObject:self.observee];
 }
 
 + (void)storeAssociatedObservation:(PANObservation *)observation intoObject:(id)associationTarget
@@ -232,15 +300,15 @@ static NSMutableSet *classesSwizzledSet = nil;
     return [self associatedObservationsForObject:observer];
 }
 
-+ (NSSet *)associatedObservationsForObservee:(id)object
++ (NSSet *)associatedObservationsForObservee:(id)observee
 {
-    return [self associatedObservationsForObject:object];
+    return [self associatedObservationsForObject:observee];
 }
 
-+ (NSSet *)associatedObservationsForObserver:(nullable id)observer object:(nullable id)object
++ (NSSet *)associatedObservationsForObserver:(PAN_nullable id)observer observee:(PAN_nullable id)observee
 {
-    NSParameterAssert(observer != nil || object != nil);
-    return [self associatedObservationsForObject:observer != nil ? observer : object]; // observer if its not nil, otherwise object
+    NSParameterAssert(observer != nil || observee != nil);
+    return [self associatedObservationsForObject:observer != nil ? observer : observee]; // observer if its not nil, otherwise observee
 }
 
 + (NSSet *)associatedObservationsForObject:(id)associationTarget
@@ -261,15 +329,15 @@ static NSMutableSet *classesSwizzledSet = nil;
     return observationSet;
 }
 
-+ (PANObservation *)findObservationForObserver:(nullable id)observer object:(nullable id)object matchingTest:(BOOL(^)(PANObservation *observation))testBlock
++ (PANObservation *)findObservationForObserver:(PAN_nullable id)observer object:(PAN_nullable id)observee matchingTest:(BOOL(^)(PANObservation *observation))testBlock
 {
     PANObservation *foundObservation = nil;
-    NSSet *observationSet = [self associatedObservationsForObserver:observer object:object];
+    NSSet *observationSet = [self associatedObservationsForObserver:observer observee:observee];
     
     for (PANObservation *observation in observationSet) {
         // note, self here is class of subclass whose class method called this superclass class method
         // eg. if PANNotificationObservation class method called this, then self is PANNotificationObservation instead of PANObservation
-        if ([observation isKindOfClass:self] && observer == observation.observer && object == observation.object && testBlock(observation)) {
+        if ([observation isKindOfClass:self] && observer == observation.observer && observee == observation.observee && testBlock(observation)) {
             foundObservation = observation;
             break;
         }
@@ -282,11 +350,11 @@ static NSMutableSet *classesSwizzledSet = nil;
 
 - (void)adoptAutomaticRemoval
 {
-    NSAssert1(self.observer != nil || self.object != nil, @"Nil 'observer' & 'object' properties when adopting auto-removal for observation %@", self);
+    NSAssert1(self.observer != nil || self.observee != nil, @"Nil 'observer' & 'observee' properties when adopting auto-removal for observation %@", self);
     if (self.observer != nil)
         [[self class] swizzleDeallocIfNeededForClass:[self.observer class]];
-    if (self.object != nil && self.object != self.observer)
-        [[self class] swizzleDeallocIfNeededForClass:[self.object class]];
+    if (self.observee != nil && self.observee != self.observer)
+        [[self class] swizzleDeallocIfNeededForClass:[self.observee class]];
 }
 
 + (void)swizzleDeallocIfNeededForClass:(Class)class
@@ -331,6 +399,16 @@ static NSMutableSet *classesSwizzledSet = nil;
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+#pragma mark -
+
+@implementation PANDetectedObservation
+
+@synthesize object;
+@synthesize payload;
+@synthesize timestamp;
+
+@end
+
+
+PAN_ASSUME_NONNULL_END

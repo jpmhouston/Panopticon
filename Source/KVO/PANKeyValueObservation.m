@@ -10,32 +10,44 @@
 #import "PANKeyValueObservation+Private.h"
 #import "PANObservation+Private.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
 
-@interface PANKeyValueObservation ()
-@property (nonatomic, readwrite) NSArray *keyPaths;
-@property (nonatomic, readwrite) NSKeyValueObservingOptions options;
 
+@protocol PANMutableKeyValueChange <PANKeyValueChange, PANMutableDetectedObservation>
 @property (nonatomic, readwrite, copy) NSString *keyPath;
 @property (nonatomic, readwrite) NSDictionary *changeDict;
 @property (nonatomic, readwrite) NSUInteger kind;
 @property (nonatomic, readwrite, getter=isPrior) BOOL prior;
-@property (nonatomic, readwrite, nullable) id changedValue;
-@property (nonatomic, readwrite, nullable) id oldValue;
-@property (nonatomic, readwrite, nullable) NSIndexSet *indexes;
+@property (nonatomic, readwrite, PAN_nullable) id changedValue;
+@property (nonatomic, readwrite, PAN_nullable) id oldValue;
+@property (nonatomic, readwrite, PAN_nullable) NSIndexSet *indexes;
+@end
+
+@interface PANKeyValueObservation () <PANMutableKeyValueChange>
+@property (nonatomic, readwrite) NSArray *keyPaths;
+@property (nonatomic, readwrite) NSKeyValueObservingOptions options;
+@end
+
+@interface PANKeyValueChange () <PANMutableKeyValueChange>
 @end
 
 static const int PANKeyValueObservationContextVar;
 static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationContextVar;
 
 
+#pragma mark -
+
 @implementation PANKeyValueObservation
 
-- (instancetype)initWithObserver:(nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block
+@synthesize keyPath;
+@synthesize changeDict;
+@synthesize kind;
+@synthesize prior;
+@synthesize changedValue;
+@synthesize oldValue;
+@synthesize indexes;
+
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -44,7 +56,7 @@ static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationCont
     return self;
 }
 
-- (instancetype)initWithObject:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block
+- (instancetype)initWithObject:(id)object keyPaths:(NSArray *)keyPaths options:(int)options queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block
 {
     if (!(self = [super initWithObject:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -58,28 +70,46 @@ static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationCont
     NSAssert1(!self.registered, @"Attempted double-register of %@", self);
     NSAssert1(self.keyPaths != nil, @"Nil 'keyPaths' property when registering observation for %@", self);
     NSAssert1(self.keyPaths.count > 0, @"Empty 'keyPaths' property when registering observation for %@", self);
-    for (NSString *keyPath in self.keyPaths) {
-        [self.object addObserver:self forKeyPath:keyPath options:self.options context:PANKeyValueObservationContext];
+    for (NSString *kp in self.keyPaths) {
+        [self.object addObserver:self forKeyPath:kp options:self.options context:PANKeyValueObservationContext];
     }
 }
 
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context
+- (void)observeValueForKeyPath:(PAN_nullable NSString *)observedKeyPath ofObject:(PAN_nullable id)object change:(PAN_nullable NSDictionary *)changedict context:(PAN_nullable void *)context
 {
     if (context == PANKeyValueObservationContext) {
-        NSAssert2([self.keyPaths containsObject:keyPath], @"Invoked with unexpected keypath '%@' %@", keyPath, self);
-        [self invokeOnQueueAfter:^{
-            self.keyPath = keyPath;
-            self.changeDict = change;
-            self.kind = [(NSNumber *)change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-            self.prior = [(NSNumber *)change[NSKeyValueChangeNotificationIsPriorKey] unsignedIntegerValue];
-            self.changedValue = change[NSKeyValueChangeNewKey];
-            self.oldValue = change[NSKeyValueChangeOldKey];
-            self.indexes = change[NSKeyValueChangeIndexesKey];
+        NSAssert2([self.keyPaths containsObject:observedKeyPath], @"Invoked with unexpected keypath '%@' %@", observedKeyPath, self);
+        [self triggerWithSetupBlock:^(id<PANDetectedObservation> obs) {
+            if (![obs conformsToProtocol:@protocol(PANMutableKeyValueChange)])
+                return;
+            id<PANMutableKeyValueChange> change = (id<PANMutableKeyValueChange>)obs;
+            change.keyPath = observedKeyPath;
+            change.payload = change.changeDict = changedict;
+            change.kind = [(NSNumber *)changedict[NSKeyValueChangeKindKey] unsignedIntegerValue];
+            change.prior = [(NSNumber *)changedict[NSKeyValueChangeNotificationIsPriorKey] unsignedIntegerValue];
+            change.changedValue = changedict[NSKeyValueChangeNewKey];
+            change.oldValue = changedict[NSKeyValueChangeOldKey];
+            change.indexes = changedict[NSKeyValueChangeIndexesKey];
         }];
     }
     else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        [super observeValueForKeyPath:keyPath ofObject:object change:changedict context:context];
     }
+}
+
+- (void)duplicateFrom:(id<PANDetectedObservation>)source
+{
+    [super duplicateFrom:source];
+    if (![source conformsToProtocol:@protocol(PANKeyValueChange)])
+        return;
+    id<PANKeyValueChange> change = (id<PANKeyValueChange>)source;
+    self.keyPath = change.keyPath;
+    self.changeDict = change.changeDict;
+    self.kind = change.kind;
+    self.prior = change.prior;
+    self.changedValue = change.changedValue;
+    self.oldValue = change.oldValue;
+    self.indexes = change.indexes;
 }
 
 - (void)deregisterInternal
@@ -87,12 +117,17 @@ static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationCont
     NSAssert1(self.registered, @"Attempted double-removal of %@", self);
     NSAssert1(self.keyPaths != nil, @"Nil 'keyPaths' property when deregistering observation for %@", self);
     NSAssert1(self.keyPaths.count > 0, @"Empty 'keyPaths' property when deregistering observation for %@", self);
-    for (NSString *keyPath in self.keyPaths) {
-        [self.object removeObserver:self forKeyPath:keyPath context:NULL];
+    for (NSString *kp in self.keyPaths) {
+        [self.object removeObserver:self forKeyPath:kp context:NULL];
     }
 }
 
-+ (BOOL)removeForObserver:(nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths
+- (PANDetectedObservation *)createDetectedObservation
+{
+    return [[PANKeyValueChange alloc] init];
+}
+
++ (BOOL)removeForObserver:(PAN_nullable id)observer object:(id)object keyPaths:(NSArray *)keyPaths
 {
     PANObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *observation) {
         return [observation isKindOfClass:[PANKeyValueObservation class]] && [((PANKeyValueObservation *)observation).keyPaths isEqualToArray:keyPaths];
@@ -112,6 +147,25 @@ static void *PANKeyValueObservationContext = (void *)&PANKeyValueObservationCont
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+#pragma mark -
+
+@implementation PANKeyValueChange
+
+@synthesize keyPath;
+@synthesize changeDict;
+@synthesize kind;
+@synthesize prior;
+@synthesize changedValue;
+@synthesize oldValue;
+@synthesize indexes;
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@ %p: %fs ago, obj=%@ %p, kp=%@>", NSStringFromClass([self class]), self,
+            -[self.timestamp timeIntervalSinceNow], NSStringFromClass([self.object class]), self.object, self.keyPath];
+}
+
+@end
+
+PAN_ASSUME_NONNULL_END

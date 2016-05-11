@@ -10,29 +10,47 @@
 #import "PanopticonClass+Private.h"
 #import "PANUIControlObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @implementation Panopticon (PANUIControl)
 
-+ (nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControlForPress:control initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForPress:control withBlock:^(id obj, PANObservation *observation) {
         block(observation);
     }];
 }
 
-+ (nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControlForPress:control onQueue:queue initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForPress:control onQueue:queue withBlock:^(id obj, PANObservation *observation) {
         block(observation);
     }];
 }
 
-+ (nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControlForPress:control onGCDQueue:queue initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControlForPress:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForPress:control onGCDQueue:queue withBlock:^(id obj, PANObservation *observation) {
         block(observation);
@@ -46,21 +64,42 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
-+ (nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControlForValue:control initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForValue:control withBlock:^(id obj, PANObservation *observation) {
         block(observation);
     }];
 }
 
-+ (nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControlForValue:control onQueue:queue initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForValue:control onQueue:queue withBlock:^(id obj, PANObservation *observation) {
         block(observation);
     }];
 }
 
-+ (nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControlForValue:control onGCDQueue:queue initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControlForValue:(UIControl *)control onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControlForValue:control onGCDQueue:queue withBlock:^(id obj, PANObservation *observation) {
         block(observation);
@@ -74,21 +113,42 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
-+ (nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControl:control forEvents:events initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControl:control forEvents:events withBlock:^(id obj, PANObservation *observation) {
         block(observation);
     }];
 }
 
-+ (nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControl:control forEvents:events onQueue:queue initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControl:control forEvents:events onQueue:queue withBlock:^(id obj, PANObservation *observation) {
         block(observation);
     }];
 }
 
-+ (nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
++ (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block
+{
+    return [[self sharedPanopticonObject] pan_observeControl:control forEvents:events onGCDQueue:queue initiallyPaused:paused withBlock:^(id obj, PANObservation *observation) {
+        block(observation);
+    }];
+}
+
++ (PAN_nullable PANUIControlObservation *)observeControl:(UIControl *)control forEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block
 {
     return [[self sharedPanopticonObject] pan_observeControl:control forEvents:events onGCDQueue:queue withBlock:^(id obj, PANObservation *observation) {
         block(observation);
@@ -103,6 +163,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+PAN_ASSUME_NONNULL_END

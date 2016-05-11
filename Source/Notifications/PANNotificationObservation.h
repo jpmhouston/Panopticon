@@ -5,18 +5,42 @@
 //  Created by Pierre Houston on 2016-01-07.
 //  Copyright © 2016 Pierre Houston. All rights reserved.
 //
-//  TODO:
-//  - consider renaming `postedObject` property to `payload` for more consistency with the terminology of other
-//    observation subclasses and also some of our documentation
 
 #import "PANObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
+
+/**
+ *  A protocol for providing the data generated from a notification. `PANNotificationObservation` confirms to
+ *  this protocol and so has all these properties, plus notably `object` and `timestamp` from the parent
+ *  protocol.
+ */
+@protocol PANNotification <PANDetectedObservation>
+
+/**
+ *  A notification that triggered an observation. Value undefined except within call to an observation block.
+ */
+@property (nonatomic, readonly) NSNotification *notification;
+
+/**
+ *  The user info dictionary within a posted notification. Value undefined except within call to an observation
+ *  block. A shortcut for `notification.userInfo`. A synonym for the `payload` property.
+ */
+@property (nonatomic, readonly, PAN_nullable) NSDictionary *userInfo;
+
+@end
+
+
+/**
+ *  An object conforming to the PANNotification protocol. The method `createDetectedObservation` returns an
+ *  instance of this.
+ */
+@interface PANNotification : PANDetectedObservation <PANNotification>
+@end
+
+
+#pragma mark -
 
 /**
  *  A base class for NSNotification observation objects.
@@ -25,33 +49,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  can be saved for explcitly calling the `remove` method later (see base class `PANObservation`), but that often
  *  isn't necessary since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
  *
- *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
- *  the name, notification object, or its specific values directly, the posted object and user info dictionary.
+ *  The observation object is passed as a parameter to the observation block, and has properties defined by
+ *  `PANNotification` for accessing the name, notification object, or its specific values directly, the posted object
+ *  and user info dictionary.
  */
-@interface PANNotificationObservation : PANObservation
+@interface PANNotificationObservation : PANObservation <PANNotification>
 
 /**
  *  The notification name being observed.
  */
 @property (nonatomic, readonly, copy) NSString *name;
-
-
-/**
- *  A notification that triggered an observation. Value undefined except within call to an observation block.
- */
-@property (nonatomic, readonly) NSNotification *notification;
-
-/**
- *  The object that posted the notification. Value undefined except within call to an observation block.
- */
-@property (nonatomic, readonly, PAN_nullable) id postedObject;
-
-/**
- *  The user info dictionary within a posted notification. Value undefined except within call to an observation
- *  block. A shortcut for `notification.userInfo`.
- */
-@property (nonatomic, readonly, PAN_nullable) NSDictionary *userInfo;
-
 
 /**
  *  Remove an observer with matching parameters. Can use this class method to look-up a previously registered
@@ -73,7 +80,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

@@ -9,12 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PANUIControlObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @interface UIControl (PANUIControl)
 
@@ -28,39 +24,51 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observation will automatically be stopped when either the control is deallocated.
  *
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observePressInitiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observePressWithBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe touch-up-inside events by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `pan_observePressWithBlock:` that adds an operation queue parameter. See the description for that
- *  method.
+ *  Variation on `pan_observePress[InitiallyPaused:]withBlock:` that adds an operation queue parameter. See the
+ *  description for that method.
  *
- *  @param queue The operation queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param queue  The operation queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observePressOnQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observePressOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Observe touch-up-inside events by the receiver, calling its block on the given GCD dispatch queue.
+ *  Observe touch-up-inside events by the receiver, calling its block on the given Grand Central Dispatch queue.
  *
- *  Variation on `pan_observePressWithBlock:` that adds a GCD dispatch queue parameter. See the description for that
- *  method.
+ *  Variation on `pan_observePress[InitiallyPaused:]withBlock:` that adds a GCD queue parameter. See the description for
+ *  that method.
  *
- *  @param queue The GCD dispatch queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param queue  The GCD queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observePressOnGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observePressOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
@@ -86,39 +94,51 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observation will automatically be stopped when either the control is deallocated.
  *
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observeValueInitiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observeValueWithBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe value-changed events by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `pan_observeValueWithBlock:` that adds an operation queue parameter. See the description for that
- *  method.
+ *  Variation on `pan_observeValue[InitiallyPaused:]withBlock:` that adds an operation queue parameter. See the
+ *  description for that method.
  *
- *  @param queue The operation queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param queue  The operation queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observeValueOnQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observeValueOnQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Observe value-changed events by the receiver, calling its block on the given GCD dispatch queue.
+ *  Observe value-changed events by the receiver, calling its block on the given Grand Central Dispatch queue.
  *
- *  Variation on `pan_observeValueWithBlock:` that adds a GCD dispatch queue parameter. See the description for that
- *  method.
+ *  Variation on `pan_observeValue[InitiallyPaused:]withBlock:` that adds a GCD queue parameter. See the description
+ *  for that method.
  *
- *  @param queue The GCD dispatch queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param queue  The GCD queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observeValueOnGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observeValueOnGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
@@ -145,41 +165,53 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when either the control is deallocated.
  *
  *  @param events A bitmask of the events to observe.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe any events by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `pan_observeEvents:withBlock:` that adds an operation queue parameter. See the description for that
- *  method.
+ *  Variation on `pan_observeEvents:[initiallyPaused:]withBlock:` that adds an operation queue parameter. See the
+ *  description for that method.
  *
  *  @param events A bitmask of the events to observe.
  *  @param queue  The operation queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Observe any events by the receiver, calling its block on the given GCD dispatch queue.
+ *  Observe any events by the receiver, calling its block on the given Grand Central Dispatch queue.
  *
- *  Variation on `pan_observeEvents:withBlock:` that adds a GCD dispatch queue parameter. See the description for that
- *  method.
+ *  Variation on `pan_observeEvents:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the description
+ *  for that method.
  *
  *  @param events A bitmask of the events to observe.
- *  @param queue  The GCD dispatch queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param queue  The GCD queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANUIControlObservation *)pan_observeEvents:(UIControlEvents)events onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
 
 
@@ -199,7 +231,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

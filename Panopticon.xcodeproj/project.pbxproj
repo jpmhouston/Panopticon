@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F08A1511CDEF2EF0013C02C /* PANDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F08A1501CDEF2EF0013C02C /* PANDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F08A1521CDEF2EF0013C02C /* PANDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F08A1501CDEF2EF0013C02C /* PANDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F10A87B1C941ADA00C11ED4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB32B011C15F8C400FD5041 /* Foundation.framework */; };
 		8F10A8871C99509600C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; };
 		8F10A8881C99509700C11ED4 /* PANAppGroupObservation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */; };
@@ -95,7 +97,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANAppGroupObservation+Private.h"; path = "AppGroups/PANAppGroupObservation+Private.h"; sourceTree = "<group>"; };
+		8F08A1501CDEF2EF0013C02C /* PANDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PANDefines.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F10A8831C994F8A00C11ED4 /* PANAppGroupObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "PANAppGroupObservation+Private.h"; path = "AppGroups/PANAppGroupObservation+Private.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F10A8861C99506F00C11ED4 /* PANKeyValueObservation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PANKeyValueObservation+Private.h"; path = "KVO/PANKeyValueObservation+Private.h"; sourceTree = "<group>"; };
 		8F10A88B1C99513100C11ED4 /* PANNotificationObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANNotificationObservation+Private.h"; path = "Notifications/PANNotificationObservation+Private.h"; sourceTree = "<group>"; };
 		8F10A88E1C99519F00C11ED4 /* PANUIControlObservation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PANUIControlObservation+Private.h"; path = "UIControl/PANUIControlObservation+Private.h"; sourceTree = "<group>"; };
@@ -116,22 +119,22 @@
 		8F201BBE1CBE02850029BB72 /* Panopticon+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Panopticon+PANUIControl.h"; path = "UIControl/Panopticon+PANUIControl.h"; sourceTree = "<group>"; };
 		8F201BBF1CBE02850029BB72 /* Panopticon+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Panopticon+PANUIControl.m"; path = "UIControl/Panopticon+PANUIControl.m"; sourceTree = "<group>"; };
 		8F31A2E21CBC7869008477B3 /* generate_shorthand_headers.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = generate_shorthand_headers.rb; path = Scripts/generate_shorthand_headers.rb; sourceTree = "<group>"; };
-		8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANKeyValueObservation.h; path = KVO/PANKeyValueObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84811C3EE044008B5019 /* PANKeyValueObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANKeyValueObservation.h; path = KVO/PANKeyValueObservation.h; sourceTree = "<group>"; };
 		8F4F84821C3EE044008B5019 /* PANKeyValueObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANKeyValueObservation.m; path = KVO/PANKeyValueObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANNotificationObservation.h; path = Notifications/PANNotificationObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F84871C3EE056008B5019 /* PANNotificationObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANNotificationObservation.h; path = Notifications/PANNotificationObservation.h; sourceTree = "<group>"; };
 		8F4F84881C3EE056008B5019 /* PANNotificationObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANNotificationObservation.m; path = Notifications/PANNotificationObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F848D1C3EE319008B5019 /* NSObject+PANKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANKeyValue.h"; path = "KVO/NSObject+PANKeyValue.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F848E1C3EE319008B5019 /* NSObject+PANKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+PANKeyValue.m"; path = "KVO/NSObject+PANKeyValue.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F84931C3EE3EF008B5019 /* NSObject+PANNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANNotification.h"; path = "Notifications/NSObject+PANNotification.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84941C3EE3EF008B5019 /* NSObject+PANNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+PANNotification.m"; path = "Notifications/NSObject+PANNotification.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		8F4F84991C3F05AA008B5019 /* NSObject+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANUIControl.h"; path = "UIControl/NSObject+PANUIControl.h"; sourceTree = "<group>"; };
-		8F4F849A1C3F05AA008B5019 /* NSObject+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+PANUIControl.m"; path = "UIControl/NSObject+PANUIControl.m"; sourceTree = "<group>"; };
+		8F4F84991C3F05AA008B5019 /* NSObject+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANUIControl.h"; path = "UIControl/NSObject+PANUIControl.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8F4F849A1C3F05AA008B5019 /* NSObject+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+PANUIControl.m"; path = "UIControl/NSObject+PANUIControl.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F849D1C3F05D5008B5019 /* UIControl+PANUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIControl+PANUIControl.h"; path = "UIControl/UIControl+PANUIControl.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F849E1C3F05D5008B5019 /* UIControl+PANUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "UIControl+PANUIControl.m"; path = "UIControl/UIControl+PANUIControl.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F84A11C3F06F5008B5019 /* PANUIControlObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANUIControlObservation.h; path = UIControl/PANUIControlObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8F4F84A21C3F06F5008B5019 /* PANUIControlObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANUIControlObservation.m; path = UIControl/PANUIControlObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8F4F84A51C3F0C1E008B5019 /* NSObject+PANKeyValueShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANKeyValueShorthand.h"; path = "KVO/NSObject+PANKeyValueShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANUIControlShorthand.h"; path = "UIControl/NSObject+PANUIControlShorthand.h"; sourceTree = "<group>"; };
+		8F4F84AB1C3F0C52008B5019 /* NSObject+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANUIControlShorthand.h"; path = "UIControl/NSObject+PANUIControlShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8FB32AE71C15F72500FD5041 /* Panopticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panopticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB32AEA1C15F72500FD5041 /* Panopticon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Panopticon.h; sourceTree = "<group>"; };
 		8FB32AEC1C15F72500FD5041 /* iOS_Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = iOS_Info.plist; sourceTree = "<group>"; };
@@ -149,11 +152,11 @@
 		8FB32B131C16DE9C00FD5041 /* UIControl+PANUIControlShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIControl+PANUIControlShorthand.h"; path = "UIControl/UIControl+PANUIControlShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8FB32B281C16E78100FD5041 /* Panopticon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Panopticon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB32B3F1C16E8FA00FD5041 /* OSX_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OSX_Info.plist; sourceTree = "<group>"; };
-		8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANAppGroup.h"; path = "AppGroups/NSObject+PANAppGroup.h"; sourceTree = "<group>"; };
-		8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+PANAppGroup.m"; path = "AppGroups/NSObject+PANAppGroup.m"; sourceTree = "<group>"; };
-		8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+PANAppGroupShorthand.h"; path = "AppGroups/NSObject+PANAppGroupShorthand.h"; sourceTree = "<group>"; };
-		8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PANAppGroupNotificationManager.h; path = AppGroups/PANAppGroupNotificationManager.h; sourceTree = "<group>"; };
-		8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PANAppGroupNotificationManager.m; path = AppGroups/PANAppGroupNotificationManager.m; sourceTree = "<group>"; };
+		8FF4FBB61C87CABB00283612 /* NSObject+PANAppGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANAppGroup.h"; path = "AppGroups/NSObject+PANAppGroup.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FF4FBB71C87CABB00283612 /* NSObject+PANAppGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+PANAppGroup.m"; path = "AppGroups/NSObject+PANAppGroup.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8FF4FBB81C87CABB00283612 /* NSObject+PANAppGroupShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+PANAppGroupShorthand.h"; path = "AppGroups/NSObject+PANAppGroupShorthand.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FF4FBB91C87CABB00283612 /* PANAppGroupNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANAppGroupNotificationManager.h; path = AppGroups/PANAppGroupNotificationManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8FF4FBBA1C87CABB00283612 /* PANAppGroupNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANAppGroupNotificationManager.m; path = AppGroups/PANAppGroupNotificationManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8FF4FBBB1C87CABB00283612 /* PANAppGroupObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PANAppGroupObservation.h; path = AppGroups/PANAppGroupObservation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8FF4FBBC1C87CABB00283612 /* PANAppGroupObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PANAppGroupObservation.m; path = AppGroups/PANAppGroupObservation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -231,6 +234,7 @@
 				8F201BA31CBDB51D0029BB72 /* PanopticonClass.h */,
 				8F201BAF1CBDBC030029BB72 /* PanopticonClass+Private.h */,
 				8F201BA41CBDB6ED0029BB72 /* PanopticonClass.m */,
+				8F08A1501CDEF2EF0013C02C /* PANDefines.h */,
 				8FB32B0D1C16DE9C00FD5041 /* PANObservation.h */,
 				8FB32B0A1C16DE9C00FD5041 /* PANObservation+Private.h */,
 				8FB32B0E1C16DE9C00FD5041 /* PANObservation.m */,
@@ -296,6 +300,7 @@
 				8FB32AEB1C15F72500FD5041 /* Panopticon.h in Headers */,
 				8F1F4E3F1C20EE120061E8B9 /* PanopticonShorthand.h in Headers */,
 				8F201BA81CBDB7AC0029BB72 /* PanopticonClass.h in Headers */,
+				8F08A1511CDEF2EF0013C02C /* PANDefines.h in Headers */,
 				8FB32B1B1C16DE9C00FD5041 /* PANObservation.h in Headers */,
 				8F1F4E401C20EE180061E8B9 /* PANObservation+Shorthand.h in Headers */,
 				8FF4FBC21C87CABB00283612 /* PANAppGroupObservation.h in Headers */,
@@ -334,6 +339,7 @@
 				8F4AFDAA1C1AB01D005A334F /* Panopticon.h in Headers */,
 				8F1F4E431C20EE2C0061E8B9 /* PanopticonShorthand.h in Headers */,
 				8F201BA71CBDB7AB0029BB72 /* PanopticonClass.h in Headers */,
+				8F08A1521CDEF2EF0013C02C /* PANDefines.h in Headers */,
 				8F4AFDA31C1AAFFF005A334F /* PANObservation.h in Headers */,
 				8F1F4E441C20EE2F0061E8B9 /* PANObservation+Shorthand.h in Headers */,
 				8F201BB11CBDBC030029BB72 /* PanopticonClass+Private.h in Headers */,
@@ -571,6 +577,7 @@
 		8FB32AFC1C15F72500FD5041 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -595,6 +602,7 @@
 		8FB32AFD1C15F72500FD5041 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -619,6 +627,7 @@
 		8FB32B3A1C16E78100FD5041 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -644,6 +653,7 @@
 		8FB32B3B1C16E78100FD5041 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;

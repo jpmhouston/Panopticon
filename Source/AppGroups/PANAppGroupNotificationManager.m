@@ -18,11 +18,8 @@
 
 #import "PANAppGroupNotificationManager.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 static PANAppGroupNotificationManager *sharedInstance;
 static NSString * const postFileNameSeparator = @"|";
@@ -34,8 +31,8 @@ static NSString * const sequenceNumberFileNameExtension = @"seqnum";
 static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 
 @interface PANAppGroupSubscriptionState : NSObject
-@property (nonatomic, copy, nullable) PANAppGroupSubscriberBlock block;
-@property (nonatomic, copy, nullable) PANAppGroupReliableSubscriberBlock collatedBlock;
+@property (nonatomic, copy, PAN_nullable) PANAppGroupSubscriberBlock block;
+@property (nonatomic, copy, PAN_nullable) PANAppGroupReliableSubscriberBlock collatedBlock;
 @property (nonatomic, readonly, getter=isReliable) BOOL reliable;
 @property (nonatomic) NSInteger lastReceivedSequenceNumber;
 @end
@@ -45,7 +42,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSInteger sequenceNumber;
 @property (nonatomic) NSDate *date;
-@property (nonatomic, nullable) id payload;
+@property (nonatomic, PAN_nullable) id payload;
 @property (nonatomic) BOOL lastInGroupForName;
 @end
 
@@ -58,10 +55,10 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 @property (nonatomic) dispatch_queue_t fileIOQueue;
 @property (nonatomic) dispatch_queue_t notifyQueue;
 
-@property (nonatomic, nullable) id<PANAppGroupURLProviding> urlHelper;
-@property (nonatomic, nullable) id<PANAppGroupGlobalNotificationHandling> notificationHelper;
-@property (nonatomic, nullable) id<PANAppGroupBundleIdProviding> bundleIdHelper;
-@property (nonatomic, nullable) NSString *appIdentifier;
+@property (nonatomic, PAN_nullable) id<PANAppGroupURLProviding> urlHelper;
+@property (nonatomic, PAN_nullable) id<PANAppGroupGlobalNotificationHandling> notificationHelper;
+@property (nonatomic, PAN_nullable) id<PANAppGroupBundleIdProviding> bundleIdHelper;
+@property (nonatomic, PAN_nullable) NSString *appIdentifier;
 @property (nonatomic) BOOL permitPostsWhenNoSubscribers;
 @property (nonatomic) u_int32_t cleanupFrequencyRandomFactor;
 @end
@@ -101,12 +98,12 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     return self;
 }
 
-- (nullable id<PANAppGroupURLProviding>)urlHelper
+- (PAN_nullable id<PANAppGroupURLProviding>)urlHelper
 {
     return _urlHelper != nil ? _urlHelper : self;
 }
 
-- (nullable id<PANAppGroupGlobalNotificationHandling>)notificationHelper
+- (PAN_nullable id<PANAppGroupGlobalNotificationHandling>)notificationHelper
 {
     return _notificationHelper != nil ? _notificationHelper : self;
 }
@@ -158,7 +155,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     });
 }
 
-- (nullable NSString *)defaultGroupIdentifier
+- (PAN_nullable NSString *)defaultGroupIdentifier
 {
     @synchronized(self) {
         return self.orderedIdentifiers.firstObject;
@@ -313,7 +310,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
 
 #pragma mark - Posting
 
-- (BOOL)postNotificationForGroupIdentifier:(NSString *)identifier named:(NSString *)name payload:(nullable id)payload
+- (BOOL)postNotificationForGroupIdentifier:(NSString *)identifier named:(NSString *)name payload:(PAN_nullable id)payload
 {
     NSURL *appGroupURL = [self.urlHelper groupURLForGroupIdentifier:identifier];
     if (appGroupURL == nil) {
@@ -551,7 +548,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     return [self.fileManager containerURLForSecurityApplicationGroupIdentifier:identifier];
 }
 
-- (BOOL)storePostPayload:(nullable id)payload forGroupIdentifier:(NSString *)identifier groupURL:(NSURL *)appGroupURL name:(NSString *)name gettingSequenceNumber:(nullable NSInteger *)outSequenceNumber cleanupSequenceNumber:(nullable NSInteger *)outCleanupSequenceNumber
+- (BOOL)storePostPayload:(PAN_nullable id)payload forGroupIdentifier:(NSString *)identifier groupURL:(NSURL *)appGroupURL name:(NSString *)name gettingSequenceNumber:(PAN_nullable NSInteger *)outSequenceNumber cleanupSequenceNumber:(PAN_nullable NSInteger *)outCleanupSequenceNumber
 {
     // expected to be called while on the fileIOQueue
     
@@ -763,7 +760,7 @@ static const u_int32_t defaultCleanupFrequencyRandomFactor = 20;
     }
 }
 
-- (BOOL)hasStoredPostsForGroupIdentifier:(NSString *)identifier groupURL:(NSURL *)appGroupURL name:(NSString *)name lastSequenceNumber:(nullable NSInteger *)outSequenceNumber
+- (BOOL)hasStoredPostsForGroupIdentifier:(NSString *)identifier groupURL:(NSURL *)appGroupURL name:(NSString *)name lastSequenceNumber:(PAN_nullable NSInteger *)outSequenceNumber
 {
     // expected to be called while on the fileIOQueue
     
@@ -1137,6 +1134,5 @@ void darwinNotificationCallback(CFNotificationCenterRef center, void *observer, 
 - (NSString *)description { return [NSString stringWithFormat:@"<%@: %p, \"%@\" #%d %@: %@>", NSStringFromClass(self.class), self, self.name, (int)self.sequenceNumber, self.date, self.payload ? [(NSObject *)self.payload description] : @"nil"]; }
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+PAN_ASSUME_NONNULL_END

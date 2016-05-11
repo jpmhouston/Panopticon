@@ -13,13 +13,10 @@
 //  TODO: move testing injection properties etc to a private-ish header
 
 #import <Foundation/Foundation.h>
+#import "PANDefines.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 typedef void (^PANAppGroupSubscriberBlock)(NSString *identifier, NSString *name, id payload, NSDate *postDate);
 typedef void (^PANAppGroupReliableSubscriberBlock)(NSString *identifier, NSString *name, NSArray *postDatesAndPayloads);
@@ -81,7 +78,5 @@ typedef void (^PANAppGroupReliableSubscriberBlock)(NSString *identifier, NSStrin
 - (NSString *)bundleIdForReceivingPostWithGroupIdentifier:(NSString *)identifier name:(NSString *)name;;
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

@@ -10,24 +10,31 @@
 #import "PANNotificationObservation+Private.h"
 #import "PANObservation+Private.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
 
-@interface PANNotificationObservation ()
-@property (nonatomic, readwrite, copy) NSString *name;
 
+@protocol PANMutableNotification <PANNotification, PANMutableDetectedObservation>
 @property (nonatomic, readwrite) NSNotification *notification;
-@property (nonatomic, readwrite, nullable) id postedObject;
-@property (nonatomic, readwrite, nullable) NSDictionary *userInfo;
+@property (nonatomic, readwrite, PAN_nullable) NSDictionary *userInfo;
+@end
+
+@interface PANNotificationObservation () <PANMutableNotification>
+@property (nonatomic, readwrite, copy) NSString *name;
+@end
+
+@interface PANNotification () <PANMutableNotification>
 @end
 
 
+
+#pragma mark -
+
 @implementation PANNotificationObservation
 
-- (instancetype)initWithObserver:(nullable id)observer object:(nullable id)object name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
+@synthesize notification;
+@synthesize userInfo;
+
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block;
 {
     if (!(self = [super initWithObserver:observer object:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -35,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initWithObject:(nullable id)object name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
+- (instancetype)initWithObject:(PAN_nullable id)object name:(NSString *)name queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)gcdQueue block:(PANAnonymousObservationBlock)block;
 {
     if (!(self = [super initWithObject:object queue:queue gcdQueue:gcdQueue block:block]))
         return nil;
@@ -48,23 +55,41 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert1(!self.registered, @"Attempted double-register of %@", self);
     NSAssert1(self.name != nil, @"Nil 'name' property when registering observation for %@", self);
     typeof(self) __weak welf = self;
+    
     if (self.queue != nil) {
-        [[NSNotificationCenter defaultCenter] addObserverForName:self.name object:self.object queue:self.queue usingBlock:^(NSNotification *notification) {
-            welf.notification = notification;
-            welf.postedObject = notification.object;
-            welf.userInfo = notification.userInfo;
-            [welf invoke];
-        }];
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] addObserverForName:self.name object:self.object queue:nil usingBlock:^(NSNotification *notification) {
-            [welf invokeOnQueueAfter:^{
-                welf.notification = notification;
-                welf.postedObject = notification.object;
-                welf.userInfo = notification.userInfo;
+        [[NSNotificationCenter defaultCenter] addObserverForName:self.name object:self.object queue:self.queue usingBlock:^(NSNotification *nsnotification) {
+            [welf triggerSynchronously:YES withSetupBlock:^(id<PANDetectedObservation> obs) {
+                if (![obs conformsToProtocol:@protocol(PANMutableNotification)])
+                    return;
+                id<PANMutableNotification> notif = (id<PANMutableNotification>)obs;
+                notif.notification = nsnotification;
+                notif.object = nsnotification.object;
+                notif.payload = notif.userInfo = nsnotification.userInfo;
             }];
         }];
     }
+    else {
+        [[NSNotificationCenter defaultCenter] addObserverForName:self.name object:self.object queue:nil usingBlock:^(NSNotification *nsnotification) {
+            [welf triggerSynchronously:NO withSetupBlock:^(id<PANDetectedObservation> obs) {
+                if (![obs conformsToProtocol:@protocol(PANMutableNotification)])
+                    return;
+                id<PANMutableNotification> notif = (id<PANMutableNotification>)obs;
+                notif.notification = nsnotification;
+                notif.object = nsnotification.object;
+                notif.payload = notif.userInfo = nsnotification.userInfo;
+            }];
+        }];
+    }
+}
+
+- (void)duplicateFrom:(id<PANDetectedObservation>)source
+{
+    [super duplicateFrom:source];
+    if (![source conformsToProtocol:@protocol(PANNotification)])
+        return;
+    id<PANNotification> notif = (id<PANNotification>)source;
+    self.notification = notif.notification;
+    self.userInfo = notif.userInfo;
 }
 
 - (void)deregisterInternal
@@ -74,7 +99,12 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self name:self.name object:self.object];
 }
 
-+ (BOOL)removeForObserver:(nullable id)observer object:(nullable id)object name:(NSString *)name
+- (PANDetectedObservation *)createDetectedObservation
+{
+    return [[PANNotification alloc] init];
+}
+
++ (BOOL)removeForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object name:(NSString *)name
 {
     NSParameterAssert(observer != nil || object != nil);
     PANObservation *observation = [self findObservationForObserver:observer object:object matchingTest:^BOOL(PANObservation *observation) {
@@ -94,6 +124,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+#pragma mark -
+
+@implementation PANNotification
+
+@synthesize notification;
+@synthesize userInfo;
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@ %p: %fs ago, obj=%@ %p, notif=%p, userInfo.keys=%@>", NSStringFromClass([self class]), self,
+            -[self.timestamp timeIntervalSinceNow], NSStringFromClass([self.object class]), self.object, self.notification, [self.userInfo.allKeys componentsJoinedByString:@","]];
+}
+
+@end
+
+
+PAN_ASSUME_NONNULL_END

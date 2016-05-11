@@ -9,35 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "PANObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 /**
- *  A base class for UIControlEvent observation objects.
- *
- *  An object of this class is returned from each `PANUIControl` `pan_observe...` method. This result can
- *  be saved for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't
- *  necessary since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
- *
- *  The observation object is passed as a parameter to the observation block, and defines properties for accessing
- *  the control, sender, and event object.
+ *  A protocol for providing the data generated from an app grounp notification. `PANNotificationObservation`
+ *  confirms to this protocol and so has all these properties.
  */
-@interface PANUIControlObservation : PANObservation
-
-/**
- *  The control being observed. A synonym for the `object` property.
- */
-@property (nonatomic, readonly) UIControl *control;
-
-/**
- *  A bitmask of the events being observed.
- */
-@property (nonatomic, readonly) UIControlEvents events;
-
+@protocol PANUIControlEvent <PANDetectedObservation>
 
 /**
  *  Value of sender argument passed to internal action methods when observation triggered. Value undefined except
@@ -51,6 +30,41 @@ NS_ASSUME_NONNULL_BEGIN
  *  Value of event that triggered an observation. Value undefined except within call to an observation block.
  */
 @property (nonatomic, readonly) UIEvent *event;
+
+@end
+
+
+/**
+ *  An object conforming to the PANDetectedObservation protocol. `PANNotificationObservation` property `collated`
+ *  is an array of these.
+ */
+@interface PANUIControlEvent : PANDetectedObservation <PANUIControlEvent>
+@end
+
+
+#pragma mark -
+
+/**
+ *  A base class for UIControlEvent observation objects.
+ *
+ *  An object of this class is returned from each `PANUIControl` `pan_observe...` method. This result can
+ *  be saved for explcitly calling the `remove` method later (see base class `PANObservation`), but that often isn't
+ *  necessary since the `pan_stopObserving...` methods can be used instead which look-up the matching observation.
+ *
+ *  The observation object is passed as a parameter to the observation block, and has properties defined by
+ *   `PANUIControlEvent` for accessing the sender, and event object.
+ */
+@interface PANUIControlObservation : PANObservation <PANUIControlEvent>
+
+/**
+ *  The control being observed. A synonym for the `observee` property.
+ */
+@property (nonatomic, readonly) UIControl *control;
+
+/**
+ *  A bitmask of the events being observed.
+ */
+@property (nonatomic, readonly) UIControlEvents events;
 
 
 /**
@@ -71,7 +85,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

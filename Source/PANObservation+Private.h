@@ -8,31 +8,40 @@
 
 #import "PANObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
 
-@interface PANObservation (PrivateForCallersToUse)
+
 /**
- *  Stores the observation as assocaiate objects in the observer & observee objects, calls the `registerInternal`
- *  method, sets up automatic removal, and sets the `registered` property to `YES`.
- *
- *  This should be called during initialization of the observation object, or at least sometime soon after.
- *  In any event, it must be called automatically since, currently, there's no exposed interface for the caller
- *  to perform delayed registration.
+ *  Derive a protocol from PANDetectedObservation having readwrite properties. Have the PANDetectedObservation class
+ *  and the privately conform to this mutable protocol as well.
  */
-- (void)register;
+@protocol PANMutableDetectedObservation <PANDetectedObservation>
+@property (nonatomic, readwrite, weak, PAN_nullable) id object;
+@property (nonatomic, readwrite, PAN_nullable) id payload;
+@property (nonatomic, readwrite) NSDate *timestamp;
 @end
 
-@interface PANObservation (PrivateForSubclassesToUse)
+@interface PANDetectedObservation (Private) <PANMutableDetectedObservation>
+@end
+
+
+@interface PANObservation (PrivateForSubclassesToUse) <PANMutableDetectedObservation>
 
 /**
- *  Normally subclasses don't need to, and shouldn't set.
+ *  Normally subclasses don't need set this property.
  */
 @property (nonatomic, readwrite) BOOL registered;
+
+/**
+ *  Normally subclasses don't need set this property.
+ */
+@property (nonatomic, readwrite, PAN_nullable) PAN_ARRAY(PANDetectedObservation) *collated;
+
+/**
+ *  Don't know if we need to expose this. Should be set on all existing observations when app is made inactive.
+ *  Perhaps this needs to be done another way.
+ */
+@property (nonatomic) BOOL inactive;
 
 /**
  *  Initializes and returns a newly allocated observation object with an observer. A designated initializer, don't
@@ -42,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param observer The observer object, this will be passed as the first parameter to `block`. By default, when
  *                  this object is deallocated, the observation to be removed automatically.
- *  @param object   The object being observed, how its used is up to subclasses. By default, when this object is
+ *  @param observee The object being observed, how its used is up to subclasses. By default, when this object is
  *                  deallocated, the observation to be removed automatically.
  *  @param queue    An operation queue on which to call the observer block, or `nil` to use no specific operation queue.
  *  @param cgdQueue A GCD queue on which to call the observer block, or `nil` to use no specific operation queue.
@@ -52,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An initialized PANObservation object.
  */
-- (instancetype)initWithObserver:(PAN_nullable id)observer object:(PAN_nullable id)object queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANObservationBlock)block;
+- (instancetype)initWithObserver:(PAN_nullable id)observer object:(PAN_nullable id)observee queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANObservationBlock)block;
 
 /**
  *  Initializes and returns a newly allocated observation object with no observer. A designated initializer, don't
@@ -60,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Only one of `queue` and `cgdQueue` should be non-`nil`, which takes precidence if both are set is undefined.
  *
- *  @param object   The object being observed, how its used is up to subclasses. By default, calls to its `dealloc`
+ *  @param observee The object being observed, how its used is up to subclasses. By default, calls to its `dealloc`
  *                  method will be observed and cause the observation to be removed automatically.
  *  @param queue    An operation queue on which to call the observer block, or `nil` to use no specific operation queue.
  *  @param cgdQueue A GCD queue on which to call the observer block, or `nil` to use no specific operation queue.
@@ -70,58 +79,40 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An initialized PANObservation object.
  */
-- (instancetype)initWithObject:(PAN_nullable id)object queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANAnonymousObservationBlock)block;
+- (instancetype)initWithObject:(PAN_nullable id)observee queue:(PAN_nullable NSOperationQueue *)queue gcdQueue:(PAN_nullable dispatch_queue_t)cgdQueue block:(PAN_nullable PANAnonymousObservationBlock)block;
 
 
 /**
- *  Cause the observation block to be called synchronously.
+ *  Method to be called when this observation has been triggered.
  *
- *  Use this from code you know is running on the correct operation queue or GCD queue. Also correct to call
- *  this if both `queue` and `cgdQueue` are `nil`.
+ *  @param synchronously If observation not paused, then if this is `YES` then `queue` & `gcdQueue` are ignored and
+ *                       the block will be invoked synchronously. Useful if calling when known to already be running
+ *                       on the correct queue. If observation is paused, then this is ignored.
+ *  @param setup         A block called to setup an object conforming to PANDetectedObservation, either self or an
+ *                       object created using `createDetectedObservation`.
  */
-- (void)invoke;
+- (void)triggerSynchronously:(BOOL)synchronously withSetupBlock:(void(^)(id<PANDetectedObservation> obs))setup;
 
 /**
- *  Cause the observation block to be called on the correct queue.
+ *  Shortcut for `triggerSynchronously:setup:` with `synchronously` = `NO`.
  *
- *  If both `queue` and `cgdQueue` are `nil`, then this the `setup` block and then the operation block will be
- *  called synchronously before this method returns.
- *
- *  @param setup A block to be called immediately before the observation block is called. Setting properties on
- *               this object related to the triggred observation should be done within this block to avoid races
- *               between multiple observations occurring in rapid succession.
+ *  @param setup See `triggerSynchronously:setup:`.
  */
-- (void)invokeOnQueueAfter:(void(^)(void))setup;
-
-/**
- *  Cause the observation block to be called on the correct queue with custom invoking code.
- *
- *  If both `queue` and `cgdQueue` are `nil`, then this the `setup` block and then the `invoke` block will be
- *  called synchronously before this method returns.
- *
- *  @param setup  See `invokeOnQueueAfter:`
- *  @param invoke A block called to perform invocation.
- *
- */
-- (void)invokeOnQueueAfter:(void(^)(void))setup by:(void(^)(void))invoke;
+- (void)triggerWithSetupBlock:(void(^)(id<PANDetectedObservation> obs))setup;
 
 
 /**
  *  Look-up an observation based on the same parameters used in its creation.
  *
  *  @param observer  The observer object, or `nil` if not applicable.
- *  @param object    The object being observed, if applicable.
+ *  @param observee  The object being observed, if applicable.
  *  @param testBlock A block to be called to compare additional properties of the observation, will only be called
  *                   with observations whose observer and observee values match.
  *
  *  @return The first matching observation object.
  */
-+ (PANObservation *)findObservationForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object matchingTest:(BOOL(^)(PANObservation *observation))testBlock;
++ (PANObservation *)findObservationForObserver:(PAN_nullable id)observer object:(PAN_nullable id)observee matchingTest:(BOOL(^)(PANObservation *observation))testBlock;
 
-// expected to only be useful for test code:
-+ (NSSet *)associatedObservationsForObserver:(id)observer;
-+ (NSSet *)associatedObservationsForObservee:(id)object;
-+ (NSSet *)associatedObservationsForObserver:(PAN_nullable id)observer object:(PAN_nullable id)object;
 @end
 
 
@@ -141,9 +132,44 @@ NS_ASSUME_NONNULL_BEGIN
  *  Perform the specific mechanism to cancel the observation's registeration. This gets called
  */
 - (void)deregisterInternal;
+
+/**
+ *  Create an object conforming to the protocol PANDetectedObservation for adding to `collated` array when the
+ *  observation is paused.
+ *
+ *  @return Object conforming to protocol PANDetectedObservation.
+ */
+- (PANDetectedObservation *)createDetectedObservation;
+
+/**
+ *  Copy values from a `PANDetectedObservation` to the receiver. Subclass should copy only the properties it
+ *  defines and then call super.
+ *
+ *  @param source The `PANDetectedObservation` object to copy values from.
+ */
+- (void)duplicateFrom:(id<PANDetectedObservation>)source;
+
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+@interface PANObservation (PrivateForCallersToUse)
+/**
+ *  Stores the observation as assocaiate objects in the observer & observee objects, calls the `registerInternal`
+ *  method, sets up automatic removal, and sets the `registered` property to `YES`.
+ *
+ *  This should be called during the observation object's initialization, or at least sometime soon after.
+ *  In any event, it must be called automatically since, currently, there's no public interface for this that
+ *  the caller call use to perform delayed registration.
+ */
+- (void)register;
+@end
+
+
+@interface PANObservation (PrivateForTesting)
++ (NSSet *)associatedObservationsForObserver:(id)observer;
++ (NSSet *)associatedObservationsForObservee:(id)observee;
++ (NSSet *)associatedObservationsForObserver:(PAN_nullable id)observer observee:(PAN_nullable id)observee;
+@end
+
+
+PAN_ASSUME_NONNULL_END

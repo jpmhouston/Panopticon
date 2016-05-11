@@ -10,53 +10,104 @@
 #import "PANAppGroupObservation+Private.h"
 #import "PANObservation+Private.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @implementation NSObject (PANAppGroup)
 
-- (nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
-    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:nil block:block];
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:queue gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:queue gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-
-- (nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
-    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:queue gcdQueue:nil block:block];
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:queue block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:queue block:block];
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
-    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:queue block:block];
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:nil block:block];
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:queue gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:queue gcdQueue:nil block:block];
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:queue block:block];
+    if (paused)
+        observation.paused = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:queue block:block];
     [observation register];
     return observation;
 }
@@ -67,49 +118,103 @@ NS_ASSUME_NONNULL_BEGIN
     return [PANAppGroupObservation removeForObserver:self groupIdentifier:nil name:name retainingState:NO];
 }
 
-- (BOOL)pan_stopObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
+- (BOOL)pan_pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name
 {
-    return [PANAppGroupObservation removeForObserver:self groupIdentifier:groupIdentifier name:name retainingState:NO];
+    return [PANAppGroupObservation removeForObserver:self groupIdentifier:nil name:name retainingState:YES];
 }
 
 
-- (nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name withBlock:(PANCollatedObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
-    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:nil block:block];
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANCollatedObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:nil block:block];
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:queue gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:queue gcdQueue:nil block:block];
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:queue block:block];
+    if (paused)
+        observation.paused = observation.collates = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:queue block:block];
+    [observation register];
+    return observation;
+}
+
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
+{
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = YES;
+    [observation register];
+    return observation;
+}
+
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANCollatedObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
-    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:queue gcdQueue:nil block:block];
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:groupIdentifier name:name queue:queue gcdQueue:nil block:block];
+    if (paused)
+        observation.paused = YES;
     [observation register];
     return observation;
 }
 
-
-- (nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANCollatedObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:groupIdentifier name:name queue:queue gcdQueue:nil block:block];
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeReliablyAppGroupNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANCollatedObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block
 {
-    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:nil name:name queue:nil gcdQueue:queue block:block];
+    PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:queue block:block];
+    if (paused)
+        observation.paused = YES;
     [observation register];
     return observation;
 }
 
-- (nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANCollatedObservationBlock)block
+- (PAN_nullable PANAppGroupObservation *)pan_observeReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block
 {
     PANAppGroupObservation *observation = [[PANAppGroupObservation alloc] initForReliableDeliveryWithObserver:self groupIdentifier:groupIdentifier name:name queue:nil gcdQueue:queue block:block];
     [observation register];
@@ -117,9 +222,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 
-- (BOOL)pan_pauseObservingReliablyAppGroupNotificationsNamed:(NSString *)name
+- (BOOL)pan_stopObservingNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
 {
-    return [PANAppGroupObservation removeForObserver:self groupIdentifier:nil name:name retainingState:YES];
+    return [PANAppGroupObservation removeForObserver:self groupIdentifier:groupIdentifier name:name retainingState:NO];
 }
 
 - (BOOL)pan_pauseObservingReliablyNotificationsForAppGroup:(NSString *)groupIdentifier named:(NSString *)name
@@ -214,6 +319,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+PAN_ASSUME_NONNULL_END

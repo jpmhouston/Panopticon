@@ -9,12 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "PANNotificationObservation.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @interface NSObject (PANNotification)
 
@@ -32,46 +28,59 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param object The object to observe.
  *  @param name   The notification name to observe.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name withBlock:(PANObservationBlock)block;
+
 
 /**
  *  Receiver observes notifications posted with given name by a given object, calling its block on the given operation
  *  queue.
  *
- *  Variation on `pan_observeForNotifications:named:withBlock:` that adds a operation queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeForNotifications:named:[initiallyPaused:]withBlock:` that adds an operation queue parameter.
+ *  See the description for that method.
  *
  *  @param object The object to observe.
  *  @param name   The notification name to observe.
  *  @param queue  The operation queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes notifications posted with given name by a given object, calling its block on the given GCD
- *  dispatch queue.
+ *  Receiver observes notifications posted with given name by a given object, calling its block on the given Grand Central
+ *  Dispatch queue.
  *
- *  Variation on `pan_observeForNotifications:named:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeForNotifications:named:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
  *  @param object The object to observe.
  *  @param name   The notification name to observe.
  *  @param queue  The CGD dispatch queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
  *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
  *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)gcdQueue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANNotificationObservation *)pan_observeForNotifications:(id)object named:(NSString *)name onGCDQueue:(dispatch_queue_t)gcdQueue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -99,44 +108,56 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  The observation will automatically be stopped when either the receiver is deallocated.
  *
- *  @param name  The notification name to observe.
- *  @param block The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *               a weakly captured self), and the observation (same as method result).
+ *  @param name   The notification name to observe.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
+ *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications posted with given name by any observer, calling its block on the given operation queue.
  *
- *  Variation on `pan_observeAllNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeAllNotificationsNamed:[initiallyPaused:]withBlock:` that adds an operation queue parameter.
+ *  See the description for that method.
  *
- *  @param name  The notification name to observe.
- *  @param queue The operation queue on which to call `block`.
- *  @param block The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *               a weakly captured self), and the observation (same as method result).
+ *  @param name   The notification name to observe.
+ *  @param queue  The operation queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
+ *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes notifications posted with given name by any observer, calling its block on the given GCD dispatch
- *  queue.
+ *  Receiver observes notifications posted with given name by any observer, calling its block on the given Grand Central
+ *  Dispatch queue.
  *
- *  Variation on `pan_observeAllNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeAllNotificationsNamed:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
- *  @param name  The notification name to observe.
- *  @param queue The CGD dispatch queue on which to call `block`.
- *  @param block The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *               a weakly captured self), and the observation (same as method result).
+ *  @param name   The notification name to observe.
+ *  @param queue  The CGD dispatch queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
+ *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANNotificationObservation *)pan_observeAllNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -164,43 +185,56 @@ NS_ASSUME_NONNULL_BEGIN
  *  The observation will automatically be stopped when either the receiver is deallocated.  The observation is not tied to
  *  any "observer" object.
  *
- *  @param name  The notification name to observe.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param name   The notification name to observe.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name withBlock:(PANAnonymousObservationBlock)block;
 
 /**
  *  Observe notifications posted with given name by the receiver, calling its block on the given operation queue.
  *
- *  Variation on `pan_observeNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeNotificationsNamed:[initiallyPaused:]withBlock:` that adds an operation queue parameter.
+ *  See the description for that method.
  *
- *  @param name  The notification name to observe.
- *  @param queue The operation queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the 
- *               method result).
+ *  @param name   The notification name to observe.
+ *  @param queue  The operation queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANAnonymousObservationBlock)block;
 
 /**
- *  Observe notifications posted with given name by the receiver, calling its block on the given GCD dispatch queue.
+ *  Observe notifications posted with given name by the receiver, calling its block on the given Grand Central Dispatch
+ *  queue.
  *
- *  Variation on `pan_observeNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeNotificationsNamed:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
- *  @param name  The notification name to observe.
- *  @param queue The CGD dispatch queue on which to call `block`.
- *  @param block The block to call when the key path observation is triggered, is passed the observation (same as the
- *               method result).
+ *  @param name   The notification name to observe.
+ *  @param queue  The CGD dispatch queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when the key path observation is triggered, is passed the observation (same as the
+ *                method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANAnonymousObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue initiallyPaused:(BOOL)paused withBlock:(PANAnonymousObservationBlock)block;
+
+- (PAN_nullable PANNotificationObservation *)pan_observeNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue withBlock:(PANAnonymousObservationBlock)block;
 
 
 /**
@@ -230,43 +264,55 @@ NS_ASSUME_NONNULL_BEGIN
  *  Use instead of `-[self pan_observeNotificationsNamed:withBlock:]` when you want the receiver passed as parameter to
  *  the block, or when you want to make extra clear that the object is intentionally observing itself.
  *
- *  @param name  The notification name to observe.
- *  @param block The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *               a weakly captured self), and the observation (same as method result).
+ *  @param name   The notification name to observe.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
+ *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name withBlock:(PANObservationBlock)block;
 
 /**
  *  Receiver observes notifications it posts with given name, calling its block on the given operation queue.
  *
- *  Variation on `pan_observeOwnNotificationsNamed:withBlock:` that adds an operation queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeOwnNotificationsNamed:[initiallyPaused:]withBlock:` that adds an operation queue parameter.
+ *  See the description for that method.
  *
- *  @param name  The notification name to observe.
- *  @param queue The operation queue on which to call `block`.
- *  @param block The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *               a weakly captured self), and the observation (same as method result).
+ *  @param name   The notification name to observe.
+ *  @param queue  The operation queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
+ *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
 - (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onQueue:(NSOperationQueue *)queue withBlock:(PANObservationBlock)block;
 
 /**
- *  Receiver observes notifications it posts with given name, calling its block on the given GCD dispatch queue.
+ *  Receiver observes notifications it posts with given name, calling its block on the given Grand Central Dispatch queue.
  *
- *  Variation on `pan_observeOwnNotificationsNamed:withBlock:` that adds a GCD dispatch queue parameter. See the description
- *  for that method.
+ *  Variation on `pan_observeOwnNotificationsNamed:[initiallyPaused:]withBlock:` that adds a GCD queue parameter. See the
+ *  description for that method.
  *
- *  @param name  The notification name to observe.
- *  @param queue The CGD dispatch queue on which to call `block`.
- *  @param block The block to call when observation is triggered, is passed the receiver (which can be used in place of
- *               a weakly captured self), and the observation (same as method result).
+ *  @param name   The notification name to observe.
+ *  @param queue  The CGD dispatch queue on which to call `block`.
+ *  @param paused Observation is created with calls to the block paused, if `YES` then `collated` flag is also initially
+ *                set to `YES`. Default is `NO` if parameter is omitted.
+ *  @param block  The block to call when observation is triggered, is passed the receiver (which can be used in place of
+ *                a weakly captured self), and the observation (same as method result).
  *
  *  @return An observation object. You often don't need to keep this result.
  */
-- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)queue withBlock:(PANObservationBlock)block;
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue initiallyPaused:(BOOL)paused withBlock:(PANObservationBlock)block;
+
+- (PAN_nullable PANNotificationObservation *)pan_observeOwnNotificationsNamed:(NSString *)name onGCDQueue:(dispatch_queue_t)cgdQueue withBlock:(PANObservationBlock)block;
 
 
 /**
@@ -302,7 +348,5 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

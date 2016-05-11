@@ -10,13 +10,10 @@
 //    and then have access to within the observation block. or perhaps that's too old-school?
 
 #import <Foundation/Foundation.h>
+#import "PANDefines.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#define PAN_nullable nullable
-#else
-#define PAN_nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
+
 
 @class PANObservation;
 
@@ -41,6 +38,45 @@ typedef void (^PANAnonymousObservationBlock)(PANObservation *observation);
 #pragma mark -
 
 /**
+ *  A protocol for providing the data generated from a triggered observation. `PANObservation` conforms to
+ *  this protocol and so has all these properties.
+ */
+@protocol PANDetectedObservation <NSObject>
+
+/**
+ *  The object that triggered the observation, when appropriate.
+ */
+@property (nonatomic, readonly, weak, PAN_nullable) id object;
+
+/**
+ *  Separate payload of a triggered observation, if any. Often the posting object itself is the only payload
+ *  in which case this will be nil.
+ *
+ *  If this observation has collated results then this is equal to the payload of the most recent trigger.
+ */
+@property (nonatomic, readonly, PAN_nullable) id payload;
+
+/**
+ *  Date when this triggered observation occurred. Usually not useful except for when `collated` not nil,
+ *  in which case the block has been called after the observation has been unpaused, and this is the
+ *  timestamp of the most recent trigger.
+ */
+@property (nonatomic, readonly) NSDate *timestamp;
+
+@end
+
+
+/**
+ *  An object conforming to the PANDetectedObservation protocol. `PANObservation` property `collated` is
+ *  an array of these (or a subclass).
+ */
+@interface PANDetectedObservation : NSObject <PANDetectedObservation>
+@end
+
+
+#pragma mark -
+
+/**
  *  A base class for observation objects.
  *
  *  A subclass of this is returned from each `pan_observe...` method. This result can be saved for explcitly calling
@@ -50,8 +86,15 @@ typedef void (^PANAnonymousObservationBlock)(PANObservation *observation);
  *  The observation object is more often used when it's passed as a parameter to the observation block, subclasses
  *  define properties which provide details about what observation was triggered, plus any payload or associated
  *  metadata.
+ *
+ *  When passed as a parameter to the observation block, values of the properties defined in the protocol
+ *  `PANDetectedObservation` (and, for subclasses, its derivatives) will be have the appropriate values. If this
+ *  block is being called after this observation is unpaused, `collated` may be non-nil and will contain an array
+ *  of objects also conforming to `PANDetectedObservation` (or a derivative). In this case, these properties
+ *  in the `PANObservation` will be those for the more recent trigger of this observation, match the last element of
+ *  `collated`.
  */
-@interface PANObservation : NSObject
+@interface PANObservation : NSObject <PANDetectedObservation>
 
 /**
  *  The object doing the observing which was provided when the observation was created, when applicable.
@@ -63,15 +106,15 @@ typedef void (^PANAnonymousObservationBlock)(PANObservation *observation);
 @property (nonatomic, readonly, weak, PAN_nullable) id observer;
 
 /**
- *  Object being observed, a.k.a. the observee which was provided when the observation was created, when applicable.
- *  Can be nil if specific observation method lacks an observation object. (read-only)
+ *  Object being observed which was provided when the observation was created, when applicable. Can be nil if the
+ *  specific observation method lacks an observation object. (read-only)
  *
  *  If `removeAutomatically` property is not `NO` and `object` is not `nil`, then when that object is deallocated,
  *  this observation will automatically be removed and released.
  *
  *  Never is both this and `observer` allowed to be nil.
  */
-@property (nonatomic, readonly, weak, PAN_nullable) id object;
+@property (nonatomic, readonly, weak, PAN_nullable) id observee;
 
 /**
  *  The `NSOperationQueue` that was provided when the observation was created, on which the block will be executed
@@ -133,6 +176,32 @@ typedef void (^PANAnonymousObservationBlock)(PANObservation *observation);
  */
 @property (nonatomic) BOOL removeAutomatically;
 
+
+/**
+ *  Whether this observation collates results while paused. Default is `YES`. Set to `NO` to avoid collecting
+ *  any trigger instance data while the observation is paused.
+ */
+@property (nonatomic) BOOL collates;
+
+/**
+ *  Whether this observation is paused. On unpause, if `collates` is YES, then the block will be called with the
+ *  multiple collated dates and payloads. `collated.count` will equal the number of triggered observations in that
+ *  period.
+ */
+@property (nonatomic) BOOL paused;
+
+
+/**
+ *  Collected observation data from instances of the observation being triggered while it is paused and
+ *  `collates` is `YES`. If this observation has been triggered and its block is being called immediately, then
+ *  this will be `nil`.
+ *
+ *  Each element of the array is an `PANDetectedObservation`, ordered from the oldest triggered observation to
+ *  the newest.
+ */
+@property (nonatomic, readonly, PAN_nullable) PAN_ARRAY(PANDetectedObservation) *collated;
+
+
 /**
  *  Explicitly remove, or deregister, the observation.
  *
@@ -144,7 +213,5 @@ typedef void (^PANAnonymousObservationBlock)(PANObservation *observation);
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
-#undef PAN_nullable
+
+PAN_ASSUME_NONNULL_END

@@ -11,27 +11,30 @@
 #import "PANObservation+Private.h"
 #import "PANAppGroupNotificationManager.h"
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_BEGIN
-#else
-#define nullable
-#endif
+PAN_ASSUME_NONNULL_BEGIN
 
-@interface PANAppGroupObservation () <NSCopying>
+
+@protocol PANMutableAppGroupPost <PANAppGroupPost, PANMutableDetectedObservation>
+@property (nonatomic, readwrite) NSString *postedGroupIdentifier;
+@end
+
+@interface PANAppGroupObservation () <PANMutableAppGroupPost>
 @property (nonatomic, readwrite) NSString *name;
-@property (nonatomic, readwrite, nullable) id payload;
+@property (nonatomic, readwrite, PAN_nullable) NSString *groupIdentifier;
 
-@property (nonatomic, readwrite, weak, nullable) PANAppGroupObservation *originalObservation;
-
-@property (nonatomic, readwrite) NSString *groupIdentifier;
-@property (nonatomic, readwrite) NSDate *postedDate;
-
+@property (nonatomic, getter=isReliable) BOOL reliable;
 @property (nonatomic) BOOL retainStateOnRemoval;
 @end
 
+@interface PANAppGroupPost () <PANMutableAppGroupPost>
+@end
+
+
+#pragma mark -
+
 @implementation PANAppGroupObservation
 
-@dynamic reliable;
+@synthesize postedGroupIdentifier;
 
 - (instancetype)initWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue orGCDQueue:(nullable dispatch_queue_t)gcdQueue withBlock:(PANObservationBlock)block
 {
@@ -39,68 +42,31 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     _name = name.copy;
     _groupIdentifier = identifier.copy;
+    _reliable = NO;
     _retainStateOnRemoval = NO;
     return self;
 }
 
-- (instancetype)initForReliableDeliveryWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANCollatedObservationBlock)block
+- (instancetype)initForReliableDeliveryWithObserver:(nullable id)observer groupIdentifier:(nullable NSString *)identifier name:(NSString *)name queue:(nullable NSOperationQueue *)queue gcdQueue:(nullable dispatch_queue_t)gcdQueue block:(PANObservationBlock)block
 {
     if (!(self = [super initWithObserver:observer object:nil queue:queue gcdQueue:gcdQueue block:nil]))
         return nil;
     _name = name.copy;
     _groupIdentifier = identifier.copy;
-    _collatedBlock = block;
+    _reliable = YES;
     _retainStateOnRemoval = YES;
+    self.collates = YES;
     return self;
-}
-
-- (instancetype)copyWithZone:(nullable NSZone *)zone
-{
-    // since not publically confirming to NSCopying, don't expect user code trying to make copies of copies
-    NSAssert1(self.originalObservation == nil, @"Attempted copy of copy of %@", self.originalObservation);
-    
-    PANAppGroupObservation *copy = [[[self class] alloc] initWithObserver:self.observer object:nil queue:self.queue gcdQueue:self.gcdQueue block:nil];
-    if (!copy)
-        return nil;
-    copy.name = self.name;
-    copy.groupIdentifier = self.groupIdentifier;
-    copy.originalObservation = self;
-    return copy;
-}
-
-- (BOOL)isReliable
-{
-    return self.collatedBlock != nil;
-}
-
-- (void)remove
-{
-    if (self.originalObservation != nil) {
-        [self.originalObservation remove];
-        self.registered = self.originalObservation.registered;
-    }
-    else {
-        [super remove];
-    }
 }
 
 - (void)removeStoppingReliableCollection
 {
-    if (self.originalObservation != nil) {
-        self.originalObservation.retainStateOnRemoval = NO;
-        [self.originalObservation remove];
-        self.registered = self.originalObservation.registered;
-    }
-    else {
-        self.retainStateOnRemoval = NO;
-        [super remove];
-    }
+    self.retainStateOnRemoval = NO;
+    [super remove];
 }
 
 - (void)registerInternal
 {
-    NSAssert1(self.originalObservation == nil, @"Attempted double-register of %@ via one of its copies", self.originalObservation);
-    
     NSAssert1(!self.registered, @"Attempted double-register of %@", self);
     NSAssert1(self.name != nil, @"Nil 'name' property when registering observation for %@", self);
     NSAssert1(self.name.length > 0, @"Empty 'name' string when registering observation for %@", self);
@@ -115,39 +81,56 @@ NS_ASSUME_NONNULL_BEGIN
     }
     
     BOOL ok;
-    if (self.collatedBlock != nil)
+    if (self.reliable)
     {
         ok = [appGroupNotificationManager subscribeToReliableNotificationsForGroupIdentifier:groupIdentifier named:self.name withBlock:^(NSString *identifier, NSString *name, NSArray *postDatesAndPayloads) {
-            NSMutableArray *observationCopies = [NSMutableArray array];
-            id lastPayload = nil;
-            NSDate *lateDate = nil;
-            for (NSArray *postDateAndPayload in postDatesAndPayloads) {
-                PANAppGroupObservation *observationCopy = self.copy;
-                observationCopy.payload = (postDateAndPayload.count > 1 ? postDateAndPayload[1] : nil);
-                observationCopy.postedDate = postDateAndPayload.firstObject;
-                observationCopy.groupIdentifier = groupIdentifier;
-                [observationCopies addObject:observationCopy];
+            if (postDatesAndPayloads.count == 0)
+                return;
+            else if (postDatesAndPayloads.count == 1) {
+                // trigger with the single post
+                NSArray *postDateAndPayload = postDatesAndPayloads.firstObject;
+                
+                [self triggerWithSetupBlock:^(id<PANDetectedObservation> obs) {
+                    if (![obs conformsToProtocol:@protocol(PANMutableAppGroupPost)])
+                        return;
+                    id<PANMutableAppGroupPost> post = (id<PANMutableAppGroupPost>)obs;
+                    post.timestamp = postDateAndPayload.firstObject;
+                    post.payload = (postDateAndPayload.count > 1 ? postDateAndPayload[1] : nil);
+                    post.postedGroupIdentifier = groupIdentifier;
+                }];
             }
-            [self invokeOnQueueAfter:^{
-                self.payload = lastPayload;
-                self.postedDate = lateDate ?: [NSDate date];
-                if (self.groupIdentifier == nil || ![self.groupIdentifier isEqualToString:groupIdentifier]) {
-                    self.groupIdentifier = groupIdentifier;
+            else {
+                // ensure paused then trigger with each post in order
+                BOOL wasPaused = self.paused;
+                if (!wasPaused)
+                    self.paused = YES;
+                
+                for (NSArray *postDateAndPayload in postDatesAndPayloads) {
+                    [self triggerWithSetupBlock:^(id<PANDetectedObservation> obs) {
+                        if (![obs conformsToProtocol:@protocol(PANMutableAppGroupPost)])
+                            return;
+                        id<PANMutableAppGroupPost> post = (id<PANMutableAppGroupPost>)obs;
+                        post.timestamp = postDateAndPayload.firstObject;
+                        post.payload = (postDateAndPayload.count > 1 ? postDateAndPayload[1] : nil);
+                        post.postedGroupIdentifier = groupIdentifier;
+                    }];
                 }
-            } by:^{
-                self.collatedBlock(self.observer, observationCopies);
-            }];
+                
+                if (!wasPaused)
+                    self.paused = NO;
+            }
         }];
     }
     else
     {
         ok = [appGroupNotificationManager subscribeToNotificationsForGroupIdentifier:groupIdentifier named:self.name withBlock:^(NSString *identifier, NSString *name, id payload, NSDate *postDate) {
-            [self invokeOnQueueAfter:^{
-                self.payload = payload;
-                self.postedDate = postDate;
-                if (self.groupIdentifier == nil || ![self.groupIdentifier isEqualToString:groupIdentifier]) {
-                    self.groupIdentifier = groupIdentifier;
-                }
+            [self triggerWithSetupBlock:^(id<PANDetectedObservation> obs) {
+                if (![obs conformsToProtocol:@protocol(PANMutableAppGroupPost)])
+                    return;
+                id<PANMutableAppGroupPost> post = (id<PANMutableAppGroupPost>)obs;
+                post.timestamp = postDate;
+                post.payload = payload;
+                post.postedGroupIdentifier = groupIdentifier;
             }];
         }];
     }
@@ -157,10 +140,22 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)duplicateFrom:(id<PANDetectedObservation>)source
+{
+    [super duplicateFrom:source];
+    if (![source conformsToProtocol:@protocol(PANAppGroupPost)])
+        return;
+    id<PANAppGroupPost> post = (id<PANAppGroupPost>)source;
+    self.postedGroupIdentifier = post.postedGroupIdentifier;
+}
+
+- (PANDetectedObservation *)createDetectedObservation
+{
+    return [[PANAppGroupPost alloc] init];
+}
+
 - (void)deregisterInternal
 {
-    NSAssert1(self.originalObservation == nil, @"Attempted removal of %@ via one of its copies", self.originalObservation);
-    
     NSAssert1(self.registered, @"Attempted double-removal of %@", self);
     NSAssert1(self.name != nil, @"Nil 'name' property when deregistering observation for %@", self);
     NSAssert1(self.name.length > 0, @"Empty 'name' string when deregistering observation for %@", self);
@@ -255,14 +250,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)description
 {
-    if (self.originalObservation != nil)
-        return [NSString stringWithFormat:@"<%@ %p copy %p: obs=%p, n=%@>", NSStringFromClass([self class]), self.originalObservation, self, self.observer, self.name];
-    else
-        return [NSString stringWithFormat:@"<%@ %p: obs=%p, n=%@>", NSStringFromClass([self class]), self, self.observer, self.name];
+    return [NSString stringWithFormat:@"<%@ %p: obs=%p, n=%@>", NSStringFromClass([self class]), self, self.observer, self.name];
 }
 
 @end
 
-#if __has_feature(nullability)
-NS_ASSUME_NONNULL_END
-#endif
+
+#pragma mark -
+
+@implementation PANAppGroupPost
+
+@synthesize postedGroupIdentifier;
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@ %p: %fs ago, payload=%@ %p, groupid=%@>", NSStringFromClass([self class]), self,
+            -[self.timestamp timeIntervalSinceNow], NSStringFromClass([self.payload class]), self.payload, self.postedGroupIdentifier];
+}
+
+@end
+
+
+PAN_ASSUME_NONNULL_END

@@ -16,7 +16,7 @@ static Panopticon *sharedInstance;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
+        sharedInstance = [[self alloc] initPrivate];
     });
     return sharedInstance;
 }
